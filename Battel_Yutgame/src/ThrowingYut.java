@@ -8,7 +8,7 @@ public class ThrowingYut {
 	int playerYut = 0;
 	int playerNumber;
 	int playerInfoArray[][] = new int[4][5];
-	// 플레이어의 정보를 저장하는 배열 [순번(나중엔 이름)][이동할 윷칸]
+	// 플레이어의 정보를 저장하는 배열 [순번(플레이어 고유id)][이동할 윷칸]
 
 
 	void throwing(int playerNumber){
