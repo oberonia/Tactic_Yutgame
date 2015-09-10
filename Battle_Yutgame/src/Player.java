@@ -17,7 +17,7 @@ public class Player{
 			System.out.println("Type your name, Player");
 			name = sc.next();
 			System.out.println("Your name is " + name);
-	}//end of getName
+	}//end of inputName
 	private void selectTeam(){
 		System.out.println("choose your team, Player (blue or white)");
 		team = sc.next();

@@ -14,7 +14,7 @@ public class main {
 		System.out.println("From now on, we will play battle yootnolee");
 		
 		Player mp[] = new Player[4];
-		
+		ThrowingYut throwingPhase = new ThrowingYut();
 		
 		for(int i=0;i<4;i++){
 			mp[i]= new Player(blue,white);
@@ -22,6 +22,8 @@ public class main {
 			else if(mp[i].getTeam().equals("white")) ++white;
 		System.out.println("From now on, your name is " + mp[i].getName() + ", Player " + i);
 		System.out.println("Now your on " + mp[i].getTeam() + " team, Player " + i);
+		throwingPhase.throwing(i);
+		throwingPhase.result(i);
 		}//end of for loop
 		
 	}

@@ -83,7 +83,6 @@ public class vector {
 		//1. 구한 인덱스가 laetElement인 경우 연결된 v부분으로 이동하거나 finish 표시
 		//구한 인덱스 값을 하나 증가시켜서 그 인덱스에 있는 value를 찾음
 		//해당 value를 리턴
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
