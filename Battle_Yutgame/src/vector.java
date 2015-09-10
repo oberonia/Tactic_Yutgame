@@ -17,7 +17,7 @@ public class vector {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static void main(String args[]) {
+	public void vectorGenerate() {
 		int v1[] = {23,19,14,10,6,5,4,3,2,1,7,11,16,20,24,25,26,27,28,29}; //20
 		int v2[] = {6,9,13,15,17,21,24}; //7
 		int v3[] = {1,8,12,15,18,22,29}; //7
