@@ -12,6 +12,8 @@ public class Player{
 	Scanner sc = new Scanner(System.in);
 	int score;
 	private String name,team;
+	private int mal1 = -1;	// 이동할 말1, 말2
+	private int mal2 = -1;	// 시작할 때 윷판 밖에 있으므로 초기값은 -1
 		
 	private void inputName(){
 			System.out.println("Type your name, Player");
@@ -43,6 +45,12 @@ public class Player{
 	}
 	public String getTeam() {
 		return this.team;
+	}
+	public int getMal1(){
+		return mal1;
+	}
+	public int getMal2(){
+		return mal2;
 	}
 
 }
