@@ -48,7 +48,7 @@ public class vector {
 		while(true) {
 			int target=-1,mov=0;
 			Scanner sc = new Scanner(System.in);
-			System.out.println("Target À§Ä¡ : "+target);
+			System.out.println("Target ï¿½ï¿½Ä¡ : "+target);
 			System.out.println("input(a,s,d,f,g,q)>>");
 			switch(sc.next()) {
 			case "a": case "A":	mov=1; break;
@@ -73,16 +73,15 @@ public class vector {
 
 	private static int movNext(Vector<Integer> v0, Vector<Integer> v1,
 			Vector<Integer> v2, int target) {
-		int out;
-		//v2¿¡¼­ target¿¡ ÇØ´çÇÏ´Â °ªÀ» Ã£À½ if()
-		//¾øÀ» °æ¿ì v1¿¡¼­ target°ªÀ» Ã£À½	else if()
-		//¾øÀ» °æ¿ì v0¿¡¼­ target°ªÀ» Ã£À½	else if()
-		//±×·¡µµ ¾øÀ¸¸é ¿À·ùÃ³¸®			else()
-		
-		//Ã£Àº °æ¿ì targetÀ» Æ÷ÇÔÇÏ´Â vÀÇ ÀÎµ¦½º°ªÀ» ±¸ÇÔ
-		//1. ±¸ÇÑ ÀÎµ¦½º°¡ laetElementÀÎ °æ¿ì ¿¬°áµÈ vºÎºĞÀ¸·Î ÀÌµ¿ÇÏ°Å³ª finish Ç¥½Ã
-		//±¸ÇÑ ÀÎµ¦½º °ªÀ» ÇÏ³ª Áõ°¡½ÃÄÑ¼­ ±× ÀÎµ¦½º¿¡ ÀÖ´Â value¸¦ Ã£À½
-		//ÇØ´ç value¸¦ ¸®ÅÏ
+		//v2ì—ì„œ targetì— í•´ë‹¹í•˜ëŠ” ê°’ì„ ì°¾ìŒ if()
+		//ì—†ì„ ê²½ìš° v1ì—ì„œ targetê°’ì„ ì°¾ìŒ	else if()
+		//ì—†ì„ ê²½ìš° v0ì—ì„œ targetê°’ì„ ì°¾ìŒ	else if()
+		//ê·¸ë˜ë„ ì—†ìœ¼ë©´ ì˜¤ë¥˜ì²˜ë¦¬			else()
+
+		//ì°¾ì€ ê²½ìš° targetì„ í¬í•¨í•˜ëŠ” vì˜ ì¸ë±ìŠ¤ê°’ì„ êµ¬í•¨
+		//1. êµ¬í•œ ì¸ë±ìŠ¤ê°€ laetElementì¸ ê²½ìš° ì—°ê²°ëœ vë¶€ë¶„ìœ¼ë¡œ ì´ë™í•˜ê±°ë‚˜ finish í‘œì‹œ
+		//êµ¬í•œ ì¸ë±ìŠ¤ ê°’ì„ í•˜ë‚˜ ì¦ê°€ì‹œì¼œì„œ ê·¸ ì¸ë±ìŠ¤ì— ìˆëŠ” valueë¥¼ ì°¾ìŒ
+		//í•´ë‹¹ valueë¥¼ ë¦¬í„´
 		return 0;
 	}
 

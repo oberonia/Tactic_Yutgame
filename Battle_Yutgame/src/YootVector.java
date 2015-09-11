@@ -1,9 +1,10 @@
-﻿import java.util.Enumeration;
-import java.util.Vector;
+﻿import java.util.Vector;
 
+
+//pull test
 public class YootVector {
     YootVector() {
-       v[0] = new Vector<Integer>(20);
+       v[0] = new Vector<Integer>(20); //
         v[1] = new Vector<Integer>(7);
         v[2] = new Vector<Integer>(7);
         
@@ -18,7 +19,8 @@ public class YootVector {
     private int v1[] = {23,19,14,10,6,5,4,3,2,1,7,11,16,20,24,25,26,27,28,29}; //20
      private int v2[] = {6,9,13,15,17,21,24}; //7
      private int v3[] = {1,8,12,15,18,22,29}; //7
-     private Vector<Integer> v[] = new Vector[3];
+     @SuppressWarnings("unchecked")
+	private Vector<Integer> v[] = new Vector[3];
      
      public int IsOnPan(int mal) {
         if(v[2].indexOf(mal)!=-1)
