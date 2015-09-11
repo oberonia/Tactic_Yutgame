@@ -18,9 +18,9 @@ public class vector {
 
 	@SuppressWarnings("unchecked")
 	public void vectorGenerate() {
-		int v1[] = {23,19,14,10,6,5,4,3,2,1,7,11,16,20,24,25,26,27,28,29}; //20, 윷판 테두리 부분
-		int v2[] = {6,9,13,15,17,21,24}; //7, 윷판 대각선(↙방향)
-		int v3[] = {1,8,12,15,18,22,29}; //7 윷판 대각선 (↘방향)
+		int v1[] = {23,19,14,10,6,5,4,3,2,1,7,11,16,20,24,25,26,27,28,29}; //20
+		int v2[] = {6,9,13,15,17,21,24}; //7
+		int v3[] = {1,8,12,15,18,22,29}; //7
 		Vector<Integer> v[] = new Vector[3];
 		v[0] = new Vector<Integer>(20);
 		v[1] = new Vector<Integer>(7);
@@ -48,7 +48,7 @@ public class vector {
 		while(true) {
 			int target=-1,mov=0;
 			Scanner sc = new Scanner(System.in);
-			System.out.println("Target 위치 : "+target);
+			System.out.println("Target ��ġ : "+target);
 			System.out.println("input(a,s,d,f,g,q)>>");
 			switch(sc.next()) {
 			case "a": case "A":	mov=1; break;
@@ -74,15 +74,15 @@ public class vector {
 	private static int movNext(Vector<Integer> v0, Vector<Integer> v1,
 			Vector<Integer> v2, int target) {
 		int out;
-		//v2���� target�� �ش��ϴ� ���� ã�� if()
-		//���� ��� v1���� target���� ã��	else if()
-		//���� ��� v0���� target���� ã��	else if()
-		//�׷��� ������ ����ó��			else()
-		
-		//ã�� ��� target�� �����ϴ� v�� �ε������� ����
-		//1. ���� �ε����� laetElement�� ��� ����� v�κ����� �̵��ϰų� finish ǥ��
-		//���� �ε��� ���� �ϳ� �������Ѽ� �� �ε����� �ִ� value�� ã��
-		//�ش� value�� ����
+		//v2에서 target에 해당하는 값을 찾음 if()
+		//없을 경우 v1에서 target값을 찾음	else if()
+		//없을 경우 v0에서 target값을 찾음	else if()
+		//그래도 없으면 오류처리			else()
+
+		//찾은 경우 target을 포함하는 v의 인덱스값을 구함
+		//1. 구한 인덱스가 laetElement인 경우 연결된 v부분으로 이동하거나 finish 표시
+		//구한 인덱스 값을 하나 증가시켜서 그 인덱스에 있는 value를 찾음
+		//해당 value를 리턴
 		return 0;
 	}
 
