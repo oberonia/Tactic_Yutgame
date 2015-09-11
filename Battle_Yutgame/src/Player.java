@@ -12,8 +12,8 @@ public class Player{
 	Scanner sc = new Scanner(System.in);
 	int score;
 	private String name,team;
-	private int mal1 = -1;	// ÀÌµ¿ÇÒ ¸»1, ¸»2
-	private int mal2 = -1;	// ½ÃÀÛÇÒ ¶§ À·ÆÇ ¹Û¿¡ ÀÖÀ¸¹Ç·Î ÃÊ±â°ªÀº -1
+	private int mal1 = -1;	// ì´ë™í•  ë§1, ë§2
+	private int mal2 = -1;	// ì‹œì‘í•  ë•Œ ìœ·íŒ ë°–ì— ìˆìœ¼ë¯€ë¡œ ì´ˆê¸°ê°’ì€ -1
 		
 	private void inputName(){
 			System.out.println("Type your name, Player");
