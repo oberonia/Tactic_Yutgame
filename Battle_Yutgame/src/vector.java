@@ -18,9 +18,9 @@ public class vector {
 
 	@SuppressWarnings("unchecked")
 	public void vectorGenerate() {
-		int v1[] = {23,19,14,10,6,5,4,3,2,1,7,11,16,20,24,25,26,27,28,29}; //20
-		int v2[] = {6,9,13,15,17,21,24}; //7
-		int v3[] = {1,8,12,15,18,22,29}; //7
+		int v1[] = {23,19,14,10,6,5,4,3,2,1,7,11,16,20,24,25,26,27,28,29}; //20, ìœ·íŒ í…Œë‘ë¦¬ ë¶€ë¶„
+		int v2[] = {6,9,13,15,17,21,24}; //7, ìœ·íŒ ëŒ€ê°ì„ (â†™ë°©í–¥)
+		int v3[] = {1,8,12,15,18,22,29}; //7 ìœ·íŒ ëŒ€ê°ì„  (â†˜ë°©í–¥)
 		Vector<Integer> v[] = new Vector[3];
 		v[0] = new Vector<Integer>(20);
 		v[1] = new Vector<Integer>(7);
@@ -48,7 +48,7 @@ public class vector {
 		while(true) {
 			int target=-1,mov=0;
 			Scanner sc = new Scanner(System.in);
-			System.out.println("Target À§Ä¡ : "+target);
+			System.out.println("Target ìœ„ì¹˜ : "+target);
 			System.out.println("input(a,s,d,f,g,q)>>");
 			switch(sc.next()) {
 			case "a": case "A":	mov=1; break;
@@ -74,15 +74,15 @@ public class vector {
 	private static int movNext(Vector<Integer> v0, Vector<Integer> v1,
 			Vector<Integer> v2, int target) {
 		int out;
-		//v2¿¡¼­ target¿¡ ÇØ´çÇÏ´Â °ªÀ» Ã£À½ if()
-		//¾øÀ» °æ¿ì v1¿¡¼­ target°ªÀ» Ã£À½	else if()
-		//¾øÀ» °æ¿ì v0¿¡¼­ target°ªÀ» Ã£À½	else if()
-		//±×·¡µµ ¾øÀ¸¸é ¿À·ùÃ³¸®			else()
+		//v2ï¿½ï¿½ï¿½ï¿½ targetï¿½ï¿½ ï¿½Ø´ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã£ï¿½ï¿½ if()
+		//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ v1ï¿½ï¿½ï¿½ï¿½ targetï¿½ï¿½ï¿½ï¿½ Ã£ï¿½ï¿½	else if()
+		//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ v0ï¿½ï¿½ï¿½ï¿½ targetï¿½ï¿½ï¿½ï¿½ Ã£ï¿½ï¿½	else if()
+		//ï¿½×·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã³ï¿½ï¿½			else()
 		
-		//Ã£Àº °æ¿ì targetÀ» Æ÷ÇÔÇÏ´Â vÀÇ ÀÎµ¦½º°ªÀ» ±¸ÇÔ
-		//1. ±¸ÇÑ ÀÎµ¦½º°¡ laetElementÀÎ °æ¿ì ¿¬°áµÈ vºÎºĞÀ¸·Î ÀÌµ¿ÇÏ°Å³ª finish Ç¥½Ã
-		//±¸ÇÑ ÀÎµ¦½º °ªÀ» ÇÏ³ª Áõ°¡½ÃÄÑ¼­ ±× ÀÎµ¦½º¿¡ ÀÖ´Â value¸¦ Ã£À½
-		//ÇØ´ç value¸¦ ¸®ÅÏ
+		//Ã£ï¿½ï¿½ ï¿½ï¿½ï¿½ targetï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ vï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+		//1. ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ laetElementï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ vï¿½Îºï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ï¿½Ï°Å³ï¿½ finish Ç¥ï¿½ï¿½
+		//ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ï³ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¼ï¿½ ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ valueï¿½ï¿½ Ã£ï¿½ï¿½
+		//ï¿½Ø´ï¿½ valueï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		return 0;
 	}
 
