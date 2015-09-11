@@ -1,7 +1,8 @@
 ﻿import java.util.Vector;
+//곧 사라질 GARBAGE 클래스입니당
 
 
-//pull test
+
 public class YootVector {
     YootVector() {
        v[0] = new Vector<Integer>(20); //
