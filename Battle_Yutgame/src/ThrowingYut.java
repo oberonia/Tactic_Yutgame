@@ -19,31 +19,30 @@ public class ThrowingYut {
 		// 1은 앞(평평한 면), 0은 뒤(불룩한 면) > 1이 3개면 걸이다
 		System.out.println("모든 플레이어가 윷을 던집니다.");
 		System.out.println("평평한 면을 내려면 1, 불룩한 면은 0을 입력하세요");
-		for (int times = 0; times <4 ;){
+		for (int times = 0; times <4 ; times++){
 			System.out.println("유효 윷 갯수 >> "+times+" 나온 윷의 합 >> "+playerYut);
+			
 			try{
 				yut = scan.nextInt();
 			}
 			catch(InputMismatchException ex){
 				System.out.println("딴짓말고 0 또는 1을 입력하셈- 유효 윷 갯수 >> "+times);
 				scan.nextLine(); // 쓰레기값은 쓰레기통으로 버리고 새로운 값을 입력받을 준비를 한다
-				scan.nextLine();
-				//times--; // 쓰레기 들어갔던 자리가 비었으니 그 자리에 채워넣어야 한다
-				continue;
+				times--; // 쓰레기 들어갔던 자리가 비었으니 그 자리에 채워넣어야 한다
+				continue; //for문을 시행한다
 			}
-			finally{
-				if ((yut == 0) || (yut == 1))	{
-					playerYut += yut;
-					times++;
-				}
-				else {
-					// 0이나 1이 아닌 다른 값을 입력했을 경우 걸러낸다
-					System.out.println("0 또는 1을 입력하셈- 유효 윷 갯수 >> "+times);
-					// times--;
-				}
+
+			if ((yut == 0) || (yut == 1)){
+				playerYut += yut;
 			}
-		}
-		
+			else {
+				// 0이나 1이 아닌 다른 값을 입력했을 경우 걸러낸다
+				System.out.println("0 또는 1을 입력하셈- 유효 윷 갯수 >> "+times);
+				times--;
+			}
+
+		} // end of for loop
+
 		// 집계해서 도개걸윷모 뭐가 나왔는지 플레이어에게 알려준다
 		switch(playerYut){
 		case 0:
