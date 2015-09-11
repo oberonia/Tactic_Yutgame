@@ -2,7 +2,7 @@ import java.util.Enumeration;
 import java.util.Scanner;
 import java.util.Vector;
 
-//test ab
+
 public class vector {
 	public void Print(Vector<Integer> v) {
 		Enumeration<Integer> e = v.elements();
@@ -73,7 +73,6 @@ public class vector {
 
 	private static int movNext(Vector<Integer> v0, Vector<Integer> v1,
 			Vector<Integer> v2, int target) {
-		int out;
 		//v2에서 target에 해당하는 값을 찾음 if()
 		//없을 경우 v1에서 target값을 찾음	else if()
 		//없을 경우 v0에서 target값을 찾음	else if()
