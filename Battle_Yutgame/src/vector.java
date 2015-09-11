@@ -48,7 +48,7 @@ public class vector {
 		while(true) {
 			int target=-1,mov=0;
 			Scanner sc = new Scanner(System.in);
-			System.out.println("Target ��ġ : "+target);
+			System.out.println("Target ��ġ : "+target); // 여기 한글 깨졌는데 원래 머였음?
 			System.out.println("input(a,s,d,f,g,q)>>");
 			switch(sc.next()) {
 			case "a": case "A":	mov=1; break;
