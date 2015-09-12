@@ -48,7 +48,7 @@ public class YutBoard {
 		while(true) {
 			int target=-1,mov=0;
 			Scanner sc = new Scanner(System.in);
-			System.out.println("Target ��ġ : "+target);
+			System.out.println("Target Location : "+target);
 			System.out.println("input(a,s,d,f,g,q)>>");
 			switch(sc.next()) {
 			case "a": case "A":	mov=1; break;
