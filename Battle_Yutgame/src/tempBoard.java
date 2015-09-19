@@ -1,9 +1,11 @@
 import java.util.Enumeration;
 import java.util.Vector;
 
+// 임시 클래스입니다. 테스트해보고 더이상 필요없어질 때 삭제할 예정입니다.
 public class tempBoard {
 	public tempBoard() {
 		boardReset();
+		vectorGenerate();
 	}
 	
 	String boardPaper[][] = new String[7][7]; // 윷판에 그림을 찍을 종이
@@ -61,10 +63,12 @@ public class tempBoard {
 			Enumeration<Integer> e = v[i].elements();
 			while(e.hasMoreElements()) {
 				int temp=(int)e.nextElement();
+				/*
 				if(temp!=(int)v[i].lastElement())
 					System.out.print(temp+", ");
 				else
 					System.out.print(temp);
+				*/
 				int a = (temp-1)/7;
 				int b = (temp-1)%7;
 				boardPaper[a][b] = "O"; // 말이 다닐 수 있는 곳은 O로 표시할 수 있도록 함
@@ -74,13 +78,12 @@ public class tempBoard {
 				// 2) 새로운 위치는 boardDisplay에 해당플레이어의 특수문자를 바꿔넣는다
 				// 3) boardDisplay의 모든 원소들을 /t을 이용해서 콘솔에 뿌린다
 			}
-			System.out.println();
+//			System.out.println();
 		}
 	}
 	
 	public static void main(String[] args) {
 		tempBoard tboard = new tempBoard();
-		tboard.vectorGenerate();
 		tboard.boardDisplay();
 	}
 
