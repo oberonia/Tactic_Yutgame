@@ -1,7 +1,7 @@
 
 import java.util.Scanner;
 
-public class Player{	
+public class Player{
 	Player(int blue, int white) {
 		this.inputName();
 		if (blue>1) selectTeam(0);
@@ -20,11 +20,13 @@ public class Player{
 			name = sc.next();
 			System.out.println("Your name is " + name);
 	}//end of inputName
+	
 	private void selectTeam(){
 		System.out.println("choose your team, Player (blue or white)");
 		team = sc.next();
 		team = team.toLowerCase();
 	}
+	
 	private void selectTeam(int i) {
 		switch(i) {
 		case 0:
@@ -40,6 +42,7 @@ public class Player{
 				return;
 		}
 	}
+	
 	public String getName() {
 		return this.name;
 	}

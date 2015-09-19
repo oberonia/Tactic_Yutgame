@@ -12,7 +12,7 @@ public class MainFrame {
 		int white = 0; // temporary variable for team selection
 
 		System.out.println("Hello players, Glad to see you all");
-		System.out.println("From now on, we will play battle yootnolee");
+		System.out.println("From now on, we will play Battle Yootnolee");
 
 		for(int i=0;i<4;i++){
 
