@@ -7,24 +7,34 @@ public class Player{
 		if (blue>1) selectTeam(0);
 		else if (white>1) selectTeam(1);
 		else selectTeam();
+		mal1 = -1;	// 
+		mal2 = -1;	// 시작할 때 윷판 밖에 있으므로 초기값은 -1
 	}
 	//player's basic variables
 	Scanner sc = new Scanner(System.in);
 	int score;
 	private String name,team;
-	private int mal1 = -1;	// 이동할 말1, 말2
-	private int mal2 = -1;	// 시작할 때 윷판 밖에 있으므로 초기값은 -1
+	private int mal1;	// 이동할 말1
+	private int mal2;	// 말2
 		
 	private void inputName(){
-			System.out.println("Type your name, Player");
+			System.out.println("플레이어 이름 입력>>");
 			name = sc.next();
 			System.out.println("Your name is " + name);
 	}//end of inputName
 	
 	private void selectTeam(){
-		System.out.println("choose your team, Player (blue or white)");
-		team = sc.next();
-		team = team.toLowerCase();
+		System.out.println("팀 선택(blue/white 입력)>>");
+		while(true){
+			team = sc.next();
+			team = team.toLowerCase();
+			if(team.equals("blue")||team.equals("white")) {
+				System.out.println("잘못된 입력!");
+				System.out.println("팀 선택(blue/white 입력)>>");
+				continue;
+			}
+			else break;
+		}
 	}
 	
 	private void selectTeam(int i) {

@@ -8,17 +8,16 @@ public class MainFrame {
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		int blue = 0; // temporary variable for team selection
-		int white = 0; // temporary variable for team selection
+		int t1 = 0; // 팀1 인원수를 저장
+		int t2 = 0; // 팀2 인원수를 저장
 
-		System.out.println("Hello players, Glad to see you all");
-		System.out.println("From now on, we will play Battle Yootnolee");
+		System.out.println("윷놀이 게임 시작(프로토타입)");
 
 		for(int i=0;i<4;i++){
 
-			mp[i]= new Player(blue,white);
-			if(mp[i].getTeam().equals("blue")) blue++;
-			else if(mp[i].getTeam().equals("white")) ++white;
+			mp[i]= new Player(t1,t2);
+			if(mp[i].getTeam().equals("blue")) t1++;
+			else if(mp[i].getTeam().equals("white")) ++t2;
 			System.out.println("From now on, your name is " + mp[i].getName() + ", Player " + i);
 			System.out.println("Now your on " + mp[i].getTeam() + " team, Player " + i);
 			//throwingPhase.throwing(i);
