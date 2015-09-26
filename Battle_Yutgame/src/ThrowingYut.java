@@ -10,81 +10,80 @@ public class ThrowingYut {
 	int playerNumber;
 	int playerInfoArray[][] = new int[4][5];
 	int yut;
-	// ÇÃ·¹ÀÌ¾îÀÇ Á¤º¸¸¦ ÀúÀåÇÏ´Â ¹è¿­ [¼ø¹ø(ÇÃ·¹ÀÌ¾î °íÀ¯id)][ÀÌµ¿ÇÒ À·Ä­]
+	// í”Œë ˆì´ì–´ì˜ ì •ë³´ë¥¼ ì €ì¥í•˜ëŠ” ë°°ì—´ [ìˆœë²ˆ(í”Œë ˆì´ì–´ ê³ ìœ id)][ì´ë™í•  ìœ·ì¹¸]
 
 
-	void throwing(int playerNumber){
+void throwing(int playerNumber){
 		
-		// °¢ ÇÃ·¹ÀÌ¾î°¡ À·À» ÇÏ³ª¾¿ ´øÁø´Ù
-		// 1Àº ¾Õ(ÆòÆòÇÑ ¸é), 0Àº µÚ(ºÒ·èÇÑ ¸é) > 1ÀÌ 3°³¸é °ÉÀÌ´Ù
-		System.out.println("¸ğµç ÇÃ·¹ÀÌ¾î°¡ À·À» ´øÁı´Ï´Ù.");
-		System.out.println("ÆòÆòÇÑ ¸éÀ» ³»·Á¸é 1, ºÒ·èÇÑ ¸éÀº 0À» ÀÔ·ÂÇÏ¼¼¿ä");
+		// ê° í”Œë ˆì´ì–´ê°€ ìœ·ì„ í•˜ë‚˜ì”© ë˜ì§„ë‹¤
+		// 1ì€ ì•(í‰í‰í•œ ë©´), 0ì€ ë’¤(ë¶ˆë£©í•œ ë©´) > 1ì´ 3ê°œë©´ ê±¸ì´ë‹¤
+		System.out.println("ëª¨ë“  í”Œë ˆì´ì–´ê°€ ìœ·ì„ ë˜ì§‘ë‹ˆë‹¤.");
+		System.out.println("í‰í‰í•œ ë©´ì„ ë‚´ë ¤ë©´ 1, ë¶ˆë£©í•œ ë©´ì€ 0ì„ ì…ë ¥í•˜ì„¸ìš”");
 		for (int times = 0; times <4 ; times++){
-			System.out.println("À¯È¿ À· °¹¼ö >> "+times+" ³ª¿Â À·ÀÇ ÇÕ >> "+playerYut);
+			System.out.println("ìœ íš¨ ìœ· ê°¯ìˆ˜ >> "+times+" ë‚˜ì˜¨ ìœ·ì˜ í•© >> "+playerYut);
 			
 			try{
 				yut = scan.nextInt();
 			}
 			catch(InputMismatchException ex){
-				System.out.println("µıÁş¸»°í 0 ¶Ç´Â 1À» ÀÔ·ÂÇÏ¼À- À¯È¿ À· °¹¼ö >> "+times);
-				scan.nextLine(); // ¾²·¹±â°ªÀº ¾²·¹±âÅëÀ¸·Î ¹ö¸®°í »õ·Î¿î °ªÀ» ÀÔ·Â¹ŞÀ» ÁØºñ¸¦ ÇÑ´Ù
-				times--; // ¾²·¹±â µé¾î°¬´ø ÀÚ¸®°¡ ºñ¾úÀ¸´Ï ±× ÀÚ¸®¿¡ Ã¤¿ö³Ö¾î¾ß ÇÑ´Ù
-				continue; //for¹®À» ½ÃÇàÇÑ´Ù
+				System.out.println("ë”´ì§“ë§ê³  0 ë˜ëŠ” 1ì„ ì…ë ¥í•˜ì…ˆ- ìœ íš¨ ìœ· ê°¯ìˆ˜ >> "+times);
+				scan.nextLine(); // ì“°ë ˆê¸°ê°’ì€ ì“°ë ˆê¸°í†µìœ¼ë¡œ ë²„ë¦¬ê³  ìƒˆë¡œìš´ ê°’ì„ ì…ë ¥ë°›ì„ ì¤€ë¹„ë¥¼ í•œë‹¤
+				times--; // ì“°ë ˆê¸° ë“¤ì–´ê°”ë˜ ìë¦¬ê°€ ë¹„ì—ˆìœ¼ë‹ˆ ê·¸ ìë¦¬ì— ì±„ì›Œë„£ì–´ì•¼ í•œë‹¤
+				continue; //forë¬¸ì„ ì‹œí–‰í•œë‹¤
 			}
 
 			if ((yut == 0) || (yut == 1)){
 				playerYut += yut;
 			}
 			else {
-				// 0ÀÌ³ª 1ÀÌ ¾Æ´Ñ ´Ù¸¥ °ªÀ» ÀÔ·ÂÇßÀ» °æ¿ì °É·¯³½´Ù
-				System.out.println("0 ¶Ç´Â 1À» ÀÔ·ÂÇÏ¼À- À¯È¿ À· °¹¼ö >> "+times);
+				// 0ì´ë‚˜ 1ì´ ì•„ë‹Œ ë‹¤ë¥¸ ê°’ì„ ì…ë ¥í–ˆì„ ê²½ìš° ê±¸ëŸ¬ë‚¸ë‹¤
+				System.out.println("0 ë˜ëŠ” 1ì„ ì…ë ¥í•˜ì…ˆ- ìœ íš¨ ìœ· ê°¯ìˆ˜ >> "+times);
 				times--;
 			}
 
 		} // end of for loop
 
-		// Áı°èÇØ¼­ µµ°³°ÉÀ·¸ğ ¹¹°¡ ³ª¿Ô´ÂÁö ÇÃ·¹ÀÌ¾î¿¡°Ô ¾Ë·ÁÁØ´Ù
+		// ì§‘ê³„í•´ì„œ ë„ê°œê±¸ìœ·ëª¨ ë­ê°€ ë‚˜ì™”ëŠ”ì§€ í”Œë ˆì´ì–´ì—ê²Œ ì•Œë ¤ì¤€ë‹¤
 		switch(playerYut){
 		case 0:
-			// À·ÀÌ³ª ¸ğ°¡ ³ª¿À¸é ÇÑ¹ø ´õ ´øÁø´Ù(¿òÁ÷ÀÏ ¼ö ÀÖ´Â ½ºÅÃÀº ¹è¿­¿¡ ³Ö¾î¾ßÇÏ³ª?)
-			System.out.println("ÇÃ·¹ÀÌ¾î"+playerNumber+"´ÔÀº '¸ğ'°¡ ³ª¿Ô½À´Ï´Ù. ´ë´ÜÇÏ±º¿ä! ÇÑ ¹ø ´õ ´øÁı´Ï´Ù");
+			// ìœ·ì´ë‚˜ ëª¨ê°€ ë‚˜ì˜¤ë©´ í•œë²ˆ ë” ë˜ì§„ë‹¤(ì›€ì§ì¼ ìˆ˜ ìˆëŠ” ìŠ¤íƒì€ ë°°ì—´ì— ë„£ì–´ì•¼í•˜ë‚˜?)
+			System.out.println("í”Œë ˆì´ì–´"+playerNumber+"ë‹˜ì€ 'ëª¨'ê°€ ë‚˜ì™”ìŠµë‹ˆë‹¤. ëŒ€ë‹¨í•˜êµ°ìš”! í•œ ë²ˆ ë” ë˜ì§‘ë‹ˆë‹¤");
 			++playerInfoArray[playerNumber][0];
-			playerYut = 0; // ÇÑ ¹ø ´õ ´øÁö±â À§ÇØ ÃÊ±âÈ­
+			playerYut = 0; // í•œ ë²ˆ ë” ë˜ì§€ê¸° ìœ„í•´ ì´ˆê¸°í™”
 			throwing(playerNumber);
 			break;
 		case 1:
-			System.out.println("ÇÃ·¹ÀÌ¾î"+playerNumber+"´ÔÀº '¹éµµ'°¡ ³ª¿Ô½À´Ï´Ù. ÀÌ°ÍÀº ½ÅÀÇ ÇÑ¼ö°¡ µÉ±î¿ä?");
+			System.out.println("í”Œë ˆì´ì–´"+playerNumber+"ë‹˜ì€ 'ë°±ë„'ê°€ ë‚˜ì™”ìŠµë‹ˆë‹¤. ì´ê²ƒì€ ì‹ ì˜ í•œìˆ˜ê°€ ë ê¹Œìš”?");
 			++playerInfoArray[playerNumber][1];
 			break;
 		case 2:
-			System.out.println("ÇÃ·¹ÀÌ¾î"+playerNumber+"´ÔÀº '°³'°¡ ³ª¿Ô½À´Ï´Ù.");
+			System.out.println("í”Œë ˆì´ì–´"+playerNumber+"ë‹˜ì€ 'ê°œ'ê°€ ë‚˜ì™”ìŠµë‹ˆë‹¤.");
 			++playerInfoArray[playerNumber][2];
 			break;
 		case 3:
-			System.out.println("ÇÃ·¹ÀÌ¾î"+playerNumber+"´ÔÀº '°É'ÀÌ ³ª¿Ô½À´Ï´Ù.");
+			System.out.println("í”Œë ˆì´ì–´"+playerNumber+"ë‹˜ì€ 'ê±¸'ì´ ë‚˜ì™”ìŠµë‹ˆë‹¤.");
 			++playerInfoArray[playerNumber][3];
 			break;
 		case 4:
-			System.out.println("ÇÃ·¹ÀÌ¾î"+playerNumber+"´ÔÀº 'À·'ÀÌ ³ª¿Ô½À´Ï´Ù. ÇÑ ¹ø ´õ ´øÁı´Ï´Ù");
+			System.out.println("í”Œë ˆì´ì–´"+playerNumber+"ë‹˜ì€ 'ìœ·'ì´ ë‚˜ì™”ìŠµë‹ˆë‹¤. í•œ ë²ˆ ë” ë˜ì§‘ë‹ˆë‹¤");
 			++playerInfoArray[playerNumber][4];
-			playerYut = 0; // ÇÑ ¹ø ´õ ´øÁö±â À§ÇØ ÃÊ±âÈ­
+			playerYut = 0; // í•œ ë²ˆ ë” ë˜ì§€ê¸° ìœ„í•´ ì´ˆê¸°í™”
 			throwing(playerNumber);
 			break;
 		default:
-			System.out.println("´øÁö¶ó´Â À·Àº ¾È´øÁö°í! ³ª¿Â À·ÀÇ ÇÕ >> " + playerYut);
+			System.out.println("ë˜ì§€ë¼ëŠ” ìœ·ì€ ì•ˆë˜ì§€ê³ ! ë‚˜ì˜¨ ìœ·ì˜ í•© >> " + playerYut);
 			break;
 		}
-	//	scan.close(); ¿©±â¼­ ´İÀ¸¸é ¸ğµç jave.util.Scanner°¡ ´İÈù´Ù
-		playerYut = 0; //ÃÊ±âÈ­
-	} // ¸ğµç ÇÃ·¹ÀÌ¾îÀÇ ÀÌµ¿Ä­¼ö°¡ Á¤ÇØÁü
+	//	scan.close(); ì—¬ê¸°ì„œ ë‹«ìœ¼ë©´ ëª¨ë“  jave.util.Scannerê°€ ë‹«íŒë‹¤
+		playerYut = 0; //ì´ˆê¸°í™”
+	} // ëª¨ë“  í”Œë ˆì´ì–´ì˜ ì´ë™ì¹¸ìˆ˜ê°€ ì •í•´ì§
 
-	// ÇÃ·¹ÀÌ¾î¿¡°Ô ¸î¹øÂ° ¸»À» ¸îÄ­ ¿òÁ÷ÀÏ°ÇÁö Á¤ÇÏ¶ó°í ÇÑ´Ù
+	// í”Œë ˆì´ì–´ì—ê²Œ ëª‡ë²ˆì§¸ ë§ì„ ëª‡ì¹¸ ì›€ì§ì¼ê±´ì§€ ì •í•˜ë¼ê³  í•œë‹¤
 	void result(int playerNumber){
-		System.out.println("ÇÃ·¹ÀÌ¾î"+playerNumber+"´ÔÀÇ ÀÌµ¿ °¡´É È½¼ö´Â ´ÙÀ½°ú °°½À´Ï´Ù.");
-		System.out.println("µµ\t°³\t°É\tÀ·\t¸ğ");
+		System.out.println("í”Œë ˆì´ì–´"+playerNumber+"ë‹˜ì˜ ì´ë™ ê°€ëŠ¥ íšŸìˆ˜ëŠ” ë‹¤ìŒê³¼ ê°™ìŠµë‹ˆë‹¤.");
+		System.out.println("ë„\tê°œ\tê±¸\tìœ·\tëª¨");
 		System.out.println(playerInfoArray[playerNumber][1]+"\t"+playerInfoArray[playerNumber][2]
 				+"\t"+playerInfoArray[playerNumber][3]+"\t"+playerInfoArray[playerNumber][4]
 						+"\t"+playerInfoArray[playerNumber][0]);
 	}
 }
-
