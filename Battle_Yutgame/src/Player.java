@@ -2,35 +2,42 @@
 import java.util.Scanner;
 
 public class Player{
-	Player(int blue, int white) {
-		this.inputName();
-		if (blue>1) selectTeam(0);
-		else if (white>1) selectTeam(1);
-		else selectTeam();
+	Player(int t1, int t2, String TeamString1, String TeamString2) {
 		mal1 = -1;	// 
 		mal2 = -1;	// 시작할 때 윷판 밖에 있으므로 초기값은 -1
+		this.TeamString1 = new String(TeamString1); 
+		this.TeamString2 = new String(TeamString2);
+		this.inputName();
+		if (t1>1) selectTeam(0);
+		else if (t2>1) selectTeam(1);
+		else selectTeam();
+		
+		
 	}
 	//player's basic variables
+	
 	Scanner sc = new Scanner(System.in);
 	int score;
 	private String name,team;
 	private int mal1;	// 이동할 말1
 	private int mal2;	// 말2
-		
+	private final String TeamString1; //팀명 정하는 변수1
+	private final String TeamString2; //팀명 정하는 변수2
+	
 	private void inputName(){
-			System.out.println("플레이어 이름 입력>>");
+			System.out.print("플레이어 이름 입력>>");
 			name = sc.next();
-			System.out.println("Your name is " + name);
+			System.out.println("이름 확인 : " + name);
 	}//end of inputName
 	
 	private void selectTeam(){
-		System.out.println("팀 선택(blue/white 입력)>>");
+		System.out.print("팀 선택("+TeamString1+"/"+TeamString2+" 입력)>>");
 		while(true){
 			team = sc.next();
 			team = team.toLowerCase();
-			if(team.equals("blue")||team.equals("white")) {
+			if(!team.equals(TeamString1)&&!team.equals(TeamString2)) {
 				System.out.println("잘못된 입력!");
-				System.out.println("팀 선택(blue/white 입력)>>");
+				System.out.print("팀 선택("+TeamString1+"/"+TeamString2+" 입력)>>");
 				continue;
 			}
 			else break;
