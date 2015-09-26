@@ -8,10 +8,26 @@ public class YutBoard {
 	public YutBoard() {
 		// 길만 표기되어 있는 윷판 생성
 		boardReset();
-		vectorGenerate();
+		int v1[] = {42,35,21,14,7,6,5,3,2,1,8,15,29,36,43,44,45,47,48,49}; //add가 귀찮은 배열 1 
+		int v2[] = {7,13,19,25,31,37,43}; //add가 귀찮은 배열 2
+		int v3[] = {1,9,17,25,33,41,49}; //add가 귀찮은 배열 3
+		v = new Vector[3];
+		v[0] = new Vector<Integer>(20); //20개, 우하단부터 시작하는 테두리 윷판, 검색 2순위
+		v[1] = new Vector<Integer>(7); //7개, 대각선 방향(↙), 검색 1순위
+		v[2] = new Vector<Integer>(7); //7개, 대각선 방향(↘), 검색 0순위
+		
+		for (int i=0;i<20;i++)
+			v[0].add(v1[i]);
+		for (int i=0;i<7;i++)
+			v[1].add(v2[i]);
+		for (int i=0;i<7;i++)
+			v[2].add(v3[i]);
+		
+		
 	} 
 
 	String boardPaper[][] = new String[7][7]; // 윷판에 그림을 찍을 종이
+	private Vector<Integer> v[];
 
 	private void boardReset() {
 		for(int i=0;i<boardPaper.length;i++){
@@ -31,23 +47,7 @@ public class YutBoard {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
-	public void vectorGenerate() {
-		int v1[] = {42,35,21,14,7,6,5,3,2,1,8,15,29,36,43,44,45,47,48,49}; //add가 귀찮은 배열 1 
-		int v2[] = {7,13,19,25,31,37,43}; //add가 귀찮은 배열 2
-		int v3[] = {1,9,17,25,33,41,49}; //add가 귀찮은 배열 3
-		Vector<Integer> v[] = new Vector[3];
-		v[0] = new Vector<Integer>(20); //20개, 우하단부터 시작하는 테두리 윷판, 검색 2순위
-		v[1] = new Vector<Integer>(7); //7개, 대각선 방향(↙), 검색 1순위
-		v[2] = new Vector<Integer>(7); //7개, 대각선 방향(↘), 검색 0순위
-		
-		for (int i=0;i<20;i++)
-			v[0].add(v1[i]);
-		for (int i=0;i<7;i++)
-			v[1].add(v2[i]);
-		for (int i=0;i<7;i++)
-			v[2].add(v3[i]);
-				
+	public void Print() {
 		for(int i=0;i<3;i++) {
 			Enumeration<Integer> e = v[i].elements();
 			while(e.hasMoreElements()) {
@@ -83,7 +83,7 @@ public class YutBoard {
 			}
 			target = 23; mov--;
 			for(int i=0;i<mov;i++) {
-				target = movNext(v[0],v[1],v[2],target, false);
+				target = movNext(target, false);
 			}
 		}
 
@@ -96,48 +96,48 @@ public class YutBoard {
 	 * 말이 finish 상태가 된 경우 777 리턴
 	 * 알 수 없는 오류를 뿜는 경우 -222222 리턴 
 	 * */
-	private static int movNext(Vector<Integer> v0, Vector<Integer> v1,
-			Vector<Integer> v2, int target, boolean trigger) {
+	public int movNext(int target, boolean trigger) {
 		if(trigger) { //꺾습니다
-			if(v2.contains(target)){  //v2에서 target에 해당하는 값을 찾음
-				int temp=v2.elementAt(target); //찾은 경우 target을 포함하는 v의 인덱스값을 구함
-				if(temp==v2.lastElement()) {  //구한 인덱스가 laetElement인 경우 연결된 v부분으로 이동하거나 finish 표시
+			if(v[2].contains(target)){  //v2에서 target에 해당하는 값을 찾음
+				int tempIndex=v[2].indexOf(target); //찾은 경우 target을 포함하는 v의 인덱스값을 구함
+				if(tempIndex==v[2].indexOf(v[2].lastElement())) {  //구한 인덱스가 laetElement인 경우 연결된 v부분으로 이동하거나 finish 표시
 					return 777; 
 				}
-				else return v2.indexOf(temp+1);//구한 인덱스 값을 하나 증가시켜서 그 인덱스에 있는 value를 찾음
+				else return v[2].indexOf(tempIndex+1);//구한 인덱스 값을 하나 증가시켜서 그 인덱스에 있는 value를 찾음
 				//해당 value를 리턴	
 			}
-			else if(v1.contains(target) && target!=v1.lastElement()) { //없을 경우 v1에서 target값을 찾음
-				return v1.indexOf(v1.elementAt(target)+1);//구한 인덱스 값을 하나 증가시켜서 그 인덱스에 있는 value를 찾음
+			else if(v[1].contains(target) && target!=v[1].lastElement()) { //없을 경우 v1에서 target값을 찾음
+				return v[1].elementAt((v[1].indexOf(target)+1));//구한 인덱스 값을 하나 증가시켜서 그 인덱스에 있는 value를 찾음
 			}
-			else if(v0.contains(target)) {//없을 경우 v0에서 target값을 찾음	else if()
-				int temp=v0.elementAt(target); //찾은 경우 target을 포함하는 v의 인덱스값을 구함
-				if(temp==v0.lastElement()) {  //구한 인덱스가 laetElement인 경우 연결된 v부분으로 이동하거나 finish 표시
+			else if(v[0].contains(target)) {//없을 경우 v0에서 target값을 찾음	else if()
+				int temp=v[0].indexOf(target); //찾은 경우 target을 포함하는 v의 인덱스값을 구함
+				if(temp==v[0].indexOf(v[0].lastElement())) {  //구한 인덱스가 laetElement인 경우 연결된 v부분으로 이동하거나 finish 표시
 					return 777; 
 				}
-				else return v0.indexOf(temp+1);//구한 인덱스 값을 하나 증가시켜서 그 인덱스에 있는 value를 찾음
+				else return v[0].elementAt(temp+1);//구한 인덱스 값을 하나 증가시켜서 그 인덱스에 있는 value를 찾음
 				//해당 value를 리턴	
 			}
+			else if(target==-1) return v[0].firstElement();
 			else return -222222; //그래도 없으면 오류처리
 		}
 		else { //꺾지마
-			if(v0.contains(target)) {//v0에서 target값을 찾음	else if()
-				int temp=v0.elementAt(target); //찾은 경우 target을 포함하는 v의 인덱스값을 구함
-				if(temp==v0.lastElement()) {  //구한 인덱스가 laetElement인 경우 연결된 v부분으로 이동하거나 finish 표시
+			if(v[0].contains(target)) {//v0에서 target값을 찾음	else if()
+				int temp=v[0].indexOf(target); //찾은 경우 target을 포함하는 v의 인덱스값을 구함
+				if(temp==v[0].indexOf(v[0].lastElement())) {  //구한 인덱스가 laetElement인 경우 연결된 v부분으로 이동하거나 finish 표시
 					return 777; 
 				}
-				else return v0.indexOf(temp+1);//구한 인덱스 값을 하나 증가시켜서 그 인덱스에 있는 value를 찾음
+				else return v[0].elementAt(temp+1);//구한 인덱스 값을 하나 증가시켜서 그 인덱스에 있는 value를 찾음
 				//해당 value를 리턴
 			}
-			else if(v1.contains(target)) { //v1에서 target값을 찾음
-				return v1.indexOf(v1.elementAt(target)+1);//구한 인덱스 값을 하나 증가시켜서 그 인덱스에 있는 value를 찾음
+			else if(v[1].contains(target)) { //v1에서 target값을 찾음
+				return v[1].elementAt((v[1].indexOf(target)+1));//구한 인덱스 값을 하나 증가시켜서 그 인덱스에 있는 value를 찾음
 			}
-			else if(v2.contains(target)){  //v2에서 target에 해당하는 값을 찾음
-				int temp=v2.elementAt(target); //찾은 경우 target을 포함하는 v의 인덱스값을 구함
-				if(temp==v2.lastElement()) {  //구한 인덱스가 laetElement인 경우 연결된 v부분으로 이동하거나 finish 표시
+			else if(v[2].contains(target)){  //v2에서 target에 해당하는 값을 찾음
+				int temp=v[2].indexOf(target); //찾은 경우 target을 포함하는 v의 인덱스값을 구함
+				if(temp==v[2].indexOf(v[2].lastElement())) {  //구한 인덱스가 laetElement인 경우 연결된 v부분으로 이동하거나 finish 표시
 					return 777; 
 				}
-				else return v2.indexOf(temp+1);//구한 인덱스 값을 하나 증가시켜서 그 인덱스에 있는 value를 찾음
+				else return v[2].elementAt(temp+1);//구한 인덱스 값을 하나 증가시켜서 그 인덱스에 있는 value를 찾음
 				//해당 value를 리턴	
 			}
 			else return -222222;
