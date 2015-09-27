@@ -81,14 +81,14 @@ class Action {
 	 * 알 수 없는 오류를 뿜는 경우 -222222 리턴 
 	 * finish 상태가 된 말을 다시 움직이려고 할 경우 역시 777을 리턴
 	 * */
-	static int movNext(int target, boolean trigger, Vector v0, Vector v1, Vector v2) {
+	static int movNext(int target, boolean trigger, Vector<Integer> v0, Vector<Integer> v1, Vector<Integer> v2) {
 		if(trigger) { //꺾습니다
 			if(v2.contains(target)){  //v2에서 target에 해당하는 값을 찾음
 				int tempIndex=v2.indexOf(target); //찾은 경우 target을 포함하는 v의 인덱스값을 구함
 				if(tempIndex==v2.indexOf(v2.lastElement())) {  //구한 인덱스가 laetElement인 경우 연결된 v부분으로 이동하거나 finish 표시
 					return 777; 
 				}
-				else return v2.indexOf(tempIndex+1);//구한 인덱스 값을 하나 증가시켜서 그 인덱스에 있는 value를 찾음
+				else return v2.elementAt(tempIndex+1);//구한 인덱스 값을 하나 증가시켜서 그 인덱스에 있는 value를 찾음
 				//해당 value를 리턴	
 			}
 			else if(v1.contains(target) && target!=(int)v1.lastElement()) { //없을 경우 v1에서 target값을 찾음
@@ -159,6 +159,68 @@ class Action {
 		}//end of for loop
 		return mp;
 	}
+	
+	static void MoveMal (Player p, YutBoard yb, int tempMove) {
+		System.out.println("말 위치정보\nmal1 : "+p.getMal1()+"\nmal2 : "+p.getMal2());
+		System.out.print("움직일 말을 고르세요 (1/2 입력)>>");
+		int tempMal; //이동할 말 선택 임시저장
+		
+		while(true) {
+			tempMal=Action.sc.nextInt();
+			switch(tempMal) {
+			case 1:
+				System.out.print("mal1 이동! ("+p.getMal1()+" -> ");
+				p.putMal1(Action.movNext(p.getMal1(), true,yb.v0(),yb.v1(),yb.v2()));
+				for(int i=1;i<tempMove;i++)
+					p.putMal1(Action.movNext(p.getMal1(), false,yb.v0(),yb.v1(),yb.v2()));
+				System.out.println(p.getMal1()+")");
+				break;
+			case 2:
+				System.out.print("mal2 이동! ("+p.getMal2()+" -> ");
+				p.putMal2(Action.movNext(p.getMal2(), true,yb.v0(),yb.v1(),yb.v2()));
+				for(int i=1;i<tempMove;i++)
+					p.putMal2(Action.movNext(p.getMal2(), false,yb.v0(),yb.v1(),yb.v2()));
+				System.out.println(p.getMal2()+")");
+				break;
+			default:
+				System.out.println("잘못된 값입니다. 다시 입력하세요.");
+				System.out.print("움직일 말을 고르세요 (1/2 입력)>>");
+				continue;
+			}
+			break;
+		}
+	} //end of MoveMal
+	
+	
+	
+	static int ThrowYut(Player p,YutBoard yb) {
+		
+		System.out.println(p.getTeam()+"팀 "+p.getName()+" 플레이어 윷 던지기");
+		int tempMove = p.keygen.nextInt(5); //이동할 칸 수 랜덤생성+임시저장
+		System.out.print("퉤에엣 : ");
+		switch(tempMove) {
+		case 0:
+			System.out.println("도");
+			break;
+		case 1:
+			System.out.println("개");
+			break;
+		case 2:
+			System.out.println("걸");
+			break;
+		case 3:
+			System.out.println("윷");
+			break;
+		case 4:
+			System.out.println("모");
+			break;
+		default:
+			System.out.println("뭐임 왜 있을 수 없는 오류가...");
+			return -1;
+		}
+		return tempMove;
+		//int temp2 = SelectInput(1,2);
+	} //end of ThrowYut
 	
 
 }

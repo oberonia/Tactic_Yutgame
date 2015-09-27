@@ -23,8 +23,6 @@ public class YutBoard {
 			v[1].add(v2[i]);
 		for (int i=0;i<7;i++)
 			v[2].add(v3[i]);
-		
-		
 	} 
 	Vector<Integer> v0() {
 		return v[0];
@@ -45,7 +43,7 @@ public class YutBoard {
 				boardPaper[i][j] = ""; // default value is space
 			}
 		}
-	}
+	} //end of boardReset
 	
 	public void boardDisplay(){
 		// show the board at console
@@ -55,7 +53,7 @@ public class YutBoard {
 			}
 			System.out.println();
 		}
-	}
+	} //end of boardDisplay
 
 	public void Print() {
 		for(int i=0;i<3;i++) {
@@ -72,30 +70,8 @@ public class YutBoard {
 				// 3) boardDisplay의 모든 원소들을 /t을 이용해서 콘솔에 뿌린다
 			}
 		}
+	} //end of Print
 	
-		while(true) {
-			int target=-1,mov=0;
-			Scanner sc = new Scanner(System.in);
-			System.out.println("Target Location : "+target);
-			System.out.println("input(a,s,d,f,g,q)>>");
-			switch(sc.next()) {
-			case "a": case "A":	mov=1; break;
-			case "s": case "S":	mov=2; break;
-			case "d": case "D":	mov=3; break; 
-			case "f": case "F":	mov=4; break;
-			case "g": case "G":	mov=5; break;
-			case "q": case "Q":
-				System.out.println("Terminated");
-				return;
-			default:
-				System.out.println("<WRONG INPUT>try again");
-				continue;
-			}
-			target = 23; mov--;
-			for(int i=0;i<mov;i++) {
-				target = Action.movNext(target, false, v[0], v[1], v[2]);
-			}
-		}
-
-	}
+	
+	
 }
