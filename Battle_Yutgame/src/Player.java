@@ -28,8 +28,8 @@ public class Player{
 		this.TeamString1 = new String(TeamString1); 
 		this.TeamString2 = new String(TeamString2);
 		this.con.inputName();
-		if (t1>1) selectTeam(0);
-		else if (t2>1) selectTeam(1);
+		if (t1>1) con.selectTeam(0);
+		else if (t2>1) con.selectTeam(1);
 		else con.selectTeam();
 				
 	}
@@ -55,7 +55,7 @@ public class Player{
 			}
 			else break;
 		}
-	}*/
+	}
 	
 	void selectTeam(int i) {
 		switch(i) {
@@ -71,7 +71,8 @@ public class Player{
 				System.out.println("selectTEAM method ERROR");
 				return;
 		}
-	}
+	}*/
+	
 	
 	public void ThrowYut() {
 		System.out.println(getTeam()+"팀 "+getName()+" 플레이어 윷 던지기");

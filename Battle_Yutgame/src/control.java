@@ -23,6 +23,22 @@ void selectTeam(){
 		else break;
 	}	
 }
+
+void selectTeam(int i) {
+	switch(i) {
+	case 0:
+		Player.team="white";
+		System.out.println("your team is white, you don't have any choice");
+		break;
+	case 1:
+		Player.team="blue";
+		System.out.println("your team is blue, you don't have any choice");
+		break;
+	default:
+			System.out.println("selectTEAM method ERROR");
+			return;
+	}
+}
 }
 	
 
