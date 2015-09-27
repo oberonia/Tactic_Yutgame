@@ -35,13 +35,15 @@ public class Player{
 	}
 	//player's basic variables
 
-	/**void inputName(){
+	/**Test용 주석처리
+	 * void inputName(){
 			System.out.print("플레이어 이름 입력>>");
 			name = sc.next();
 			System.out.println("이름 확인 : " + name);
 	}//end of inputName**/
 	
-	/**void selectTeam(){
+	/**Test용 주석처리
+	 * void selectTeam(){
 		System.out.print("팀 선택("+TeamString1+"/"+TeamString2+" 입력)>>");
 		while(true){
 			team = sc.next();
