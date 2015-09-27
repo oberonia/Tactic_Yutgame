@@ -1,12 +1,9 @@
 
-import java.util.Scanner;
-
 public class MainFrame {
 	static Player mp[] = new Player[4];
 	static ThrowingYut throwingPhase = new ThrowingYut();
 
 	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
 		int t1 = 0; // 팀1 인원수를 저장
 		int t2 = 0; // 팀2 인원수를 저장
 		String TeamString1, TeamString2;
@@ -25,7 +22,7 @@ public class MainFrame {
 		}
 		for(int i=0;i<4;i++){
 			System.out.println("========"+(i+1)+"번 플레이어 정보 입력========");
-			mp[i]= new Player(t1,t2,TeamString1,TeamString2);
+			mp[i]= new Player(t1,t2);
 			if(mp[i].getTeam().equals(TeamString1)) t1++;
 			else if(mp[i].getTeam().equals(TeamString2)) ++t2;
 			System.out.println("플레이어 이름 확인 : " + mp[i].getName() + ", Player " + i);
@@ -34,6 +31,7 @@ public class MainFrame {
 		*/
 		
 		/* 임시 팀이름 플레이어 이름 강제 정하기 문장 */
+		Player.InitTeamName("잉여", "갓수");
 		mp[0]= new Player(true,"히키1");
 		mp[1]= new Player(true,"히키2");
 		mp[2]= new Player(false,"코모리1");

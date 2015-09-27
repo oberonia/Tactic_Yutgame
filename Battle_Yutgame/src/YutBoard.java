@@ -5,6 +5,7 @@ import java.util.Vector;
 
 public class YutBoard {
 
+	@SuppressWarnings("unchecked")
 	public YutBoard() {
 		// 길만 표기되어 있는 윷판 생성
 		boardReset();
@@ -25,6 +26,15 @@ public class YutBoard {
 		
 		
 	} 
+	Vector<Integer> v0() {
+		return v[0];
+	}
+	Vector<Integer> v1() {
+		return v[1];
+	}
+	Vector<Integer> v2() {
+		return v[2];
+	}
 
 	String boardPaper[][] = new String[7][7]; // 윷판에 그림을 찍을 종이
 	private Vector<Integer> v[];
@@ -83,65 +93,9 @@ public class YutBoard {
 			}
 			target = 23; mov--;
 			for(int i=0;i<mov;i++) {
-				target = movNext(target, false);
+				target = Action.movNext(target, false, v[0], v[1], v[2]);
 			}
 		}
 
-	}
-	/*
-	 * 말 하나를 집어서 다음 칸으로 넘기거나 finish 처리를 하는 메쏘오드
-	 * target에 말 정보가 들어가고, trigger로 말을 꺾을지 말지를 결정하게 됨
-	 * trigger가 true인 경우 : 말을 처음 이동할 때를 가정하여 분기점을 만나면 꺾게 됨
-	 * trigger가 false인 경우 : 말을 이동하던 중에 호출된 것으로 가정하여 분기점을 통과하게 됨
-	 * 말이 finish 상태가 된 경우 777 리턴
-	 * 알 수 없는 오류를 뿜는 경우 -222222 리턴 
-	 * */
-	public int movNext(int target, boolean trigger) {
-		if(trigger) { //꺾습니다
-			if(v[2].contains(target)){  //v2에서 target에 해당하는 값을 찾음
-				int tempIndex=v[2].indexOf(target); //찾은 경우 target을 포함하는 v의 인덱스값을 구함
-				if(tempIndex==v[2].indexOf(v[2].lastElement())) {  //구한 인덱스가 laetElement인 경우 연결된 v부분으로 이동하거나 finish 표시
-					return 777; 
-				}
-				else return v[2].indexOf(tempIndex+1);//구한 인덱스 값을 하나 증가시켜서 그 인덱스에 있는 value를 찾음
-				//해당 value를 리턴	
-			}
-			else if(v[1].contains(target) && target!=v[1].lastElement()) { //없을 경우 v1에서 target값을 찾음
-				return v[1].elementAt((v[1].indexOf(target)+1));//구한 인덱스 값을 하나 증가시켜서 그 인덱스에 있는 value를 찾음
-			}
-			else if(v[0].contains(target)) {//없을 경우 v0에서 target값을 찾음	else if()
-				int temp=v[0].indexOf(target); //찾은 경우 target을 포함하는 v의 인덱스값을 구함
-				if(temp==v[0].indexOf(v[0].lastElement())) {  //구한 인덱스가 laetElement인 경우 연결된 v부분으로 이동하거나 finish 표시
-					return 777; 
-				}
-				else return v[0].elementAt(temp+1);//구한 인덱스 값을 하나 증가시켜서 그 인덱스에 있는 value를 찾음
-				//해당 value를 리턴	
-			}
-			else if(target==-1) return v[0].firstElement();
-			else return -222222; //그래도 없으면 오류처리
-		}
-		else { //꺾지마
-			if(v[0].contains(target)) {//v0에서 target값을 찾음	else if()
-				int temp=v[0].indexOf(target); //찾은 경우 target을 포함하는 v의 인덱스값을 구함
-				if(temp==v[0].indexOf(v[0].lastElement())) {  //구한 인덱스가 laetElement인 경우 연결된 v부분으로 이동하거나 finish 표시
-					return 777; 
-				}
-				else return v[0].elementAt(temp+1);//구한 인덱스 값을 하나 증가시켜서 그 인덱스에 있는 value를 찾음
-				//해당 value를 리턴
-			}
-			else if(v[1].contains(target)) { //v1에서 target값을 찾음
-				return v[1].elementAt((v[1].indexOf(target)+1));//구한 인덱스 값을 하나 증가시켜서 그 인덱스에 있는 value를 찾음
-			}
-			else if(v[2].contains(target)){  //v2에서 target에 해당하는 값을 찾음
-				int temp=v[2].indexOf(target); //찾은 경우 target을 포함하는 v의 인덱스값을 구함
-				if(temp==v[2].indexOf(v[2].lastElement())) {  //구한 인덱스가 laetElement인 경우 연결된 v부분으로 이동하거나 finish 표시
-					return 777; 
-				}
-				else return v[2].elementAt(temp+1);//구한 인덱스 값을 하나 증가시켜서 그 인덱스에 있는 value를 찾음
-				//해당 value를 리턴	
-			}
-			else if(target==777) return 777; //피니시 된 말을 다시 움직이려고 할때 777 리턴
-			else return -222222;
-		}
 	}
 }

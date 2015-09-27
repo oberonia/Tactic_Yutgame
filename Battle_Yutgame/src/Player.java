@@ -1,40 +1,38 @@
 
 import java.util.Random;
-import java.util.Scanner;
 
 public class Player{
 	
-	Scanner sc = new Scanner(System.in);
-	static int score;
-	static String name,team;
-	static int mal1;	// 이동할 말1
-	static int mal2;	// 말2
-	static String TeamString1; //팀명 정하는 변수1
-	static String TeamString2; //팀명 정하는 변수2
+	private static String TeamString1; //팀명 정하는 변수1
+	private static String TeamString2; //팀명 정하는 변수2
+	
+	private int score;
+	private String name,team;
+	private int mal1;	// 이동할 말1
+	private int mal2;	// 말2
 	Random keygen = new Random();
-	control con = new control();
 	Player(boolean trigger,String name) { //디버그 모드 오-픈
 		mal1=-1;
 		mal2=-1;
-		this.TeamString1 = "잉여"; 
-		this.TeamString2 = "갓수";
 		this.name = name;
 		if(trigger) team=TeamString1;
 		else team=TeamString2;
 	}
-	Player(int t1, int t2, String TeamString1, String TeamString2) {
+	Player(int t1, int t2) {
 		mal1 = -1;	// 
 		mal2 = -1;	// 시작할 때 윷판 밖에 있으므로 초기값은 -1
-		this.TeamString1 = new String(TeamString1); 
-		this.TeamString2 = new String(TeamString2);
-		this.con.inputName();
-		if (t1>1) con.selectTeam(0);
-		else if (t2>1) con.selectTeam(1);
-		else con.selectTeam();
+		name = Action.inputName();
+		team = Action.selectTeam(t1,t2,TeamString1, TeamString2);
 				
+	}//end of Player (Constructor)
+	
+	
+	static void InitTeamName(String ts1, String ts2) {
+		TeamString1 = new String(ts1);
+		TeamString2 = new String(ts2);
 	}
+	
 	//player's basic variables
-
 	/**Test용 주석처리
 	 * void inputName(){
 			System.out.print("플레이어 이름 입력>>");
@@ -75,6 +73,9 @@ public class Player{
 	
 	
 	public void ThrowYut() {
+		
+		YutBoard yb = new YutBoard();
+		
 		System.out.println(getTeam()+"팀 "+getName()+" 플레이어 윷 던지기");
 		System.out.println("말 위치정보\nmal1 : "+getMal1()+"\nmal2 : "+getMal2());
 		int tempMove = keygen.nextInt(5); //이동할 칸 수 랜덤생성+임시저장
@@ -101,22 +102,22 @@ public class Player{
 		}
 		System.out.print("움직일 말을 고르세요 (1/2 입력)>>");
 		int tempMal; //이동할 말 선택 임시저장
-		YutBoard yb = new YutBoard();
+		
 		while(true) {
-			tempMal=sc.nextInt();
+			tempMal=Action.sc.nextInt();
 			switch(tempMal) {
 			case 1:
 				System.out.print("mal1 이동! ("+mal1+" -> ");
-				mal1=yb.movNext(mal1, true);
+				mal1=Action.movNext(mal1, true,yb.v0(),yb.v1(),yb.v2());
 				for(int i=0;i<tempMove;i++)
-					mal1=yb.movNext(mal1, false);
+					mal1=Action.movNext(mal1, false,yb.v0(),yb.v1(),yb.v2());
 				System.out.println(mal1+")");
 				break;
 			case 2:
 				System.out.print("mal2 이동! ("+mal2+" -> ");
-				mal2=yb.movNext(mal2, true);
+				mal2=Action.movNext(mal2, true,yb.v0(),yb.v1(),yb.v2());
 				for(int i=0;i<tempMove;i++)
-					mal2=yb.movNext(mal2, false);
+					mal2=Action.movNext(mal2, false,yb.v0(),yb.v1(),yb.v2());
 				System.out.println(mal2+")");
 				break;
 			default:
