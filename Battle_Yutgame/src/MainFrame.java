@@ -10,7 +10,6 @@ public class MainFrame {
 		int t1 = 0; // 팀1 인원수를 저장
 		int t2 = 0; // 팀2 인원수를 저장
 		String TeamString1, TeamString2;
-
 		System.out.println("윷놀이 게임 시작(프로토타입)");
 		/* 팀 이름을 정하는 기능. 뻐킹 디버그 모드에서는 주석처리
 		System.out.print("첫번째 팀 이름을 정하세요>>");

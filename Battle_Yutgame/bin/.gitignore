@@ -4,10 +4,4 @@
 /YootVector.class
 /YutBoard.class
 /tempBoard.class
-/Action.class
-/Action$ThrowingYut.class
-/Order.class
-/Ord.class
-/Season.class
-/MainFrame$Season.class
-/MainFrame$Order.class
+/control.class
