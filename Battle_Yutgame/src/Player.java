@@ -26,50 +26,18 @@ public class Player{
 				
 	}//end of Player (Constructor)
 	
-	
 	static void InitTeamName(String ts1, String ts2) {
 		TeamString1 = new String(ts1);
 		TeamString2 = new String(ts2);
 	}
-	
-	//player's basic variables
-	/**Test용 주석처리
-	 * void inputName(){
-			System.out.print("플레이어 이름 입력>>");
-			name = sc.next();
-			System.out.println("이름 확인 : " + name);
-	}//end of inputName**/
-	
-	/**Test용 주석처리
-	 * void selectTeam(){
-		System.out.print("팀 선택("+TeamString1+"/"+TeamString2+" 입력)>>");
-		while(true){
-			team = sc.next();
-			team = team.toLowerCase();
-			if(!team.equals(TeamString1)&&!team.equals(TeamString2)) {
-				System.out.println("잘못된 입력!");
-				System.out.print("팀 선택("+TeamString1+"/"+TeamString2+" 입력)>>");
-				continue;
-			}
-			else break;
-		}
+	//InitTeamName 메소드 호출 후 사용할 것
+	static String getTeamName1() {
+		return TeamString1;
 	}
-	
-	void selectTeam(int i) {
-		switch(i) {
-		case 0:
-			team="white";
-			System.out.println("your team is white, you don't have any choice");
-			break;
-		case 1:
-			team="blue";
-			System.out.println("your team is blue, you don't have any choice");
-			break;
-		default:
-				System.out.println("selectTEAM method ERROR");
-				return;
-		}
-	}*/
+	//InitTeamName 메소드 호출 후 사용할 것
+	static String getTeamName2() {
+		return TeamString2;
+	}
 	
 	
 	public void ThrowYut() {
