@@ -5,6 +5,8 @@ public class Player{
 	
 	private static String TeamString1; //팀명 정하는 변수1
 	private static String TeamString2; //팀명 정하는 변수2
+	private static int mv[] = new int[5];
+	
 	
 	private int score;
 	private String name,team;
@@ -17,12 +19,14 @@ public class Player{
 		this.name = name;
 		if(trigger) team=TeamString1;
 		else team=TeamString2;
+		mv[0]=mv[1]=mv[2]=mv[3]=mv[4]=0;
 	}
 	Player(int t1, int t2) {
 		mal1 = -1;	// 
 		mal2 = -1;	// 시작할 때 윷판 밖에 있으므로 초기값은 -1
 		name = Action.inputName();
 		team = Action.selectTeam(t1,t2,TeamString1, TeamString2);
+		mv[0]=mv[1]=mv[2]=mv[3]=mv[4]=0;
 				
 	}//end of Player (Constructor)
 	
