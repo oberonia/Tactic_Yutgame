@@ -34,7 +34,8 @@ public class Player{
 	static void InitTeamName(String ts1, String ts2) {
 		TeamString1 = new String(ts1);
 		TeamString2 = new String(ts2);
-	}
+	}//end of InitTeamName
+	
 	//InitTeamName 메소드 호출 후 사용할 것
 	static String getTeamName1() {
 		return TeamString1;

@@ -58,7 +58,7 @@ class Action implements Yut{
 			System.out.println("다른 팀에 여분의 자리가 없으므로 자동으로 "+TeamString1+" 팀으로 선택됩니다.");
 			return TeamString1;
 		}
-		else{
+		else {
 			System.out.print("팀 선택");
 			team = select(TeamString1,TeamString2);
 			return team;
@@ -76,50 +76,47 @@ class Action implements Yut{
 	 * 알 수 없는 오류를 뿜는 경우 -222222 리턴 
 	 * finish 상태가 된 말을 다시 움직이려고 할 경우 역시 777을 리턴
 	 * */
-	static int movNext(int target, boolean trigger, Vector<Integer> v0, Vector<Integer> v1, Vector<Integer> v2) {
+	static int movNext(int target, boolean trigger, 
+			Vector<Integer> v0, Vector<Integer> v1, Vector<Integer> v2) {
 		if(trigger) { //꺾습니다
 			if(v2.contains(target)){  //v2에서 target에 해당하는 값을 찾음
 				int tempIndex=v2.indexOf(target); //찾은 경우 target을 포함하는 v의 인덱스값을 구함
-				if(tempIndex==v2.indexOf(v2.lastElement())) {  //구한 인덱스가 laetElement인 경우 연결된 v부분으로 이동하거나 finish 표시
+				if(tempIndex==v2.indexOf(v2.lastElement()))  //구한 인덱스가 laetElement인 경우 연결된 v부분으로 이동하거나 finish 표시
 					return 777; 
-				}
-				else return v2.elementAt(tempIndex+1);//구한 인덱스 값을 하나 증가시켜서 그 인덱스에 있는 value를 찾음
-				//해당 value를 리턴	
-			}
+				else 
+					return v2.elementAt(tempIndex+1);//구한 인덱스 값을 하나 증가시켜서 그 인덱스에 있는 value를 리턴	
+			}//if v2
 			else if(v1.contains(target) && target!=(int)v1.lastElement()) { //없을 경우 v1에서 target값을 찾음
 				return (int) v1.elementAt((v1.indexOf(target)+1));//구한 인덱스 값을 하나 증가시켜서 그 인덱스에 있는 value를 찾음
-			}
+			}//else if v1
 			else if(v0.contains(target)) {//없을 경우 v0에서 target값을 찾음	else if()
 				int temp=v0.indexOf(target); //찾은 경우 target을 포함하는 v의 인덱스값을 구함
-				if(temp==v0.indexOf(v0.lastElement())) {  //구한 인덱스가 laetElement인 경우 연결된 v부분으로 이동하거나 finish 표시
-					return 777; 
-				}
-				else return (int) v0.elementAt(temp+1);//구한 인덱스 값을 하나 증가시켜서 그 인덱스에 있는 value를 찾음
-				//해당 value를 리턴	
-			}
+				if(temp==v0.indexOf(v0.lastElement())) 
+					return 777;  //구한 인덱스가 laetElement인 경우 연결된 v부분으로 이동하거나 finish 표시
+				else 
+					return (int) v0.elementAt(temp+1);//구한 인덱스 값을 하나 증가시켜서 그 인덱스에 있는 value를 리턴	
+			}//else if v0 
 			else if(target==-1) return (int) v0.firstElement();
 			else return -222222; //그래도 없으면 오류처리
-		}
+		}//꺾습니다 끝
 		else { //꺾지마
 			if(v0.contains(target)) {//v0에서 target값을 찾음	else if()
 				int temp=v0.indexOf(target); //찾은 경우 target을 포함하는 v의 인덱스값을 구함
-				if(temp==v0.indexOf(v0.lastElement())) {  //구한 인덱스가 laetElement인 경우 연결된 v부분으로 이동하거나 finish 표시
-					return 777; 
-				}
-				else return (int) v0.elementAt(temp+1);//구한 인덱스 값을 하나 증가시켜서 그 인덱스에 있는 value를 찾음
-				//해당 value를 리턴
-			}
+				if(temp==v0.indexOf(v0.lastElement())) 
+					return 777;  //구한 인덱스가 laetElement인 경우 연결된 v부분으로 이동하거나 finish 표시
+				else 
+					return (int) v0.elementAt(temp+1);//구한 인덱스 값을 하나 증가시켜서 그 인덱스에 있는 value를 리턴
+			}//if v0
 			else if(v1.contains(target)) { //v1에서 target값을 찾음
 				return (int) v1.elementAt((v1.indexOf(target)+1));//구한 인덱스 값을 하나 증가시켜서 그 인덱스에 있는 value를 찾음
-			}
+			}//else if v1
 			else if(v2.contains(target)){  //v2에서 target에 해당하는 값을 찾음
 				int temp=v2.indexOf(target); //찾은 경우 target을 포함하는 v의 인덱스값을 구함
-				if(temp==v2.indexOf(v2.lastElement())) {  //구한 인덱스가 laetElement인 경우 연결된 v부분으로 이동하거나 finish 표시
-					return 777; 
-				}
-				else return (int) v2.elementAt(temp+1);//구한 인덱스 값을 하나 증가시켜서 그 인덱스에 있는 value를 찾음
-				//해당 value를 리턴	
-			}
+				if(temp==v2.indexOf(v2.lastElement())) 
+					return 777;  //구한 인덱스가 laetElement인 경우 연결된 v부분으로 이동하거나 finish 표시
+				else 
+					return (int) v2.elementAt(temp+1);//구한 인덱스 값을 하나 증가시켜서 그 인덱스에 있는 value를 리턴	
+			}//else if v2
 			else if(target==777) return 777; //피니시 된 말을 다시 움직이려고 할때 777 리턴
 			else return -222222;
 		}
@@ -136,7 +133,7 @@ class Action implements Yut{
 			System.out.println(mp[j].getName()+"\t"+mp[j].getTeam()+"\t"+"mal2\t"+mp[j].getMal2());
 		}
 
-	}
+	}//end of scoreboard
 
 	/* MainFrame 클래스에서 접근하게 되는 플레이어 정보 입력하는 메소드. 전체 프로그램에서 이 함수는 한번만 실행할 것
 	 * 
@@ -151,35 +148,32 @@ class Action implements Yut{
 			else if(mp[i].getTeam().equals(Player.getTeamName2())) ++t2;
 			System.out.println("플레이어 이름 확인 : " + mp[i].getName() + ", Player " + i);
 			System.out.println("팀 이름 확인 : " + mp[i].getTeam() + ", Player " + i);
-		}//end of for loop
+		}//end of loop
 		return mp;
-	}
+	}//end of InitPlayers
 
 	static void MoveMal (Player p, YutBoard yb, int tempMove) {
 		System.out.println("말 위치정보\nmal1 : "+p.getMal1()+"\nmal2 : "+p.getMal2());
 		System.out.print("움직일 말을 고르세요");
 		int tempMal= select(1,2); //이동할 말 선택 임시저장
 
-		while(true) {
-			switch(tempMal) {
-			case 1:
-				System.out.print("mal1 이동! ("+p.getMal1()+" -> ");
-				p.putMal1(Action.movNext(p.getMal1(), true,yb.v0(),yb.v1(),yb.v2()));
-				for(int i=1;i<tempMove;i++)
-					p.putMal1(Action.movNext(p.getMal1(), false,yb.v0(),yb.v1(),yb.v2()));
-				System.out.println(p.getMal1()+")");
-				break;
-			case 2:
-				System.out.print("mal2 이동! ("+p.getMal2()+" -> ");
-				p.putMal2(Action.movNext(p.getMal2(), true,yb.v0(),yb.v1(),yb.v2()));
-				for(int i=1;i<tempMove;i++)
-					p.putMal2(Action.movNext(p.getMal2(), false,yb.v0(),yb.v1(),yb.v2()));
-				System.out.println(p.getMal2()+")");
-				break;
-			default:
-				System.out.println("select 함수 내부처리 오류 : "+tempMal);
-			}
+		switch(tempMal) {
+		case 1:
+			System.out.print("mal1 이동! ("+p.getMal1()+" -> ");
+			p.putMal1(Action.movNext(p.getMal1(), true,yb.v0(),yb.v1(),yb.v2()));
+			for(int i=1;i<tempMove;i++)
+				p.putMal1(Action.movNext(p.getMal1(), false,yb.v0(),yb.v1(),yb.v2()));
+			System.out.println(p.getMal1()+")");
 			break;
+		case 2:
+			System.out.print("mal2 이동! ("+p.getMal2()+" -> ");
+			p.putMal2(Action.movNext(p.getMal2(), true,yb.v0(),yb.v1(),yb.v2()));
+			for(int i=1;i<tempMove;i++)
+				p.putMal2(Action.movNext(p.getMal2(), false,yb.v0(),yb.v1(),yb.v2()));
+			System.out.println(p.getMal2()+")");
+			break;
+		default:
+			System.out.println("select 함수 내부처리 오류 : "+tempMal);
 		}
 	} //end of MoveMal
 
@@ -246,7 +240,7 @@ class Action implements Yut{
 				times--;
 			}
 
-		} // end of for loop
+		} // end of loop
 
 		// 집계해서 도개걸윷모 뭐가 나왔는지 플레이어에게 알려준다
 		switch(playerYut){
@@ -326,7 +320,7 @@ class Action implements Yut{
 			}
 			System.out.println("입력 오류! 다시 입력하세요.");
 		}
-	}
+	}//end of select
 	static int select(int ...nums) {
 		while(true) {
 			int a=0;
@@ -344,6 +338,9 @@ class Action implements Yut{
 			}
 			System.out.println("입력 오류! 다시 입력하세요.");
 		}
-	}
+	}//end of select
+	static void myPhase() {
+		
+	}//end of myPhase
 
 }

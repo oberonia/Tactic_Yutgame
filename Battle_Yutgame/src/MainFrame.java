@@ -1,10 +1,5 @@
 
 public class MainFrame {
-	public static final int 도 = 0;
-	public static final int 개 = 1;
-	public static final int 걸 = 2;
-	public static final int 윷 = 3;
-	public static final int 모 = 4;
 
 
 	/****디버그 : 주석에 적힌 모드로 실행할 때는 true로 입력해주세요**********/
@@ -13,7 +8,7 @@ public class MainFrame {
 	static boolean AloneDebugMode = true; //플레이어가 혼자가 됨
 	static boolean SplitYutMode = true; //윷을 하나씩 던진다
 	static boolean EnemyCatchMode = true; //상대팀의 말을 잡을 수 있음(미구현)
-	
+
 	static Player mp[]; 
 	ThrowingYut throwingPhase = new ThrowingYut();
 
@@ -27,7 +22,7 @@ public class MainFrame {
 			if(AloneDebugMode) mp = new Player[1];
 			else mp = new Player[4];
 			mp = Action.InitPlayers(mp); //플레이어 전원의 이름과 팀을 입력. 전체 프로그램 내에서 한번만 실행할 것
-		}
+		}//end of else
 
 
 		Action.scoreboard(mp);
@@ -37,16 +32,16 @@ public class MainFrame {
 				Action.MoveMal(mp[i], yb, Debug.ThrowYut(mp[i]) );
 			else 
 				Action.MoveMal(mp[i], yb, Action.ThrowYut(mp[i]) );
-			
+
 			//else if(SplitYutMode)
 			//	Action.MoveMal(mp[i], yb, Action.ThrowYutSplit(mp[i]) );
-			
-			
+
+
 			Action.scoreboard(mp);
 			if(mp[i].getMal1()==777||mp[i].getMal2()==777) {
 				System.out.println(mp[i].getTeam()+" 팀의 "+mp[i].getName()+" 플레이어가 E김.");
 				break;
-			}
-		}
-	}
-}
+			}//if
+		}//for
+	}//main
+}//class
