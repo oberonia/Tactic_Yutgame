@@ -233,13 +233,14 @@ class Action implements Yut{
 		System.out.println("모든 플레이어가 윷을 던집니다.");
 		System.out.println("평평한 면을 내려면 1, 불룩한 면은 0을 입력하세요");
 		for (int times = 0; times <4 ; times++){
-			System.out.println("유효 윷 갯수 >> "+times+" 나온 윷의 합 >> "+playerYut);
+			System.out.println("유효 윷 갯수 : "+times+", 나온 윷의 합 : "+playerYut);
 
 			try{
+				System.out.print("입력>>");
 				yut = Action.sc.nextInt();
 			}
 			catch(InputMismatchException ex){
-				System.out.println("딴짓말고 0 또는 1을 입력하셈- 유효 윷 갯수 >> "+times);
+				System.out.println("딴짓말고 0 또는 1을 입력하셈- 유효 윷 갯수 : "+times);
 				Action.sc.nextLine(); // 쓰레기값은 쓰레기통으로 버리고 새로운 값을 입력받을 준비를 한다
 				times--; // 쓰레기 들어갔던 자리가 비었으니 그 자리에 채워넣어야 한다
 				continue; //for문을 시행한다
@@ -250,7 +251,7 @@ class Action implements Yut{
 			}
 			else {
 				// 0이나 1이 아닌 다른 값을 입력했을 경우 걸러낸다
-				System.out.println("0 또는 1을 입력하셈- 유효 윷 갯수 >> "+times);
+				System.out.println("0 또는 1을 입력하셈- 유효 윷 갯수 : "+times);
 				times--;
 			}
 
