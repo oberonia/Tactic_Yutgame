@@ -340,6 +340,11 @@ class Action implements Yut{
 		}
 	}//end of select
 	static void myPhase() {
+		//윷던지기
+			//윷|모 한번더(재귀호출)
+		//말선택
+		//이동
+		//이동된 위치에 다른말이 있음 -> WhoisThere호출
 		
 	}//end of myPhase
 
