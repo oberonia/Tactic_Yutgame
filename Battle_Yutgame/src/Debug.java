@@ -1,5 +1,5 @@
 //디버그용 임시 값 저장 메소드를 보관하는 클래스파일
-public class Debug {
+public class Debug implements Yut {
 	static Player[] Player() {
 		Player a[];
 		if(MainFrame.AloneDebugMode) {
@@ -24,18 +24,23 @@ public class Debug {
 	 * 윷을 던지는데 랜덤이 아님
 	 * 으엌
 	 * */
-	static int ThrowYut(Player p) {
+	static void ThrowYut(Player p) {
 		int a;
 		System.out.print("이동할 칸을 입력하세요 >>");
 		while(true) {
 			a=Action.sc.nextInt();
 			if(a<1||a>5) {
 				System.out.println("<입력범위 초과>");
+				System.out.println("다시 입력하세요 >>");
 				continue;
 			}
 			break;	
 		}
-		return a;
+		if(a>3) {
+			System.out.println(YutName[a-1]+" 감지! 한번 더 던집니다.");
+			ThrowYut(p);
+		}
+		p.increaseMv(a-1);
 	}
 
 }

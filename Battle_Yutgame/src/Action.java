@@ -4,13 +4,14 @@ import java.util.Scanner;
 
 class Action implements Yut{
 
-	/*
+	/**
 	 * 추후 모든 스캐너는 Action에서 따오는 것으로 잠정 결정
 	 */
 	static Scanner sc = new Scanner(System.in);
 
 
-	/* Player 클래스에서 접근하게 되는 이름 입력 메소드
+	/** 
+	 * Player 클래스에서 접근하게 되는 이름 입력 메소드
 	 * 단순히 이름을 입력받아 반환한다.
 	 */
 	static String inputName(){
@@ -20,8 +21,8 @@ class Action implements Yut{
 		return name;
 	} //end of inputName
 
-	/* MainFrame 클래스에서 접근하게 되는 팀명 정하는 메소드
-	 * 
+	/** 
+	 * MainFrame 클래스에서 접근하게 되는 팀명 정하는 메소드
 	 */
 	static void InitTeamString() {
 		String TeamString1, TeamString2;
@@ -41,7 +42,8 @@ class Action implements Yut{
 	}
 
 
-	/* Player 클래스에서 접근하게 되는 팀 선택 메소드
+	/** 
+	 * Player 클래스에서 접근하게 되는 팀 선택 메소드
 	 * t1 : 팀1에 등록된 사람 수, 이 수를 이용하여 팀 자동선택 기능을 제공 (각 팀 인원은 두명까지)
 	 * t2 : 팀2에 등록된 사람 수
 	 * TeamString1 : 팀1의 팀 이름
@@ -67,7 +69,7 @@ class Action implements Yut{
 
 
 
-	/*
+	/**
 	 * 말 하나를 집어서 다음 칸으로 넘기거나 finish 처리를 하는 메쏘오드
 	 * target에 말 정보가 들어가고, trigger로 말을 꺾을지 말지를 결정하게 됨
 	 * trigger가 true인 경우 : 말을 처음 이동할 때를 가정하여 분기점을 만나면 꺾게 됨
@@ -123,7 +125,8 @@ class Action implements Yut{
 	}
 
 
-	/* MainFrame에서 접근하는 점수판 출력 메소드
+	/** 
+	 * MainFrame에서 접근하는 점수판 출력 메소드
 	 * 현재 디버그용으로 제작됨
 	 */
 	static void scoreboard(Player[] mp){
@@ -135,8 +138,8 @@ class Action implements Yut{
 
 	}//end of scoreboard
 
-	/* MainFrame 클래스에서 접근하게 되는 플레이어 정보 입력하는 메소드. 전체 프로그램에서 이 함수는 한번만 실행할 것
-	 * 
+	/** 
+	 * MainFrame 클래스에서 접근하게 되는 플레이어 정보 입력하는 메소드. 전체 프로그램에서 이 함수는 한번만 실행할 것
 	 */
 	static Player[] InitPlayers(Player[] mp) {
 		Action.InitTeamString(); //최초로 두 팀의 이름을 정함. 전체 프로그램에서 이 함수는 한번만 실행할 것! 
@@ -152,53 +155,64 @@ class Action implements Yut{
 		return mp;
 	}//end of InitPlayers
 
-	static void MoveMal (Player p, YutBoard yb, int tempMove) {
+	static void MoveMal (Player p, YutBoard yb, int MoveCount) throws Exception {
+		if(MoveCount>5||MoveCount<0) throw new Exception("이동할 칸 수 오류발생\n해당값 : "+MoveCount);
 		System.out.println("말 위치정보\nmal1 : "+p.getMal1()+"\nmal2 : "+p.getMal2());
-		System.out.print("움직일 말을 고르세요");
+		System.out.print("움직일 말을 고르세요. ");
 		int tempMal= select(1,2); //이동할 말 선택 임시저장
 
 		switch(tempMal) {
 		case 1:
 			System.out.print("mal1 이동! ("+p.getMal1()+" -> ");
 			p.putMal1(Action.movNext(p.getMal1(), true,yb.v0(),yb.v1(),yb.v2()));
-			for(int i=1;i<tempMove;i++)
+			for(int i=1;i<MoveCount;i++)
 				p.putMal1(Action.movNext(p.getMal1(), false,yb.v0(),yb.v1(),yb.v2()));
 			System.out.println(p.getMal1()+")");
 			break;
 		case 2:
 			System.out.print("mal2 이동! ("+p.getMal2()+" -> ");
 			p.putMal2(Action.movNext(p.getMal2(), true,yb.v0(),yb.v1(),yb.v2()));
-			for(int i=1;i<tempMove;i++)
+			for(int i=1;i<MoveCount;i++)
 				p.putMal2(Action.movNext(p.getMal2(), false,yb.v0(),yb.v1(),yb.v2()));
 			System.out.println(p.getMal2()+")");
 			break;
 		default:
 			System.out.println("select 함수 내부처리 오류 : "+tempMal);
 		}
+		p.decreaseMv(MoveCount-1);
 	} //end of MoveMal
 
 
 
 	static int ThrowYut(Player p) {
-
+		p.resetMv();
 		System.out.println(p.getTeam()+"팀 "+p.getName()+" 플레이어 윷 던지기");
 		int tempMove = p.keygen.nextInt(5); //이동할 칸 수 랜덤생성+임시저장
 		System.out.print("퉤에엣 : ");
 		switch(tempMove) {
 		case 0:
 			System.out.println("도");
+			p.increaseMv(도);
 			break;
 		case 1:
 			System.out.println("개");
+			p.increaseMv(개);
 			break;
 		case 2:
 			System.out.println("걸");
+			p.increaseMv(걸);
 			break;
 		case 3:
 			System.out.println("윷");
+			p.increaseMv(윷);
+			System.out.println("한번 더 던질거임");
+			ThrowYut(p);
 			break;
 		case 4:
 			System.out.println("모");
+			p.increaseMv(모);
+			System.out.println("한번 더 던질거임");
+			ThrowYut(p);
 			break;
 		default:
 			System.out.println("뭐임 왜 있을 수 없는 오류가...");
@@ -276,14 +290,18 @@ class Action implements Yut{
 	} // 모든 플레이어의 이동칸수가 정해짐
 
 	// 플레이어에게 몇번째 말을 몇칸 움직일건지 정하라고 한다
-	void yutThrowResult(Player p){
-		System.out.println(p.getName()+"님의 이동 가능 횟수는 다음과 같습니다.");
+	static void yutThrowResult(Player p){
+		System.out.println(p.getName()+" 플레이어의 이동 가능 횟수는 다음과 같습니다.");
 		System.out.println("도\t개\t걸\t윷\t모");
 		System.out.println(p.getMv(도)+"\t"+p.getMv(개)
 				+"\t"+p.getMv(걸)+"\t"+p.getMv(윷)
 				+"\t"+p.getMv(모));
 	}
-	void WhoisThere(Player[] mp) { //갔더니 누군가가 있다
+
+
+
+
+	static void WhoisThere(Player[] mp) { //갔더니 누군가가 있다
 		//if(만난놈이 적이다)
 		//	catchMal(); //잡았다 요놈!
 		//else 그게 아님
@@ -303,6 +321,81 @@ class Action implements Yut{
 		// 앞으로 값이 같이 안 바뀌면 안되는거임...
 	}
 
+
+	/** 
+	 *  Action 클래스의 myPhase에서만 사용되는 메소드
+	 *  윷 던진 후에 이동할 칸이 뭐 남았는지 알아내서 뭐 고를건지 선택까지 완료하는 과정
+	 *  반환값은 도~모 중 하나를 담은 String
+	 */
+	static int selectMvString(Player p) {
+
+		int mvCount=0; //이동할 칸 종류를 저장하는 배열을 초기화할 임시변수
+		for(int i=0;i<5;i++)
+			if(p.getMv(i)>0) mvCount++;
+		if(mvCount==1) {
+			for(int i=0;i<5;i++)
+				if(p.getMv(i)>0) {
+					System.out.println(YutName[i]+" 만큼 이동합니다.");
+					return i+1;
+				}
+		}
+		String[] mvParam = new String[mvCount];
+		for(int i=0,a=0;i<5;i++) {
+			if(p.getMv(i)>0) mvParam[a++]=new String(YutName[i]);
+		}
+		String tempMv = select(mvParam);
+		System.out.println(tempMv+" 만큼 이동합니다.");
+		if(tempMv.equals("도")) return 도+1;
+		else if(tempMv.equals("개")) return 개+1;
+		else if(tempMv.equals("걸")) return 걸+1;
+		else if(tempMv.equals("윷")) return 윷+1;
+		else if(tempMv.equals("모")) return 모+1;
+		else return -1;
+	}
+
+
+	static void myPhase(Player p, YutBoard yb) throws Exception {
+		int MoveCount;
+		if(YutDebugMode) {
+			Debug.ThrowYut(p);
+			while(!p.isEmptyMv()) {
+				yutThrowResult(p); //mv 출력 및 결과표시
+				MoveCount = selectMvString(p);
+				Action.MoveMal(p,yb,MoveCount);
+			}
+		}
+		else if(SplitYutMode) {
+			ThrowYutSplit(p); //윷던지기
+			while(!p.isEmptyMv()) {
+				yutThrowResult(p); //mv 출력 및 결과표시
+				MoveCount = selectMvString(p);
+				if(MoveCount<0) throw new Exception("selectMvString 메소드 에러");
+				if(EnemyCatchMode){
+					System.out.println("경고 : EnemyCatchMode 모드는 미구현 상태입니다.");
+					System.out.println("따라서 기본 모드의 메소드를 실행합니다.");
+					MoveMal(p,yb,MoveCount);
+				}
+				else {
+					MoveMal(p,yb,MoveCount);
+				}
+			}
+
+		}//end of SplitYutMode
+		else 
+			Action.MoveMal(p,yb,Action.ThrowYut(p) );
+
+		System.out.println(p.getName()+"의 차례가 끝났습니다. 다음 플레이어의 차례로 넘어갑니다.");
+
+		//이동된 위치에 다른말이 있음 -> WhoisThere호출
+
+	}//end of myPhase
+
+
+
+
+
+
+
 	static String select(String ...strings) {
 		while(true) {
 			int a=0;
@@ -312,7 +405,7 @@ class Action implements Yut{
 				if(++a==strings.length);
 				else System.out.print("/");
 			}
-			System.out.print(" 중 하나 입력>>");
+			System.out.print(" 입력)>>");
 			String input = sc.next();
 			for(String s : strings) {
 				if(s.equals(input))
@@ -330,7 +423,7 @@ class Action implements Yut{
 				if(++a==nums.length);
 				else System.out.print("/");
 			}
-			System.out.print(" 중 하나 입력>>");
+			System.out.print(" 입력)>>");
 			int input = sc.nextInt();
 			for(int i : nums) {
 				if(input==i)
@@ -339,14 +432,5 @@ class Action implements Yut{
 			System.out.println("입력 오류! 다시 입력하세요.");
 		}
 	}//end of select
-	static void myPhase() {
-		//윷던지기
-			//윷|모 한번더(재귀호출)
-		//말선택
-		//
-		//이동
-		//이동된 위치에 다른말이 있음 -> WhoisThere호출
-		
-	}//end of myPhase
 
 }

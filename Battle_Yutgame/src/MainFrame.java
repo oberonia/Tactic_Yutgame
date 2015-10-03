@@ -1,13 +1,9 @@
 
 public class MainFrame implements Yut {
-
-
-	
-
 	static Player mp[]; 
 	ThrowingYut throwingPhase = new ThrowingYut();
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		YutBoard yb = new YutBoard();
 
 		System.out.println("윷놀이 게임 시작(프로토타입)");
@@ -23,20 +19,14 @@ public class MainFrame implements Yut {
 		Action.scoreboard(mp);
 		for(int i=0;;i=(i+1)%mp.length)
 		{
-			if(YutDebugMode) 
-				Action.MoveMal(mp[i], yb, Debug.ThrowYut(mp[i]) );
-			else 
-				Action.MoveMal(mp[i], yb, Action.ThrowYut(mp[i]) );
-
-			//else if(SplitYutMode)
-			//	Action.MoveMal(mp[i], yb, Action.ThrowYutSplit(mp[i]) );
-
-
+			Action.myPhase(mp[i], yb);
 			Action.scoreboard(mp);
 			if(mp[i].getMal1()==777||mp[i].getMal2()==777) {
 				System.out.println(mp[i].getTeam()+" 팀의 "+mp[i].getName()+" 플레이어가 E김.");
 				break;
 			}//if
+			
 		}//for
+		
 	}//main
 }//class
