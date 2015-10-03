@@ -1,10 +1,16 @@
 
 public class MainFrame {
+	public static final int 도 = 0;
+	public static final int 개 = 1;
+	public static final int 걸 = 2;
+	public static final int 윷 = 3;
+	public static final int 모 = 4;
 
 	/****디버그 모드로 실행할 때는 true로 입력해주세요**********/
 	static boolean InitDebugMode = true; //팀명과 플레이어명이 임의로 지정됨
 	static boolean YutDebugMode = true; //윷 던질 값을 직접 입력가능
 	static boolean AloneDebugMode = true; //플레이어가 혼자가 됨
+	static boolean EnemyCatchMode = true; //상대팀의 말을 잡을 수 있음(미구현)
 	/*****디버그 모드가 아닐때는 false로 입력해주세요**********/
 	
 	static Player mp[]; 

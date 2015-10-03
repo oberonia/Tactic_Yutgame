@@ -64,5 +64,17 @@ public class Player{
 	void putMal2(int a) {
 		mal2 = a;
 	}
+	int[] getMv() {
+		return mv;
+	}
+	int getMv(int i) {
+		return mv[i];
+	}
+	void addMv(int i) {
+		mv[i]++;
+	}
+	void resetMv() {
+		mv[0]=mv[1]=mv[2]=mv[3]=mv[4]=0;
+	}
 
 }
