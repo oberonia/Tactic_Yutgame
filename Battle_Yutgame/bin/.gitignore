@@ -1,5 +1,14 @@
 /Action.class
 /Debug.class
+<<<<<<< HEAD
 /Action$ThrowingYut.class
 /Yut.class
 /MainFrame$You.class
+=======
+/MainFrame.class
+/Player.class
+/ThrowingYut.class
+/YootVector.class
+/YutBoard.class
+/tempBoard.class
+>>>>>>> branch 'master' of https://github.com/oberonia/Tactic_Yutgame.git

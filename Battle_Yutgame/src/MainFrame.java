@@ -1,23 +1,18 @@
 
-public class MainFrame implements Yut{
-	
-	class You extends Player implements Yut {
+public class MainFrame {
+	public static final int 도 = 0;
+	public static final int 개 = 1;
+	public static final int 걸 = 2;
+	public static final int 윷 = 3;
+	public static final int 모 = 4;
 
-		You(boolean trigger, String name) {
-			super(trigger, name);
-			// TODO Auto-generated constructor stub
-		}
-		
-	}
 
 	/****디버그 : 주석에 적힌 모드로 실행할 때는 true로 입력해주세요**********/
 	static boolean InitDebugMode = true; //팀명과 플레이어명이 임의로 지정됨
 	static boolean YutDebugMode = false; //윷 던질 값을 직접 입력가능
 	static boolean AloneDebugMode = true; //플레이어가 혼자가 됨
 	static boolean SplitYutMode = true; //윷을 하나씩 던진다
-	/*****디버그 : 해당 모드가 아닐때는 false로 입력해주세요**********/
-	
-	
+	static boolean EnemyCatchMode = true; //상대팀의 말을 잡을 수 있음(미구현)
 	
 	static Player mp[]; 
 	ThrowingYut throwingPhase = new ThrowingYut();
