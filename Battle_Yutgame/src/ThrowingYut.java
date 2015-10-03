@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class ThrowingYut {
 
-	Scanner scan = new Scanner(System.in);
+	
 	int playerYut = 0;
 	int playerNumber;
 	int playerInfoArray[][] = new int[4][5];
@@ -23,11 +23,11 @@ void throwing(int playerNumber){
 			System.out.println("유효 윷 갯수 >> "+times+" 나온 윷의 합 >> "+playerYut);
 			
 			try{
-				yut = scan.nextInt();
+				yut = Action.sc.nextInt();
 			}
 			catch(InputMismatchException ex){
 				System.out.println("딴짓말고 0 또는 1을 입력하셈- 유효 윷 갯수 >> "+times);
-				scan.nextLine(); // 쓰레기값은 쓰레기통으로 버리고 새로운 값을 입력받을 준비를 한다
+				Action.sc.nextLine(); // 쓰레기값은 쓰레기통으로 버리고 새로운 값을 입력받을 준비를 한다
 				times--; // 쓰레기 들어갔던 자리가 비었으니 그 자리에 채워넣어야 한다
 				continue; //for문을 시행한다
 			}
@@ -74,7 +74,7 @@ void throwing(int playerNumber){
 			System.out.println("던지라는 윷은 안던지고! 나온 윷의 합 >> " + playerYut);
 			break;
 		}
-	//	scan.close(); 여기서 닫으면 모든 jave.util.Scanner가 닫힌다
+	//	scan.close(); 여기서 닫으면 모든 java.util.Scanner가 닫힌다
 		playerYut = 0; //초기화
 	} // 모든 플레이어의 이동칸수가 정해짐
 

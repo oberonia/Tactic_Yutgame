@@ -1,18 +1,28 @@
 
-public class MainFrame {
+public class MainFrame implements Yut{
+	
+	class You extends Player implements Yut {
 
-	/****디버그 모드로 실행할 때는 true로 입력해주세요**********/
+		You(boolean trigger, String name) {
+			super(trigger, name);
+			// TODO Auto-generated constructor stub
+		}
+		
+	}
+
+	/****디버그 : 주석에 적힌 모드로 실행할 때는 true로 입력해주세요**********/
 	static boolean InitDebugMode = true; //팀명과 플레이어명이 임의로 지정됨
-	static boolean YutDebugMode = true; //윷 던질 값을 직접 입력가능
+	static boolean YutDebugMode = false; //윷 던질 값을 직접 입력가능
 	static boolean AloneDebugMode = true; //플레이어가 혼자가 됨
-	/*****디버그 모드가 아닐때는 false로 입력해주세요**********/
+	static boolean SplitYutMode = true; //윷을 하나씩 던진다
+	/*****디버그 : 해당 모드가 아닐때는 false로 입력해주세요**********/
+	
+	
 	
 	static Player mp[]; 
 	ThrowingYut throwingPhase = new ThrowingYut();
 
 	public static void main(String[] args) {
-		int t1 = 0; // 팀1 인원수를 저장
-		int t2 = 0; // 팀2 인원수를 저장
 		YutBoard yb = new YutBoard();
 
 		System.out.println("윷놀이 게임 시작(프로토타입)");
@@ -28,8 +38,15 @@ public class MainFrame {
 		Action.scoreboard(mp);
 		for(int i=0;;i=(i+1)%mp.length)
 		{
-			if(YutDebugMode) Action.MoveMal(mp[i], yb, Debug.ThrowYut(mp[i],yb) );
-			else Action.MoveMal(mp[i], yb, Action.ThrowYut(mp[i],yb) );
+			if(YutDebugMode) 
+				Action.MoveMal(mp[i], yb, Debug.ThrowYut(mp[i]) );
+			else 
+				Action.MoveMal(mp[i], yb, Action.ThrowYut(mp[i]) );
+			
+			//else if(SplitYutMode)
+			//	Action.MoveMal(mp[i], yb, Action.ThrowYutSplit(mp[i]) );
+			
+			
 			Action.scoreboard(mp);
 			if(mp[i].getMal1()==777||mp[i].getMal2()==777) {
 				System.out.println(mp[i].getTeam()+" 팀의 "+mp[i].getName()+" 플레이어가 E김.");

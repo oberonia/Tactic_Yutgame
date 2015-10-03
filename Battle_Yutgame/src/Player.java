@@ -3,6 +3,7 @@ import java.util.Random;
 
 public class Player{
 	
+	
 	private static String TeamString1; //팀명 정하는 변수1
 	private static String TeamString2; //팀명 정하는 변수2
 	private static int mv[] = new int[5];
@@ -63,6 +64,27 @@ public class Player{
 	}
 	void putMal2(int a) {
 		mal2 = a;
+	}
+	int[] getMv() {
+		return mv;//movement
+	}
+	int getMv(int i) {
+		return mv[i];
+	}
+	void increaseMv(int i) {
+		mv[i]++;
+	}
+	void decreaseMv(int i) {
+		mv[i]--;
+	}
+	void resetMv() {
+		mv[0]=mv[1]=mv[2]=mv[3]=mv[4]=0;
+	}
+	boolean isEmptyMv() {
+		if(mv[0]==mv[1]&&mv[1]==mv[2]&&mv[2]==mv[3]&&mv[3]==mv[4]&&mv[4]==0)
+			return true;
+		else
+			return false;
 	}
 
 }

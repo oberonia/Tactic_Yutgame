@@ -6,7 +6,7 @@ public class Debug {
 			a = new Player[1];
 			String t1 = "잉여", t2 = "갓수";
 			Player.InitTeamName(t1, t2);
-			a[0] = new Player(true,"힠코");
+			a[0] = new Player(true,"히키코");
 		}
 		else {
 			a = new Player[4];
@@ -20,8 +20,11 @@ public class Debug {
 		return a;
 	}
 	
-	
-	static int ThrowYut(Player p, YutBoard yb) {
+	/* 디버그용 윷던지기
+	 * 윷을 던지는데 랜덤이 아님
+	 * 으엌
+	 * */
+	static int ThrowYut(Player p) {
 		int a;
 		System.out.print("이동할 칸을 입력하세요 >>");
 		while(true) {
