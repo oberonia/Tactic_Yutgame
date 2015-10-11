@@ -9,15 +9,16 @@ public class Player{
 	private static int mv[] = new int[5];
 	
 	
-	private int score;
 	private String name,team;
 	private int mal1;	// 이동할 말1
 	private int mal2;	// 말2
+	private String malIcon; // boardPaper에 표현될 말
 	Random keygen = new Random();
-	Player(boolean trigger,String name) { //디버그 모드 오-픈
+	Player(boolean trigger,String name,String malIcon) { //디버그 모드 오-픈
 		mal1=-1;
 		mal2=-1;
 		this.name = name;
+		this.malIcon = malIcon;
 		if(trigger) team=TeamString1;
 		else team=TeamString2;
 		mv[0]=mv[1]=mv[2]=mv[3]=mv[4]=0;
@@ -25,8 +26,8 @@ public class Player{
 	Player(int t1, int t2) {
 		mal1 = -1;	// 
 		mal2 = -1;	// 시작할 때 윷판 밖에 있으므로 초기값은 -1
-		name = Action.inputName();
-		team = Action.selectTeam(t1,t2,TeamString1, TeamString2);
+		name = Action.user.inputName();
+		team = Action.user.selectTeam(t1,t2,TeamString1, TeamString2);
 		mv[0]=mv[1]=mv[2]=mv[3]=mv[4]=0;
 				
 	}//end of Player (Constructor)
@@ -86,7 +87,9 @@ public class Player{
 			return true;
 		else
 			return false;
-
+	}
+	String showIcon() {
+		return malIcon;
 	}
 
 }

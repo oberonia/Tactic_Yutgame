@@ -1,7 +1,6 @@
 
 public class MainFrame implements Yut {
 	static Player mp[]; 
-	ThrowingYut throwingPhase = new ThrowingYut();
 
 	public static void main(String[] args) throws Exception {
 		YutBoard yb = new YutBoard();
@@ -12,15 +11,15 @@ public class MainFrame implements Yut {
 		else { 
 			if(AloneDebugMode) mp = new Player[1];
 			else mp = new Player[4];
-			mp = Action.InitPlayers(mp); //플레이어 전원의 이름과 팀을 입력. 전체 프로그램 내에서 한번만 실행할 것
+			mp = Action.user.InitPlayers(mp); //플레이어 전원의 이름과 팀을 입력. 전체 프로그램 내에서 한번만 실행할 것
 		}//end of else
 
-
-		Action.scoreboard(mp);
+		Action.board.scoreboard(mp);
 		for(int i=0;;i=(i+1)%mp.length)
 		{
-			Action.myPhase(mp[i], yb);
-			Action.scoreboard(mp);
+			Action.board.myPhase(mp[i], yb);
+			Action.board.scoreboard(mp);
+			yb.boardDisplay();
 			if(mp[i].getMal1()==777||mp[i].getMal2()==777) {
 				System.out.println(mp[i].getTeam()+" 팀의 "+mp[i].getName()+" 플레이어가 E김.");
 				break;
