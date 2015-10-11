@@ -1,7 +1,6 @@
 
 public class MainFrame implements Yut {
 	static Player mp[]; 
-	ThrowingYut throwingPhase = new ThrowingYut();
 
 	public static void main(String[] args) throws Exception {
 		YutBoard yb = new YutBoard();
