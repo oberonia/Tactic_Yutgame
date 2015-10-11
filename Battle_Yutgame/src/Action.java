@@ -67,10 +67,13 @@ class Action implements Yut{
 				team = select(TeamString1,TeamString2);
 				return team;
 			}
-		}//end of selectTeam	
-
+		}//end of selectTeam
+		
+		/** 
+		 * MainFrame 클래스에서 접근하게 되는 플레이어 정보 입력하는 메소드. 전체 프로그램에서 이 함수는 한번만 실행할 것
+		 */
 		static Player[] InitPlayers(Player[] mp) {
-			Action.user.InitTeamString(); //최초로 두 팀의 이름을 정함. 전체 프로그램에서 이 함수는 한번만 실행할 것! 
+			user.InitTeamString(); //최초로 두 팀의 이름을 정함. 전체 프로그램에서 이 함수는 한번만 실행할 것! 
 			int t1=0,t2=0;
 			for(int i=0;i<mp.length;i++){
 				System.out.println("========"+(i+1)+"번 플레이어 정보 입력========");
@@ -157,11 +160,11 @@ class Action implements Yut{
 
 		}//end of scoreboard
 
-		/** 
-		 * MainFrame 클래스에서 접근하게 되는 플레이어 정보 입력하는 메소드. 전체 프로그램에서 이 함수는 한번만 실행할 것
-		 */
+		
 
-		static void MoveMal (Player p, YutBoard yb, int MoveCount) throws Exception {
+
+		static void MoveMal (Player[] mp, int i, YutBoard yb, int MoveCount) throws Exception {
+			Player p = mp[i];
 			if(MoveCount>5||MoveCount<0) throw new Exception("이동할 칸 수 오류발생\n해당값 : "+MoveCount);
 			System.out.println("말 위치정보\nmal1 : "+p.getMal1()+"\nmal2 : "+p.getMal2());
 			System.out.print("움직일 말을 고르세요. ");
@@ -169,25 +172,30 @@ class Action implements Yut{
 
 			switch(tempMal) {
 			case 1:
-				System.out.print("mal1 이동! ("+p.getMal1()+" -> ");
-				p.putMal1(Action.board.movNext(p.getMal1(), true,yb.v0(),yb.v1(),yb.v2()));
-				for(int i=1;i<MoveCount;i++)
-					p.putMal1(Action.board.movNext(p.getMal1(), false,yb.v0(),yb.v1(),yb.v2()));
-				System.out.println(p.getMal1()+")");
+				board.FriendlyMove(mp, i, yb, p.getTeam(), MoveCount, p.getMal1(), tempMal);
+				if(board.EnemyCatch(mp, yb, p.getTeam(), p.getMal1())){
+					System.out.println("상대팀 말을 잡았으므로 윷을 한번 더 던집니다.");
+					if(YutDebugMode)
+						Debug.ThrowYut(p);
+					else if(SplitYutMode) board.ThrowYutSplit(p);
+					else board.ThrowYut(p);
+				}
 				break;
 			case 2:
-				System.out.print("mal2 이동! ("+p.getMal2()+" -> ");
-				p.putMal2(Action.board.movNext(p.getMal2(), true,yb.v0(),yb.v1(),yb.v2()));
-				for(int i=1;i<MoveCount;i++)
-					p.putMal2(Action.board.movNext(p.getMal2(), false,yb.v0(),yb.v1(),yb.v2()));
-				System.out.println(p.getMal2()+")");
+				board.FriendlyMove(mp, i, yb, p.getTeam(), MoveCount, p.getMal2(), tempMal); 
+				if(board.EnemyCatch(mp, yb, p.getTeam(), p.getMal2())){
+					System.out.println("상대팀 말을 잡았으므로 윷을 한번 더 던집니다.");
+					if(YutDebugMode)
+						Debug.ThrowYut(p);
+					else if(SplitYutMode) board.ThrowYutSplit(p);
+					else board.ThrowYut(p);
+				}
 				break;
 			default:
 				System.out.println("select 함수 내부처리 오류 : "+tempMal);
 			}
 			p.decreaseMv(MoveCount-1);
 		} //end of MoveMal
-
 
 
 		static int ThrowYut(Player p) {
@@ -245,11 +253,11 @@ class Action implements Yut{
 
 				try{
 					System.out.print("입력>>");
-					yut = Action.sc.nextInt();
+					yut = sc.nextInt();
 				}
 				catch(InputMismatchException ex){
 					System.out.println("딴짓말고 0 또는 1을 입력하셈- 유효 윷 갯수 : "+times);
-					Action.sc.nextLine(); // 쓰레기값은 쓰레기통으로 버리고 새로운 값을 입력받을 준비를 한다
+					sc.nextLine(); // 쓰레기값은 쓰레기통으로 버리고 새로운 값을 입력받을 준비를 한다
 					times--; // 쓰레기 들어갔던 자리가 비었으니 그 자리에 채워넣어야 한다
 					continue; //for문을 시행한다
 				}
@@ -298,7 +306,9 @@ class Action implements Yut{
 			}
 		} // 모든 플레이어의 이동칸수가 정해짐
 
-		// 플레이어에게 몇번째 말을 몇칸 움직일건지 정하라고 한다
+		/**
+		 * 플레이어가 이동 가능한 횟수를 출력 
+		 */
 		static void yutThrowResult(Player p){
 			System.out.println(p.getName()+" 플레이어의 이동 가능 횟수는 다음과 같습니다.");
 			System.out.println("도\t개\t걸\t윷\t모");
@@ -308,60 +318,88 @@ class Action implements Yut{
 		}
 		
 		/**
-		 * 자신의 차례에 이동하기 전에 호출할 경우 업은거 전체이동 + 이동한 자리에 적이 있는 경우 전체몰살
-		 * 
+		 * 업힌거 전체이동하는 함수. 단, 시작점에 있을 경우 업지 않은 것으로 간주한다. 
 		 */
-		static boolean EnemyOrFriend (Player[] mp, String team, int mov, int targetMal) {
-			int Friend[] = new int[4];
-			int Enemy[] = new int[4];
-			int i=0,j=0;
+		static void FriendlyMove(Player[] mp,int i, YutBoard yb, String team, int MoveCount, int targetMal, int num) throws Exception {
+			if(targetMal==-1 && num==1) {
+				Player p = mp[i];
+				System.out.print(p.getName()+" 플레이어의 말 1 이동! ("+p.getMal1()+" -> ");
+				p.putMal1(Action.board.movNext(p.getMal1(), true,yb.v0(),yb.v1(),yb.v2()));
+				for(int j=1;j<MoveCount;j++)
+					p.putMal1(Action.board.movNext(p.getMal1(), false,yb.v0(),yb.v1(),yb.v2()));
+				System.out.println(p.getMal1()+")");
+				return;
+			}
+			else if(targetMal==-1 && num==2) {
+				Player p = mp[i];
+				System.out.print(p.getName()+" 플레이어의 말 2 이동! ("+p.getMal2()+" -> ");
+				p.putMal2(Action.board.movNext(p.getMal2(), true,yb.v0(),yb.v1(),yb.v2()));
+				for(int j=1;j<MoveCount;j++)
+					p.putMal2(Action.board.movNext(p.getMal2(), false,yb.v0(),yb.v1(),yb.v2()));
+				System.out.println(p.getMal2()+")");
+				return;
+			}
+			
 			for(Player p : mp) {
 				if(p.getTeam().equals(team)) {
-					Friend[i++]=p.getMal1();
-					Friend[i++]=p.getMal2();
+					if(targetMal==p.getMal1() && targetMal!=-1) {
+						System.out.print(p.getName()+" 플레이어의 말 1 이동! ("+p.getMal1()+" -> ");
+						p.putMal1(board.movNext(p.getMal1(), true,yb.v0(),yb.v1(),yb.v2()));
+						for(int j=1;j<MoveCount;j++)
+							p.putMal1(board.movNext(p.getMal1(), false,yb.v0(),yb.v1(),yb.v2()));
+						System.out.println(p.getMal1()+")");
+					}
+					if(targetMal==p.getMal2() && targetMal!=-1){
+						System.out.print(p.getName()+" 플레이어의 말 2 이동! ("+p.getMal2()+" -> ");
+						p.putMal2(board.movNext(p.getMal2(), true,yb.v0(),yb.v1(),yb.v2()));
+						for(int j=1;j<MoveCount;j++)
+							p.putMal2(board.movNext(p.getMal2(), false,yb.v0(),yb.v1(),yb.v2()));
+						System.out.println(p.getMal2()+")");
+					}
 				}
-				else {
-					Enemy[j++] = p.getMal1();
-					Enemy[j++] = p.getMal2();
-				}
-				
 			}
-			return true;
 		}
 		
 		
-
-		static void statusCall(){
-
+		
+		/**
+		 * 자신의 차례에 이동한 후 호출하게 되고, 자리에 적이 있는 경우 전체몰살 및 true 반환
+		 * @throws Exception 
+		 * 
+		 */
+		static boolean EnemyCatch (Player[] mp,YutBoard yb, String team, int targetMal) throws Exception {
+			int Enemy[] = new int[4];
+			int i=0;
+			boolean CatchEnemy = false;
+			
+			for(Player p : mp) {
+				if(!p.getTeam().equals(team)) {
+					Enemy[i++] = p.getMal1();
+					Enemy[i++] = p.getMal2();
+				}
+			}
+			for(int j : Enemy) {
+				if(j==targetMal) {
+					for(Player p : mp) {
+						//이동한 뒤의 말의 위치가 일치하고 인자로 받은 팀이 이 플레이어의 팀과 일치하지 않을 때
+						if(p.getMal1()==targetMal && !(p.getTeam().equals(team))) {
+							p.resetMal1();
+							CatchEnemy=true;
+							System.out.println(p.getName()+" 플레이어의 말 1이 잡혔습니다!");
+						}
+						if(p.getMal2()==targetMal && !(p.getTeam().equals(team))) {
+							p.resetMal2();
+							CatchEnemy=true;
+							System.out.println(p.getName()+" 플레이어의 말 2가 잡혔습니다!");
+						}
+					}//for p : mp
+					break;
+				}//if k==AfterMove
+			}//for k : Enemy
+			
+			return CatchEnemy;
 		}
-
-		static void AreYouInMyTeam(String team){ //넌 나의 노예이니?
-			//if(노예)
-			//나와 함께가자
-			//else
-			//넌 돌아가
-		}
-
-		static void WhoisThere(Player[] mp) { //갔더니 누군가가 있다
-			//if(만난놈이 적이다)
-			//	catchMal(); //잡았다 요놈!
-			//else 그게 아님
-			//	withMal(); //어부바
-		}
-
-
-		void catchMal(){
-			//말이 도착한 위치에 다른 말이 있습니까?
-			// 적군이면 상대의 말 위치를 초기화하고
-			// 나는 윷을 한번 더 던집니다.
-		}
-
-		void withMal(){
-			//말이 도착한 위치에 다른 말이 있습니까?
-			// 아군이면 말 위치를 강제로 싱크합니다. 하하하하
-			// 앞으로 값이 같이 안 바뀌면 안되는거임...
-		}
-
+		
 
 		/** 
 		 *  Action 클래스의 myPhase에서만 사용되는 메소드
@@ -395,14 +433,15 @@ class Action implements Yut{
 		}
 
 
-		static void myPhase(Player p, YutBoard yb) throws Exception {
+		static void myPhase(Player[] mp, int i, YutBoard yb) throws Exception {
+			Player p = mp[i];
 			int MoveCount;
 			if(YutDebugMode) {
 				Debug.ThrowYut(p);
 				while(!p.isEmptyMv()) {
 					yutThrowResult(p); //mv 출력 및 결과표시
 					MoveCount = selectMvString(p);
-					Action.board.MoveMal(p,yb,MoveCount);
+					board.MoveMal(mp,i,yb,MoveCount);
 				}
 			}
 			else if(SplitYutMode) {
@@ -412,18 +451,16 @@ class Action implements Yut{
 					MoveCount = selectMvString(p);
 					if(MoveCount<0) throw new Exception("selectMvString 메소드 에러");
 					if(EnemyCatchMode){
-						System.out.println("경고 : EnemyCatchMode 모드는 미구현 상태입니다.");
-						System.out.println("따라서 기본 모드의 메소드를 실행합니다.");
-						MoveMal(p,yb,MoveCount);
+						board.MoveMal(mp,i,yb,MoveCount);
 					}
 					else {
-						MoveMal(p,yb,MoveCount);
+						Debug.MoveMal(p, yb, MoveCount);
 					}
 				}
 
 			}//end of SplitYutMode
 			else 
-				Action.board.MoveMal(p,yb,Action.board.ThrowYut(p) );
+				board.MoveMal(mp,i,yb,board.ThrowYut(p) );
 
 			System.out.println(p.getName()+"의 차례가 끝났습니다. 다음 플레이어의 차례로 넘어갑니다.");
 

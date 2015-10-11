@@ -67,6 +67,12 @@ public class Player{
 	void putMal2(int a) {
 		mal2 = a;
 	}
+	void resetMal1() {
+		mal1=-1;
+	}
+	void resetMal2() {
+		mal2=-1;
+	}
 	int[] getMv() {
 		return mv;//movement
 	}

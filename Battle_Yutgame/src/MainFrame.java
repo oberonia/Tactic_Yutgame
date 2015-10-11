@@ -10,6 +10,7 @@ public class MainFrame implements Yut {
 		if(InitDebugMode) mp = Debug.Player();
 		else { 
 			if(AloneDebugMode) mp = new Player[1];
+			else if(OneEnemyDebugMode) mp = new Player[2];
 			else mp = new Player[4];
 			mp = Action.user.InitPlayers(mp); //플레이어 전원의 이름과 팀을 입력. 전체 프로그램 내에서 한번만 실행할 것
 		}//end of else
@@ -17,7 +18,7 @@ public class MainFrame implements Yut {
 		Action.board.scoreboard(mp);
 		for(int i=0;;i=(i+1)%mp.length)
 		{
-			Action.board.myPhase(mp[i], yb);
+			Action.board.myPhase(mp, i, yb);
 			Action.board.scoreboard(mp);
 			yb.boardDisplay();
 			if(mp[i].getMal1()==777||mp[i].getMal2()==777) {

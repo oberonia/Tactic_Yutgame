@@ -11,7 +11,11 @@ interface Yut {
 	
 	/****디버그 : 주석에 적힌 모드로 실행할 때는 true로 입력해주세요**********/
 	boolean InitDebugMode = true; //팀명과 플레이어명이 임의로 지정됨
-	boolean AloneDebugMode = true; //플레이어가 혼자가 됨
+	
+		/**AloneDebugMode가 활성화된 경우 OneEnemyDebugMode보다 우선합니다.**/ 
+		boolean AloneDebugMode = false; //플레이어가 혼자가 됨
+		boolean OneEnemyDebugMode = true; //두명이서 1:1 대결을 펼치게 됨
+		/**동시에 활성화할 수 없는 모드이므로 주의하세요.**/
 	
 		/**YutDebugMode가 활성화된 경우 SplitYutMode보다 우선합니다.**/
 		boolean YutDebugMode = true; //윷 던질 값을 직접 입력가능

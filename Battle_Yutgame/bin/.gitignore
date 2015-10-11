@@ -1,13 +1,4 @@
-/Action.class
-/Debug.class
-/MainFrame.class
-/Player.class
-/ThrowingYut.class
-/YootVector.class
-/Yut.class
-/YutBoard.class
-/Action$Player.class
-/Action$user.class
-/Action$move.class
-/Action$mal.class
+/Action.java
+/.gitignore
 /Action$board.class
+/Action$user.class
