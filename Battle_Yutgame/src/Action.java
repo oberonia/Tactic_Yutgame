@@ -147,10 +147,12 @@ class Action implements Yut{
 		 * 현재 디버그용으로 제작됨
 		 */
 		static void scoreboard(Player[] mp){
-			System.out.println("Name\t"+"Team\t"+"Mal No.\t"+"Location");
+			System.out.println("Name\t"+"Team\t"+"Mal No.\t"+"Place\t"+"Mal Icon");
 			for(int j=0; j<mp.length; j++){
-				System.out.println(mp[j].getName()+"\t"+mp[j].getTeam()+"\t"+"mal1\t"+mp[j].getMal1());
-				System.out.println(mp[j].getName()+"\t"+mp[j].getTeam()+"\t"+"mal2\t"+mp[j].getMal2());
+				System.out.println(mp[j].getName()+"\t"+mp[j].getTeam()+
+						"\t"+"mal1\t"+mp[j].getMal1()+"\t"+mp[j].showIcon());
+				System.out.println(mp[j].getName()+"\t"+mp[j].getTeam()+
+						"\t"+"mal2\t"+mp[j].getMal2()+"\t"+mp[j].showIcon());
 			}
 
 		}//end of scoreboard
@@ -402,33 +404,6 @@ class Action implements Yut{
 			//이동된 위치에 다른말이 있음 -> WhoisThere호출
 
 		}//end of myPhase
-
-
-		static void BeforeMoveMalIcon(Player p, int whichMal){ 
-			// 움직이기 전의 말의 위치를 보드에서 안보이게 보드의 상태를 업데이트합니다.
-			int tempMalPosition;
-			if (whichMal == 1) { //MoveMal()에서 select의 결과물인 tempMal의 값
-				tempMalPosition = p.getMal1();
-				int a = (tempMalPosition-1)/7;
-				int b = (tempMalPosition-1)%7;
-				YutBoard.boardPaper[a][b] = "O";
-			}
-			else { 
-				tempMalPosition = p.getMal2();
-				int a = (tempMalPosition-1)/7;
-				int b = (tempMalPosition-1)%7;
-				YutBoard.boardPaper[a][b] = "O";
-			}
-			//임시) 각 플레이어는 임의로 지정된 말 표식을 받습니다. @#%^
-			//한칸 이동할 때마다 boardpaper에 업데이트 합니다.
-			//ㄴ 값을 넘겨받기 전의 위치를 알려면 임시 변수가 필요
-			//ㄴ 임시 변수 위치에 해당하는 특문을 O으로 바꾸고,
-			//ㄴ 말의 현재 위치를 받아와서 보드에 있는 같은 위치에 특문을 넣습니다.
-			//ㄴ 임시 변수의 위치값을 업데이트합니다.
-
-			//moveMal에서 이동할 때마다 보드도 함께 업데이트
-			//어떤 말을 골랐는지 모르니 메소드로 만들어서 두 번 호출해야 함
-		}//end of BeforeMoveMalIcon
 
 	}//end of board class
 

@@ -14,10 +14,11 @@ public class Player{
 	private int mal2;	// 말2
 	private String malIcon; // boardPaper에 표현될 말
 	Random keygen = new Random();
-	Player(boolean trigger,String name) { //디버그 모드 오-픈
+	Player(boolean trigger,String name,String malIcon) { //디버그 모드 오-픈
 		mal1=-1;
 		mal2=-1;
 		this.name = name;
+		this.malIcon = malIcon;
 		if(trigger) team=TeamString1;
 		else team=TeamString2;
 		mv[0]=mv[1]=mv[2]=mv[3]=mv[4]=0;
@@ -86,7 +87,9 @@ public class Player{
 			return true;
 		else
 			return false;
-
+	}
+	String showIcon() {
+		return malIcon;
 	}
 
 }

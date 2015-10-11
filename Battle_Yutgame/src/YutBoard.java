@@ -48,6 +48,7 @@ public class YutBoard {
 		// show the board at console
 		boardReset();
 		Print();
+		ShowMalIcon();
 		for(int i=0;i<boardPaper.length;i++){
 			for(int j=0;j<boardPaper[i].length;j++){
 				System.out.print(boardPaper[i][j]+"\t");
@@ -63,16 +64,29 @@ public class YutBoard {
 				int temp=(int)e.nextElement();
 				int a = (temp-1)/7;
 				int b = (temp-1)%7;
-				boardPaper[a][b] = "O"; // 말이 다닐 수 있는 곳은 O로 표시할 수 있도록 함
-				// O이 표시된 곳에 말이 들어가면 특수문자로 표현해야 한다
-				// 0) add가 귀찮은 곳의 배열에 해당하는 원소들을 1~49 기준 표현으로 바꿔넣는다
-				// 1) movNext로 값이 바뀐 다음, 이전 위치에 해당하는 boardDisplay는 O으로 바꾸고,
-				// 2) 새로운 위치는 boardDisplay에 해당플레이어의 특수문자를 바꿔넣는다
-				// 3) boardDisplay의 모든 원소들을 /t을 이용해서 콘솔에 뿌린다
+				boardPaper[a][b] = "O"; // 말이 다닐 수 있는 곳은 O로 표시 함
 			}
 		}
 	} //end of Print
 	
-	
+
+	void ShowMalIcon(){ 
+		// show all player's Mal to boardPaper
+		for(int i=0;i<MainFrame.mp.length;i++){
+			if(MainFrame.mp[i].getMal1() != -1){
+				int tempMalPosition = MainFrame.mp[i].getMal1();
+				int a = (tempMalPosition-1)/7;
+				int b = (tempMalPosition-1)%7;
+				YutBoard.boardPaper[a][b] = MainFrame.mp[i].showIcon();
+			}
+			if(MainFrame.mp[i].getMal2() != -1){
+				int tempMalPosition = MainFrame.mp[i].getMal2();
+				int a = (tempMalPosition-1)/7;
+				int b = (tempMalPosition-1)%7;
+				YutBoard.boardPaper[a][b] = MainFrame.mp[i].showIcon();
+			}
+		}//end of for loop
+	}//end of ShowMalIcon
+
 	
 }
