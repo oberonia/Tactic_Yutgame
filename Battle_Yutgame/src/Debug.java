@@ -29,10 +29,13 @@ public class Debug implements Yut {
 		return a;
 	}
 	
-	/* 디버그용 윷던지기
+
+	/**
+	 * 디버그용 윷던지기
 	 * 윷을 던지는데 랜덤이 아님
 	 * 으엌
-	 * */
+	 * @param p 자기 차례의 플레이어
+	 */
 	static void ThrowYut(Player p) {
 		int a;
 		System.out.print("이동할 칸을 입력하세요 >>");
@@ -54,11 +57,13 @@ public class Debug implements Yut {
 	
 	
 	/**
-	 * 디버그용 MoveMal
-	 * @param p
-	 * @param yb
-	 * @param MoveCount
-	 * @throws Exception
+	 * 말 업기와 잡기가 구현되지 않은 MoveMal...
+	 * 사실 말 업기와 잡기를 구현하기 전에 Action 클래스에 있었는데
+	 * 강등당했쪄.
+	 * @param p 자기 차례의 플레이어
+	 * @param yb 윷보드
+	 * @param MoveCount 이동할 칸 수
+	 * @throws Exception 익셉션 새개끼
 	 */
 	static void MoveMal (Player p, YutBoard yb, int MoveCount) throws Exception {
 		if(MoveCount>5||MoveCount<0) throw new Exception("이동할 칸 수 오류발생\n해당값 : "+MoveCount);

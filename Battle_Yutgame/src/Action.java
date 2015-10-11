@@ -11,11 +11,14 @@ class Action implements Yut{
 
 	/**
 	 * user와 관련된 action을 모두 모아놓은 클래스
+	 * @author PR
 	 */
 	static class user{
 
-		/** 
+
+		/**
 		 * Player 클래스에서 접근하게 되는 이름 입력 메소드
+		 * @return
 		 * 단순히 이름을 입력받아 반환한다.
 		 */
 		static String inputName(){
@@ -44,14 +47,15 @@ class Action implements Yut{
 			Player.InitTeamName(TeamString1, TeamString2);
 		}
 
-		/** 
+		/**
 		 * Player 클래스에서 접근하게 되는 팀 선택 메소드
-		 * t1 : 팀1에 등록된 사람 수, 이 수를 이용하여 팀 자동선택 기능을 제공 (각 팀 인원은 두명까지)
-		 * t2 : 팀2에 등록된 사람 수
-		 * TeamString1 : 팀1의 팀 이름
-		 * TeamString1 : 팀2의 팀 이름
-		 * team : 팀 선택과 오타 확인에 사용되고, 반환값으로 사용되는 팀 이름
-		 * */
+		 * @param t1 팀1에 등록된 사람 수, 이 수를 이용하여 팀 자동선택 기능을 제공 (각 팀 인원은 두명까지)
+		 * @param t2 팀2에 등록된 사람 수
+		 * @param TeamString1 팀1의 팀 이름
+		 * @param TeamString2 팀2의 팀 이름
+		 * @return
+		 * 팀 선택과 오타 확인에 사용되는 team 변수를 반환
+		 */
 		static String selectTeam(int t1, int t2, String TeamString1, String TeamString2){
 			String team;
 			if(t1>1) {
@@ -69,8 +73,10 @@ class Action implements Yut{
 			}
 		}//end of selectTeam
 
-		/** 
+		/**
 		 * MainFrame 클래스에서 접근하게 되는 플레이어 정보 입력하는 메소드. 전체 프로그램에서 이 함수는 한번만 실행할 것
+		 * @param mp 원시 상태의 플레이어 몽땡이
+		 * @return 정보가 입력된 플레이어 몽땡이(레퍼런스 형식)
 		 */
 		static Player[] InitPlayers(Player[] mp) {
 			user.InitTeamString(); //최초로 두 팀의 이름을 정함. 전체 프로그램에서 이 함수는 한번만 실행할 것! 
@@ -88,16 +94,28 @@ class Action implements Yut{
 
 	}//end of user class
 
+	/**
+	 * 윷판에서 일어나는 일들을 처리하고 Player의 변수를 제어/출력하는 일을 담당하는 메소드를 모아놓음
+	 * @author PR
+	 *
+	 */
 	static class board{
+
+
+
 		/**
 		 * 말 하나를 집어서 다음 칸으로 넘기거나 finish 처리를 하는 메쏘오드
-		 * target에 말 정보가 들어가고, trigger로 말을 꺾을지 말지를 결정하게 됨
-		 * trigger가 true인 경우 : 말을 처음 이동할 때를 가정하여 분기점을 만나면 꺾게 됨
-		 * trigger가 false인 경우 : 말을 이동하던 중에 호출된 것으로 가정하여 분기점을 통과하게 됨
-		 * 말이 finish 상태가 된 경우 777 리턴
-		 * 알 수 없는 오류를 뿜는 경우 -222222 리턴 
-		 * finish 상태가 된 말을 다시 움직이려고 할 경우 역시 777을 리턴
-		 * */
+		 * @param target 말의 정보가 담긴 int형 변수.
+		 * @param trigger true인 경우 : 말을 처음 이동할 때를 가정하여 분기점을 만나면 꺾게 됨
+		 * @param trigger false인 경우 : 말을 이동하던 중에 호출된 것으로 가정하여 분기점을 통과하게 됨		
+		 * @param v0 윷보드의 벡터 (테두리)
+		 * @param v1 윷보드의 벡터 (대각선 ↙)
+		 * @param v2 윷보드의 벡터 (대각선 ↘)
+		 * @return
+		 * 말이 finish 상태가 된 경우 777 //
+		 * 알 수 없는 오류를 뿜는 경우 -222222 //
+		 * finish 상태가 된 말을 다시 움직이려고 할 경우 역시 777 //
+		 */
 		static int movNext(int target, boolean trigger, 
 				Vector<Integer> v0, Vector<Integer> v1, Vector<Integer> v2) {
 			if(trigger) { //꺾습니다
@@ -145,9 +163,10 @@ class Action implements Yut{
 		}
 
 
-		/** 
+		/**
 		 * MainFrame에서 접근하는 점수판 출력 메소드
-		 * 현재 디버그용으로 제작됨
+		 * 현재 디버그용으로 제작됨 
+		 * @param mp 전체 플레이어 몽땡이
 		 */
 		static void scoreboard(Player[] mp){
 			System.out.println("Name\t"+"Team\t"+"Mal No.\t"+"Place\t"+"Mal Icon");
@@ -163,6 +182,15 @@ class Action implements Yut{
 
 
 
+		/**
+		 * 이동할 칸 수를 입력받아 말을 이동시키는 메소드.
+		 * 업기와 잡기 기능이 구현되어 있음.
+		 * @param mp 전체 플레이어 몽땡이
+		 * @param i 이 메소드를 호출한 플레이어에 해당하는 인덱스 (mp[i] = 호출한 플레이어가 된다.)
+		 * @param yb 윷보드
+		 * @param MoveCount 말이 이동하는 칸 수
+		 * @throws Exception 익셉션 새개끼
+		 */
 		static void MoveMal (Player[] mp, int i, YutBoard yb, int MoveCount) throws Exception {
 			Player p = mp[i];
 			if(MoveCount>5||MoveCount<0) throw new Exception("이동할 칸 수 오류발생\n해당값 : "+MoveCount);
@@ -198,6 +226,13 @@ class Action implements Yut{
 		} //end of MoveMal
 
 
+		/**
+		 * 윷을 자동으로 랜덤하게 던진다.
+		 * YutDebugMode와 SplitYutMode가 false 상태면 호출됨
+		 * @param p 자기 차례 플레이어
+		 * @return
+		 * 도 개 걸 윷 모 중 하나
+		 */
 		static int ThrowYut(Player p) {
 			p.resetMv();
 			System.out.println(p.getTeam()+"팀 "+p.getName()+" 플레이어 윷 던지기");
@@ -238,7 +273,9 @@ class Action implements Yut{
 
 
 		/**
-		 *  윺을 나눠서 던지는 모드
+		 * 윷을 나눠서 던지는 모드
+		 * YutDebugMode가 false이고 SplitYutMode가 true면 호출된다
+		 * @param p 자기 차례의 플레이어
 		 */
 		static void ThrowYutSplit(Player p){
 			int playerYut = 0;
@@ -307,7 +344,9 @@ class Action implements Yut{
 		} // 모든 플레이어의 이동칸수가 정해짐
 
 		/**
-		 * 플레이어가 이동 가능한 횟수를 출력 
+		 * 플레이어가 이동 가능한 횟수를 출력
+		 * 윷을 던진 후에 출력된다.
+		 * @param p 자기 차례의 플레이어
 		 */
 		static void yutThrowResult(Player p){
 			System.out.println(p.getName()+" 플레이어의 이동 가능 횟수는 다음과 같습니다.");
@@ -318,7 +357,15 @@ class Action implements Yut{
 		}
 
 		/**
-		 * 업힌거 전체이동하는 함수. 단, 시작점에 있을 경우 업지 않은 것으로 간주한다. 
+		 * 업힌거 전체이동하는 함수. 단, 시작점에 있을 경우 업지 않은 것으로 간주한다.
+		 * @param mp 플레이어 몽땡이
+		 * @param i 자기 차례의 플레이어에 해당하는 인덱스(mp[i] = 자기 차례의 플레이어)
+		 * @param yb 윷보드
+		 * @param team 호출한 플레이어의 소속 팀
+		 * @param MoveCount 호출한 플레이어가 이동하기로 한 칸 수
+		 * @param targetMal 호출한 플레이어가 이동하기로 한 말의 위치정보
+		 * @param num 말 1과 2를 구분하는 변수
+		 * @throws Exception 익셉션 새개끼
 		 */
 		static void FriendlyMove(Player[] mp,int i, YutBoard yb, String team, int MoveCount, int targetMal, int num) throws Exception {
 			if(targetMal==-1 && num==1) {
@@ -362,10 +409,17 @@ class Action implements Yut{
 
 
 
+
 		/**
 		 * 자신의 차례에 이동한 후 호출하게 되고, 자리에 적이 있는 경우 전체몰살 및 true 반환
-		 * @throws Exception 
+		 * @param mp 전체 플레이어 몽땡이
+		 * @param yb 윷보드
+		 * @param team 호출한 플레이어의 소속 팀
+		 * @param targetMal 호출한 플레이어가 이동하기로 한 말의 위치정보
+		 * @return
+		 * 적을 잡았을 경우 true,그렇지 않은 경우 false
 		 * 
+		 * @throws Exception 익셉션 새개끼
 		 */
 		static boolean EnemyCatch (Player[] mp,YutBoard yb, String team, int targetMal) throws Exception {
 			int Enemy[] = new int[4];
@@ -401,10 +455,13 @@ class Action implements Yut{
 		}
 
 
-		/** 
+
+		/**
 		 *  Action 클래스의 myPhase에서만 사용되는 메소드
-		 *  윷 던진 후에 이동할 칸이 뭐 남았는지 알아내서 뭐 고를건지 선택까지 완료하는 과정
-		 *  반환값은 도~모 중 하나를 담은 String
+		 *  윷 던진 후에 이동할 칸이 뭐 남았는지 알아내서 뭐 고를건지 선택까지 완료하는 과정 
+		 * @param p 자기 차례의 플레이어
+		 * @return
+		 * 실제로 이동하게 되는 칸 수. 모를 고르면 5가 반환됨.
 		 */
 		static int selectMvString(Player p) {
 
@@ -460,13 +517,9 @@ class Action implements Yut{
 				}
 
 			}//end of SplitYutMode
-			else 
+			else //윷을 랜덤하게 네개 알아서 던져줌
 				board.MoveMal(mp,i,yb,board.ThrowYut(p) );
-
 			System.out.println(p.getName()+"의 차례가 끝났습니다. 다음 플레이어의 차례로 넘어갑니다.");
-
-			//이동된 위치에 다른말이 있음 -> WhoisThere호출
-
 		}//end of myPhase
 
 	}//end of board class
