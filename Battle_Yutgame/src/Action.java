@@ -229,7 +229,9 @@ class Action implements Yut{
 		} //end of ThrowYut
 
 
-
+		/**
+		 *  윺을 나눠서 던지는 모드
+		 */
 		static void ThrowYutSplit(Player p){
 			int playerYut = 0;
 			int yut;
@@ -304,6 +306,30 @@ class Action implements Yut{
 					+"\t"+p.getMv(걸)+"\t"+p.getMv(윷)
 					+"\t"+p.getMv(모));
 		}
+		
+		/**
+		 * 자신의 차례에 이동하기 전에 호출할 경우 업은거 전체이동 + 이동한 자리에 적이 있는 경우 전체몰살
+		 * 
+		 */
+		static boolean EnemyOrFriend (Player[] mp, String team, int mov, int targetMal) {
+			int Friend[] = new int[4];
+			int Enemy[] = new int[4];
+			int i=0,j=0;
+			for(Player p : mp) {
+				if(p.getTeam().equals(team)) {
+					Friend[i++]=p.getMal1();
+					Friend[i++]=p.getMal2();
+				}
+				else {
+					Enemy[j++] = p.getMal1();
+					Enemy[j++] = p.getMal2();
+				}
+				
+			}
+			return true;
+		}
+		
+		
 
 		static void statusCall(){
 
