@@ -68,7 +68,7 @@ class Action implements Yut{
 				return team;
 			}
 		}//end of selectTeam
-		
+
 		/** 
 		 * MainFrame 클래스에서 접근하게 되는 플레이어 정보 입력하는 메소드. 전체 프로그램에서 이 함수는 한번만 실행할 것
 		 */
@@ -160,7 +160,7 @@ class Action implements Yut{
 
 		}//end of scoreboard
 
-		
+
 
 
 		static void MoveMal (Player[] mp, int i, YutBoard yb, int MoveCount) throws Exception {
@@ -316,7 +316,7 @@ class Action implements Yut{
 					+"\t"+p.getMv(걸)+"\t"+p.getMv(윷)
 					+"\t"+p.getMv(모));
 		}
-		
+
 		/**
 		 * 업힌거 전체이동하는 함수. 단, 시작점에 있을 경우 업지 않은 것으로 간주한다. 
 		 */
@@ -339,7 +339,7 @@ class Action implements Yut{
 				System.out.println(p.getMal2()+")");
 				return;
 			}
-			
+
 			for(Player p : mp) {
 				if(p.getTeam().equals(team)) {
 					if(targetMal==p.getMal1() && targetMal!=-1) {
@@ -359,9 +359,9 @@ class Action implements Yut{
 				}
 			}
 		}
-		
-		
-		
+
+
+
 		/**
 		 * 자신의 차례에 이동한 후 호출하게 되고, 자리에 적이 있는 경우 전체몰살 및 true 반환
 		 * @throws Exception 
@@ -371,7 +371,7 @@ class Action implements Yut{
 			int Enemy[] = new int[4];
 			int i=0;
 			boolean CatchEnemy = false;
-			
+
 			for(Player p : mp) {
 				if(!p.getTeam().equals(team)) {
 					Enemy[i++] = p.getMal1();
@@ -396,10 +396,10 @@ class Action implements Yut{
 					break;
 				}//if k==AfterMove
 			}//for k : Enemy
-			
+
 			return CatchEnemy;
 		}
-		
+
 
 		/** 
 		 *  Action 클래스의 myPhase에서만 사용되는 메소드
@@ -441,7 +441,10 @@ class Action implements Yut{
 				while(!p.isEmptyMv()) {
 					yutThrowResult(p); //mv 출력 및 결과표시
 					MoveCount = selectMvString(p);
-					board.MoveMal(mp,i,yb,MoveCount);
+					if(EnemyOrFriendMode)
+						board.MoveMal(mp,i,yb,MoveCount);
+					else 
+						Debug.MoveMal(p, yb, MoveCount);
 				}
 			}
 			else if(SplitYutMode) {
@@ -450,12 +453,10 @@ class Action implements Yut{
 					yutThrowResult(p); //mv 출력 및 결과표시
 					MoveCount = selectMvString(p);
 					if(MoveCount<0) throw new Exception("selectMvString 메소드 에러");
-					if(EnemyCatchMode){
+					if(EnemyOrFriendMode)
 						board.MoveMal(mp,i,yb,MoveCount);
-					}
-					else {
+					else 
 						Debug.MoveMal(p, yb, MoveCount);
-					}
 				}
 
 			}//end of SplitYutMode

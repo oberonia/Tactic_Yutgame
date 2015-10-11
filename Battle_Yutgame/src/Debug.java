@@ -10,7 +10,7 @@ public class Debug implements Yut {
 			Player.InitTeamName(t1, t2);
 			a[0] = new Player(true,"히키코","@");
 		}
-		else if(OneEnemyDebugMode) {
+		else if(OneEnemyMode) {
 			a = new Player[2];
 			String t1 = "잉여", t2 = "갓수";
 			Player.InitTeamName(t1, t2);

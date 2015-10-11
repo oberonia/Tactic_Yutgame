@@ -14,7 +14,7 @@ interface Yut {
 	
 		/**AloneDebugMode가 활성화된 경우 OneEnemyDebugMode보다 우선합니다.**/ 
 		boolean AloneDebugMode = false; //플레이어가 혼자가 됨
-		boolean OneEnemyDebugMode = true; //두명이서 1:1 대결을 펼치게 됨
+		boolean OneEnemyMode = true; //두명이서 1:1 대결을 펼치게 됨
 		/**동시에 활성화할 수 없는 모드이므로 주의하세요.**/
 	
 		/**YutDebugMode가 활성화된 경우 SplitYutMode보다 우선합니다.**/
@@ -22,7 +22,7 @@ interface Yut {
 		boolean SplitYutMode = false; //윷을 하나씩 던진다
 		/**동시에 활성화할 수 없는 모드이므로 주의하세요.**/
 		
-	boolean EnemyCatchMode = false; //상대팀의 말을 잡을 수 있음(미구현)
+	boolean EnemyOrFriendMode = false; //상대팀의 말을 잡을 수 있고, 같은 팀의 말을 업을 수 있음
 	/*****디버그 : 해당 모드가 아닐때는 false로 입력해주세요**********/
 
 }
