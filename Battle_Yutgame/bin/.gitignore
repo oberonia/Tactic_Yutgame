@@ -1,4 +1,1 @@
-/Action.java
-/.gitignore
-/Action$board.class
-/Action$user.class
+*.class
