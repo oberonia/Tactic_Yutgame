@@ -73,6 +73,10 @@ public class YutBoard {
 	void ShowMalIcon(){ 
 		// show all player's Mal to boardPaper
 		for(int i=0;i<MainFrame.mp.length;i++){
+			if(MainFrame.mp[i].getMal1() == 777 || MainFrame.mp[i].getMal2() == 777){
+				System.out.println("Game is over");
+				break;
+			}
 			if(MainFrame.mp[i].getMal1() != -1){
 				int tempMalPosition = MainFrame.mp[i].getMal1();
 				int a = (tempMalPosition-1)/7;
