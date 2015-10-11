@@ -12,8 +12,8 @@ interface Yut {
 	boolean AloneDebugMode = true; //플레이어가 혼자가 됨
 	
 		/**YutDebugMode가 활성화된 경우 SplitYutMode보다 우선합니다.**/
-		boolean YutDebugMode = false; //윷 던질 값을 직접 입력가능
-		boolean SplitYutMode = true; //윷을 하나씩 던진다
+		boolean YutDebugMode = true; //윷 던질 값을 직접 입력가능
+		boolean SplitYutMode = false; //윷을 하나씩 던진다
 		/**동시에 활성화할 수 없는 모드이므로 주의하세요.**/
 		
 	boolean EnemyCatchMode = false; //상대팀의 말을 잡을 수 있음(미구현)
