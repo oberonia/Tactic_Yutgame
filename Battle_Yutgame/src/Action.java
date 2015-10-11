@@ -2,6 +2,8 @@ import java.util.InputMismatchException;
 import java.util.Vector;
 import java.util.Scanner;
 
+import com.sun.javafx.TempState;
+
 class Action implements Yut{
 
 	/**
@@ -290,7 +292,7 @@ class Action implements Yut{
 		}
 	} // 모든 플레이어의 이동칸수가 정해짐
 
-	// 플레이어에게 몇번째 말을 몇칸 움직일건지 정하라고 한다
+	// 플레이어에게 몇칸 움직일 수 있는지 보여준다
 	static void yutThrowResult(Player p){
 		System.out.println(p.getName()+" 플레이어의 이동 가능 횟수는 다음과 같습니다.");
 		System.out.println("도\t개\t걸\t윷\t모");
@@ -415,6 +417,7 @@ class Action implements Yut{
 			System.out.println("입력 오류! 다시 입력하세요.");
 		}
 	}//end of select
+	
 	static int select(int ...nums) {
 		while(true) {
 			int a=0;
@@ -434,4 +437,30 @@ class Action implements Yut{
 		}
 	}//end of select
 
-}
+	static void BeforeMoveMalIcon(Player p, int whichMal){ 
+		// 움직이기 전의 말의 위치를 보드에서 안보이게 보드의 상태를 업데이트합니다.
+		int tempMalPosition;
+		if (whichMal == 1) { //MoveMal()에서 select의 결과물인 tempMal의 값
+			tempMalPosition = p.getMal1();
+			int a = (tempMalPosition-1)/7;
+			int b = (tempMalPosition-1)%7;
+			YutBoard.boardPaper[a][b] = "O";
+		}
+		else { 
+			tempMalPosition = p.getMal2();
+			int a = (tempMalPosition-1)/7;
+			int b = (tempMalPosition-1)%7;
+			YutBoard.boardPaper[a][b] = "O";
+		}
+		//임시) 각 플레이어는 임의로 지정된 말 표식을 받습니다. @#%^
+		//한칸 이동할 때마다 boardpaper에 업데이트 합니다.
+		//ㄴ 값을 넘겨받기 전의 위치를 알려면 임시 변수가 필요
+		//ㄴ 임시 변수 위치에 해당하는 특문을 O으로 바꾸고,
+		//ㄴ 말의 현재 위치를 받아와서 보드에 있는 같은 위치에 특문을 넣습니다.
+		//ㄴ 임시 변수의 위치값을 업데이트합니다.
+
+		//moveMal에서 이동할 때마다 보드도 함께 업데이트
+		//어떤 말을 골랐는지 모르니 메소드로 만들어서 두 번 호출해야 함
+	}//end of BeforeMoveMalIcon
+	
+}//end of Action

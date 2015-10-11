@@ -17,6 +17,7 @@ public class MainFrame implements Yut {
 
 
 		Action.scoreboard(mp);
+		yb.boardDisplay();
 		for(int i=0;;i=(i+1)%mp.length)
 		{
 			Action.myPhase(mp[i], yb);

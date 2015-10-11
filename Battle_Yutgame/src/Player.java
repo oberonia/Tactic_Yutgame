@@ -9,10 +9,10 @@ public class Player{
 	private static int mv[] = new int[5];
 	
 	
-	private int score;
 	private String name,team;
 	private int mal1;	// 이동할 말1
 	private int mal2;	// 말2
+	private String malIcon; // boardPaper에 표현될 말
 	Random keygen = new Random();
 	Player(boolean trigger,String name) { //디버그 모드 오-픈
 		mal1=-1;

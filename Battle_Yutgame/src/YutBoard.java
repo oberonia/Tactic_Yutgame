@@ -1,5 +1,4 @@
 import java.util.Enumeration;
-import java.util.Scanner;
 import java.util.Vector;
 
 
@@ -34,7 +33,7 @@ public class YutBoard {
 		return v[2];
 	}
 
-	String boardPaper[][] = new String[7][7]; // 윷판에 그림을 찍을 종이
+	static String boardPaper[][] = new String[7][7]; // 윷판에 그림을 찍을 종이
 	private Vector<Integer> v[];
 
 	private void boardReset() {
@@ -47,6 +46,8 @@ public class YutBoard {
 	
 	public void boardDisplay(){
 		// show the board at console
+		boardReset();
+		Print();
 		for(int i=0;i<boardPaper.length;i++){
 			for(int j=0;j<boardPaper[i].length;j++){
 				System.out.print(boardPaper[i][j]+"\t");
