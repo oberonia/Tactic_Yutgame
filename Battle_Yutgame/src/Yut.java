@@ -29,7 +29,7 @@ interface Yut {
 		//**동시에 활성화할 수 없는 모드이므로 주의하세요.**//
 		
 	/**상대팀의 말을 잡을 수 있고, 같은 팀의 말을 업을 수 있음*/
-	boolean EnemyOrFriendMode = false; 
+	boolean EnemyOrFriendMode = true; 
 	//*****디버그 : 해당 모드가 아닐때는 false로 입력해주세요**********//
 
 }
