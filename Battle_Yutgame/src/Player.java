@@ -1,19 +1,16 @@
 
-import java.util.Random;
-
 public class Player{
 	
 	
-	private static String TeamString1; //팀명 정하는 변수1
-	private static String TeamString2; //팀명 정하는 변수2
-	private static int mv[] = new int[5];
+	static String TeamString1; //팀명 정하는 변수1
+	static String TeamString2; //팀명 정하는 변수2
+	static int mv[] = new int[5];
 	
 	
-	private String name,team;
-	private int mal1;	// 이동할 말1
-	private int mal2;	// 말2
-	private String malIcon; // boardPaper에 표현될 말
-	Random keygen = new Random();
+	String name,team;
+	int mal1;	// 이동할 말1
+	int mal2;	// 말2
+	String malIcon; // boardPaper에 표현될 말
 	Player(boolean trigger,String name,String malIcon) { //디버그 모드 오-픈
 		mal1=-1;
 		mal2=-1;
@@ -47,8 +44,8 @@ public class Player{
 	}
 	
 	
-	
-	
+	//제거된 함수
+	/*
 	public String getName() {
 		return this.name;
 	}
@@ -67,18 +64,16 @@ public class Player{
 	void putMal2(int a) {
 		mal2 = a;
 	}
-	void resetMal1() {
-		mal1=-1;
-	}
-	void resetMal2() {
-		mal2=-1;
-	}
 	int[] getMv() {
 		return mv;//movement
 	}
 	int getMv(int i) {
 		return mv[i];
 	}
+	String showIcon() {
+		return malIcon;
+	}*/
+	
 	void increaseMv(int i) {
 		mv[i]++;
 	}
@@ -94,8 +89,11 @@ public class Player{
 		else
 			return false;
 	}
-	String showIcon() {
-		return malIcon;
+	void resetMal1() {
+		mal1=-1;
+	}
+	void resetMal2() {
+		mal2=-1;
 	}
 
 }

@@ -1,7 +1,12 @@
+import java.util.Random;
+
 
 
 //디버그용 임시 값 저장 메소드를 보관하는 클래스파일
 public class Debug implements Yut {
+	
+	static Random keygen = new Random(); //랜덤으로 윷 던지는 모드에서 사용됨
+	
 	static Player[] Player() {
 		Player a[];
 		if(MainFrame.AloneDebugMode) {
@@ -52,7 +57,7 @@ public class Debug implements Yut {
 			System.out.println(YutName[a-1]+" 감지! 한번 더 던집니다.");
 			ThrowYut(p);
 		}
-		p.increaseMv(a-1);
+		Player.mv[a-1]++;
 	}
 	
 	
@@ -67,24 +72,24 @@ public class Debug implements Yut {
 	 */
 	static void MoveMal (Player p, YutBoard yb, int MoveCount) throws Exception {
 		if(MoveCount>5||MoveCount<0) throw new Exception("이동할 칸 수 오류발생\n해당값 : "+MoveCount);
-		System.out.println("말 위치정보\nmal1 : "+p.getMal1()+"\nmal2 : "+p.getMal2());
+		System.out.println("말 위치정보\nmal1 : "+p.mal1+"\nmal2 : "+p.mal2);
 		System.out.print("움직일 말을 고르세요. ");
 		int tempMal= Action.select(1,2); //이동할 말 선택 임시저장
 
 		switch(tempMal) {
 		case 1:
-			System.out.print("mal1 이동! ("+p.getMal1()+" -> ");
-			p.putMal1(Action.board.movNext(p.getMal1(), true,yb.v0(),yb.v1(),yb.v2()));
+			System.out.print("mal1 이동! ("+p.mal1+" -> ");
+			p.mal1=Action.board.movNext(p.mal1, true,yb);
 			for(int i=1;i<MoveCount;i++)
-				p.putMal1(Action.board.movNext(p.getMal1(), false,yb.v0(),yb.v1(),yb.v2()));
-			System.out.println(p.getMal1()+")");
+				p.mal1=Action.board.movNext(p.mal1, false,yb);
+			System.out.println(p.mal1+")");
 			break;
 		case 2:
-			System.out.print("mal2 이동! ("+p.getMal2()+" -> ");
-			p.putMal2(Action.board.movNext(p.getMal2(), true,yb.v0(),yb.v1(),yb.v2()));
+			System.out.print("mal2 이동! ("+p.mal2+" -> ");
+			p.mal2=Action.board.movNext(p.mal2, true,yb);
 			for(int i=1;i<MoveCount;i++)
-				p.putMal2(Action.board.movNext(p.getMal2(), false,yb.v0(),yb.v1(),yb.v2()));
-			System.out.println(p.getMal2()+")");
+				p.mal2=Action.board.movNext(p.mal2, false,yb);
+			System.out.println(p.mal2+")");
 			break;
 		default:
 			System.out.println("select 함수 내부처리 오류 : "+tempMal);

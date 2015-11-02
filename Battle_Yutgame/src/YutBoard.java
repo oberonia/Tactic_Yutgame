@@ -23,6 +23,8 @@ public class YutBoard {
 		for (int i=0;i<7;i++)
 			v[2].add(v3[i]);
 	} 
+	//사용하지 않게 된 함수
+	/*
 	Vector<Integer> v0() {
 		return v[0];
 	}
@@ -31,10 +33,10 @@ public class YutBoard {
 	}
 	Vector<Integer> v2() {
 		return v[2];
-	}
+	}*/
 
 	static String boardPaper[][] = new String[7][7]; // 윷판에 그림을 찍을 종이
-	private Vector<Integer> v[];
+	Vector<Integer> v[];
 
 	private void boardReset() {
 		for(int i=0;i<boardPaper.length;i++){
@@ -73,21 +75,21 @@ public class YutBoard {
 	void ShowMalIcon(){ 
 		// show all player's Mal to boardPaper
 		for(int i=0;i<MainFrame.mp.length;i++){
-			if(MainFrame.mp[i].getMal1() == 777 || MainFrame.mp[i].getMal2() == 777){
+			if(MainFrame.mp[i].mal1 == 777 || MainFrame.mp[i].mal2 == 777){
 				System.out.println("Game is over");
 				break;
 			}
-			if(MainFrame.mp[i].getMal1() != -1){
-				int tempMalPosition = MainFrame.mp[i].getMal1();
+			if(MainFrame.mp[i].mal1 != -1){
+				int tempMalPosition = MainFrame.mp[i].mal1;
 				int a = (tempMalPosition-1)/7;
 				int b = (tempMalPosition-1)%7;
-				YutBoard.boardPaper[a][b] = MainFrame.mp[i].showIcon();
+				YutBoard.boardPaper[a][b] = MainFrame.mp[i].malIcon;
 			}
-			if(MainFrame.mp[i].getMal2() != -1){
-				int tempMalPosition = MainFrame.mp[i].getMal2();
+			if(MainFrame.mp[i].mal2 != -1){
+				int tempMalPosition = MainFrame.mp[i].mal2;
 				int a = (tempMalPosition-1)/7;
 				int b = (tempMalPosition-1)%7;
-				YutBoard.boardPaper[a][b] = MainFrame.mp[i].showIcon();
+				YutBoard.boardPaper[a][b] = MainFrame.mp[i].malIcon;
 			}
 		}//end of for loop
 	}//end of ShowMalIcon

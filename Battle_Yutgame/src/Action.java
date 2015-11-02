@@ -1,5 +1,4 @@
 import java.util.InputMismatchException;
-import java.util.Vector;
 import java.util.Scanner;
 
 class Action implements Yut{
@@ -84,10 +83,10 @@ class Action implements Yut{
 			for(int i=0;i<mp.length;i++){
 				System.out.println("========"+(i+1)+"번 플레이어 정보 입력========");
 				mp[i]= new Player(t1,t2);
-				if(mp[i].getTeam().equals(Player.getTeamName1())) t1++;
-				else if(mp[i].getTeam().equals(Player.getTeamName2())) ++t2;
-				System.out.println("플레이어 이름 확인 : " + mp[i].getName() + ", Player " + i);
-				System.out.println("팀 이름 확인 : " + mp[i].getTeam() + ", Player " + i);
+				if(mp[i].team.equals(Player.getTeamName1())) t1++;
+				else if(mp[i].team.equals(Player.getTeamName2())) ++t2;
+				System.out.println("플레이어 이름 확인 : " + mp[i].name + ", Player " + i);
+				System.out.println("팀 이름 확인 : " + mp[i].team + ", Player " + i);
 			}//end of loop
 			return mp;
 		}//end of InitPlayers
@@ -117,45 +116,45 @@ class Action implements Yut{
 		 * finish 상태가 된 말을 다시 움직이려고 할 경우 역시 777 //
 		 */
 		static int movNext(int target, boolean trigger, 
-				Vector<Integer> v0, Vector<Integer> v1, Vector<Integer> v2) {
+				YutBoard yb) {
 			if(trigger) { //꺾습니다
-				if(v2.contains(target)){  //v2에서 target에 해당하는 값을 찾음
-					int tempIndex=v2.indexOf(target); //찾은 경우 target을 포함하는 v의 인덱스값을 구함
-					if(tempIndex==v2.indexOf(v2.lastElement()))  //구한 인덱스가 laetElement인 경우 연결된 v부분으로 이동하거나 finish 표시
+				if(yb.v[2].contains(target)){  //v2에서 target에 해당하는 값을 찾음
+					int tempIndex=yb.v[2].indexOf(target); //찾은 경우 target을 포함하는 v의 인덱스값을 구함
+					if(tempIndex==yb.v[2].indexOf(yb.v[2].lastElement()))  //구한 인덱스가 laetElement인 경우 연결된 v부분으로 이동하거나 finish 표시
 						return 777; 
 					else 
-						return v2.elementAt(tempIndex+1);//구한 인덱스 값을 하나 증가시켜서 그 인덱스에 있는 value를 리턴	
+						return yb.v[2].elementAt(tempIndex+1);//구한 인덱스 값을 하나 증가시켜서 그 인덱스에 있는 value를 리턴	
 				}//if v2
-				else if(v1.contains(target) && target!=(int)v1.lastElement()) { //없을 경우 v1에서 target값을 찾음
-					return (int) v1.elementAt((v1.indexOf(target)+1));//구한 인덱스 값을 하나 증가시켜서 그 인덱스에 있는 value를 찾음
+				else if(yb.v[1].contains(target) && target!=(int)yb.v[1].lastElement()) { //없을 경우 v1에서 target값을 찾음
+					return (int) yb.v[1].elementAt((yb.v[1].indexOf(target)+1));//구한 인덱스 값을 하나 증가시켜서 그 인덱스에 있는 value를 찾음
 				}//else if v1
-				else if(v0.contains(target)) {//없을 경우 v0에서 target값을 찾음	else if()
-					int temp=v0.indexOf(target); //찾은 경우 target을 포함하는 v의 인덱스값을 구함
-					if(temp==v0.indexOf(v0.lastElement())) 
+				else if(yb.v[0].contains(target)) {//없을 경우 v0에서 target값을 찾음	else if()
+					int temp=yb.v[0].indexOf(target); //찾은 경우 target을 포함하는 v의 인덱스값을 구함
+					if(temp==yb.v[0].indexOf(yb.v[0].lastElement())) 
 						return 777;  //구한 인덱스가 laetElement인 경우 연결된 v부분으로 이동하거나 finish 표시
 					else 
-						return (int) v0.elementAt(temp+1);//구한 인덱스 값을 하나 증가시켜서 그 인덱스에 있는 value를 리턴	
+						return (int) yb.v[0].elementAt(temp+1);//구한 인덱스 값을 하나 증가시켜서 그 인덱스에 있는 value를 리턴	
 				}//else if v0 
-				else if(target==-1) return (int) v0.firstElement();
+				else if(target==-1) return (int) yb.v[0].firstElement();
 				else return -222222; //그래도 없으면 오류처리
 			}//꺾습니다 끝
 			else { //꺾지마
-				if(v0.contains(target)) {//v0에서 target값을 찾음	else if()
-					int temp=v0.indexOf(target); //찾은 경우 target을 포함하는 v의 인덱스값을 구함
-					if(temp==v0.indexOf(v0.lastElement())) 
+				if(yb.v[0].contains(target)) {//v0에서 target값을 찾음	else if()
+					int temp=yb.v[0].indexOf(target); //찾은 경우 target을 포함하는 v의 인덱스값을 구함
+					if(temp==yb.v[0].indexOf(yb.v[0].lastElement())) 
 						return 777;  //구한 인덱스가 laetElement인 경우 연결된 v부분으로 이동하거나 finish 표시
 					else 
-						return (int) v0.elementAt(temp+1);//구한 인덱스 값을 하나 증가시켜서 그 인덱스에 있는 value를 리턴
+						return (int) yb.v[0].elementAt(temp+1);//구한 인덱스 값을 하나 증가시켜서 그 인덱스에 있는 value를 리턴
 				}//if v0
-				else if(v1.contains(target)) { //v1에서 target값을 찾음
-					return (int) v1.elementAt((v1.indexOf(target)+1));//구한 인덱스 값을 하나 증가시켜서 그 인덱스에 있는 value를 찾음
+				else if(yb.v[1].contains(target)) { //v1에서 target값을 찾음
+					return (int) yb.v[1].elementAt((yb.v[1].indexOf(target)+1));//구한 인덱스 값을 하나 증가시켜서 그 인덱스에 있는 value를 찾음
 				}//else if v1
-				else if(v2.contains(target)){  //v2에서 target에 해당하는 값을 찾음
-					int temp=v2.indexOf(target); //찾은 경우 target을 포함하는 v의 인덱스값을 구함
-					if(temp==v2.indexOf(v2.lastElement())) 
+				else if(yb.v[2].contains(target)){  //v2에서 target에 해당하는 값을 찾음
+					int temp=yb.v[2].indexOf(target); //찾은 경우 target을 포함하는 v의 인덱스값을 구함
+					if(temp==yb.v[2].indexOf(yb.v[2].lastElement())) 
 						return 777;  //구한 인덱스가 laetElement인 경우 연결된 v부분으로 이동하거나 finish 표시
 					else 
-						return (int) v2.elementAt(temp+1);//구한 인덱스 값을 하나 증가시켜서 그 인덱스에 있는 value를 리턴	
+						return (int) yb.v[2].elementAt(temp+1);//구한 인덱스 값을 하나 증가시켜서 그 인덱스에 있는 value를 리턴	
 				}//else if v2
 				else if(target==777) return 777; //피니시 된 말을 다시 움직이려고 할때 777 리턴
 				else return -222222;
@@ -171,10 +170,10 @@ class Action implements Yut{
 		static void scoreboard(Player[] mp){
 			System.out.println("Name\t"+"Team\t"+"Mal No.\t"+"Place\t"+"Mal Icon");
 			for(int j=0; j<mp.length; j++){
-				System.out.println(mp[j].getName()+"\t"+mp[j].getTeam()+
-						"\t"+"mal1\t"+mp[j].getMal1()+"\t"+mp[j].showIcon());
-				System.out.println(mp[j].getName()+"\t"+mp[j].getTeam()+
-						"\t"+"mal2\t"+mp[j].getMal2()+"\t"+mp[j].showIcon());
+				System.out.println(mp[j].name+"\t"+mp[j].team+
+						"\t"+"mal1\t"+mp[j].mal1+"\t"+mp[j].malIcon);
+				System.out.println(mp[j].name+"\t"+mp[j].team+
+						"\t"+"mal2\t"+mp[j].mal2+"\t"+mp[j].malIcon);
 			}
 
 		}//end of scoreboard
@@ -194,14 +193,14 @@ class Action implements Yut{
 		static void MoveMal (Player[] mp, int i, YutBoard yb, int MoveCount) throws Exception {
 			Player p = mp[i];
 			if(MoveCount>5||MoveCount<0) throw new Exception("이동할 칸 수 오류발생\n해당값 : "+MoveCount);
-			System.out.println("말 위치정보\nmal1 : "+p.getMal1()+"\nmal2 : "+p.getMal2());
+			System.out.println("말 위치정보\nmal1 : "+p.mal1+"\nmal2 : "+p.mal2);
 			System.out.print("움직일 말을 고르세요. ");
 			int tempMal= select(1,2); //이동할 말 선택 임시저장
 
 			switch(tempMal) {
 			case 1:
-				board.FriendlyMove(mp, i, yb, p.getTeam(), MoveCount, p.getMal1(), tempMal);
-				if(board.EnemyCatch(mp, yb, p.getTeam(), p.getMal1())){
+				board.FriendlyMove(mp, i, yb, p.team, MoveCount, p.mal1, tempMal);
+				if(board.EnemyCatch(mp, yb, p.team, p.mal1)){
 					System.out.println("상대팀 말을 잡았으므로 윷을 한번 더 던집니다.");
 					if(YutDebugMode)
 						Debug.ThrowYut(p);
@@ -210,8 +209,8 @@ class Action implements Yut{
 				}
 				break;
 			case 2:
-				board.FriendlyMove(mp, i, yb, p.getTeam(), MoveCount, p.getMal2(), tempMal); 
-				if(board.EnemyCatch(mp, yb, p.getTeam(), p.getMal2())){
+				board.FriendlyMove(mp, i, yb, p.team, MoveCount, p.mal2, tempMal); 
+				if(board.EnemyCatch(mp, yb, p.team, p.mal2)){
 					System.out.println("상대팀 말을 잡았으므로 윷을 한번 더 던집니다.");
 					if(YutDebugMode)
 						Debug.ThrowYut(p);
@@ -235,8 +234,8 @@ class Action implements Yut{
 		 */
 		static int ThrowYut(Player p) {
 			p.resetMv();
-			System.out.println(p.getTeam()+"팀 "+p.getName()+" 플레이어 윷 던지기");
-			int tempMove = p.keygen.nextInt(5); //이동할 칸 수 랜덤생성+임시저장
+			System.out.println(p.team+"팀 "+p.name+" 플레이어 윷 던지기");
+			int tempMove = Debug.keygen.nextInt(5); //이동할 칸 수 랜덤생성+임시저장
 			System.out.print("퉤에엣 : ");
 			switch(tempMove) {
 			case 0:
@@ -314,25 +313,25 @@ class Action implements Yut{
 			switch(playerYut){
 			case 0:
 				// 윷이나 모가 나오면 한번 더 던진다(움직일 수 있는 스택은 배열에 넣어야하나?)
-				System.out.println(p.getName()+"님은 '모'가 나왔습니다. 대단하군요! 한 번 더 던집니다");
+				System.out.println(p.name+"님은 '모'가 나왔습니다. 대단하군요! 한 번 더 던집니다");
 				p.increaseMv(모);
 				playerYut = 0; // 한 번 더 던지기 위해 초기화
 				ThrowYutSplit(p);
 				break;
 			case 1:
-				System.out.println(p.getName()+"님은 '백도'가 나왔습니다. 이것은 신의 한수가 될까요?");
+				System.out.println(p.name+"님은 '백도'가 나왔습니다. 이것은 신의 한수가 될까요?");
 				p.increaseMv(도);
 				break;
 			case 2:
-				System.out.println(p.getName()+"님은 '개'가 나왔습니다.");
+				System.out.println(p.name+"님은 '개'가 나왔습니다.");
 				p.increaseMv(개);
 				break;
 			case 3:
-				System.out.println(p.getName()+"님은 '걸'이 나왔습니다.");
+				System.out.println(p.name+"님은 '걸'이 나왔습니다.");
 				p.increaseMv(걸);
 				break;
 			case 4:
-				System.out.println(p.getName()+"님은 '윷'이 나왔습니다. 한 번 더 던집니다");
+				System.out.println(p.name+"님은 '윷'이 나왔습니다. 한 번 더 던집니다");
 				p.increaseMv(윷);
 				playerYut = 0; // 한 번 더 던지기 위해 초기화
 				ThrowYutSplit(p);
@@ -349,11 +348,11 @@ class Action implements Yut{
 		 * @param p 자기 차례의 플레이어
 		 */
 		static void yutThrowResult(Player p){
-			System.out.println(p.getName()+" 플레이어의 이동 가능 횟수는 다음과 같습니다.");
+			System.out.println(p.name+" 플레이어의 이동 가능 횟수는 다음과 같습니다.");
 			System.out.println("도\t개\t걸\t윷\t모");
-			System.out.println(p.getMv(도)+"\t"+p.getMv(개)
-					+"\t"+p.getMv(걸)+"\t"+p.getMv(윷)
-					+"\t"+p.getMv(모));
+			System.out.println(Player.mv[도]+"\t"+Player.mv[개]
+					+"\t"+Player.mv[걸]+"\t"+Player.mv[윷]
+					+"\t"+Player.mv[모]);
 		}
 
 		/**
@@ -370,38 +369,38 @@ class Action implements Yut{
 		static void FriendlyMove(Player[] mp,int i, YutBoard yb, String team, int MoveCount, int targetMal, int num) throws Exception {
 			if(targetMal==-1 && num==1) {
 				Player p = mp[i];
-				System.out.print(p.getName()+" 플레이어의 말 1 이동! ("+p.getMal1()+" -> ");
-				p.putMal1(Action.board.movNext(p.getMal1(), true,yb.v0(),yb.v1(),yb.v2()));
+				System.out.print(p.name+" 플레이어의 말 1 이동! ("+p.mal1+" -> ");
+				p.mal1=Action.board.movNext(p.mal1, true,yb);
 				for(int j=1;j<MoveCount;j++)
-					p.putMal1(Action.board.movNext(p.getMal1(), false,yb.v0(),yb.v1(),yb.v2()));
-				System.out.println(p.getMal1()+")");
+					p.mal1=Action.board.movNext(p.mal1, false,yb);
+				System.out.println(p.mal1+")");
 				return;
 			}
 			else if(targetMal==-1 && num==2) {
 				Player p = mp[i];
-				System.out.print(p.getName()+" 플레이어의 말 2 이동! ("+p.getMal2()+" -> ");
-				p.putMal2(Action.board.movNext(p.getMal2(), true,yb.v0(),yb.v1(),yb.v2()));
+				System.out.print(p.name+" 플레이어의 말 2 이동! ("+p.mal2+" -> ");
+				p.mal2=Action.board.movNext(p.mal2, true,yb);
 				for(int j=1;j<MoveCount;j++)
-					p.putMal2(Action.board.movNext(p.getMal2(), false,yb.v0(),yb.v1(),yb.v2()));
-				System.out.println(p.getMal2()+")");
+					p.mal2=Action.board.movNext(p.mal2, false,yb);
+				System.out.println(p.mal2+")");
 				return;
 			}
 
 			for(Player p : mp) {
-				if(p.getTeam().equals(team)) {
-					if(targetMal==p.getMal1() && targetMal!=-1) {
-						System.out.print(p.getName()+" 플레이어의 말 1 이동! ("+p.getMal1()+" -> ");
-						p.putMal1(board.movNext(p.getMal1(), true,yb.v0(),yb.v1(),yb.v2()));
+				if(p.team.equals(team)) {
+					if(targetMal==p.mal1 && targetMal!=-1) {
+						System.out.print(p.name+" 플레이어의 말 1 이동! ("+p.mal1+" -> ");
+						p.mal1=board.movNext(p.mal1, true,yb);
 						for(int j=1;j<MoveCount;j++)
-							p.putMal1(board.movNext(p.getMal1(), false,yb.v0(),yb.v1(),yb.v2()));
-						System.out.println(p.getMal1()+")");
+							p.mal1=board.movNext(p.mal1, false,yb);
+						System.out.println(p.mal1+")");
 					}
-					if(targetMal==p.getMal2() && targetMal!=-1){
-						System.out.print(p.getName()+" 플레이어의 말 2 이동! ("+p.getMal2()+" -> ");
-						p.putMal2(board.movNext(p.getMal2(), true,yb.v0(),yb.v1(),yb.v2()));
+					if(targetMal==p.mal2 && targetMal!=-1){
+						System.out.print(p.name+" 플레이어의 말 2 이동! ("+p.mal2+" -> ");
+						p.mal2=board.movNext(p.mal2, true,yb);
 						for(int j=1;j<MoveCount;j++)
-							p.putMal2(board.movNext(p.getMal2(), false,yb.v0(),yb.v1(),yb.v2()));
-						System.out.println(p.getMal2()+")");
+							p.mal2=board.movNext(p.mal2, false,yb);
+						System.out.println(p.mal2+")");
 					}
 				}
 			}
@@ -427,24 +426,24 @@ class Action implements Yut{
 			boolean CatchEnemy = false;
 
 			for(Player p : mp) {
-				if(!p.getTeam().equals(team)) {
-					Enemy[i++] = p.getMal1();
-					Enemy[i++] = p.getMal2();
+				if(!p.team.equals(team)) {
+					Enemy[i++] = p.mal1;
+					Enemy[i++] = p.mal2;
 				}
 			}
 			for(int j : Enemy) {
 				if(j==targetMal) {
 					for(Player p : mp) {
 						//이동한 뒤의 말의 위치가 일치하고 인자로 받은 팀이 이 플레이어의 팀과 일치하지 않을 때
-						if(p.getMal1()==targetMal && !(p.getTeam().equals(team))) {
+						if(p.mal1==targetMal && !(p.team.equals(team))) {
 							p.resetMal1();
 							CatchEnemy=true;
-							System.out.println(p.getName()+" 플레이어의 말 1이 잡혔습니다!");
+							System.out.println(p.name+" 플레이어의 말 1이 잡혔습니다!");
 						}
-						if(p.getMal2()==targetMal && !(p.getTeam().equals(team))) {
+						if(p.mal2==targetMal && !(p.team.equals(team))) {
 							p.resetMal2();
 							CatchEnemy=true;
-							System.out.println(p.getName()+" 플레이어의 말 2가 잡혔습니다!");
+							System.out.println(p.name+" 플레이어의 말 2가 잡혔습니다!");
 						}
 					}//for p : mp
 					break;
@@ -467,17 +466,17 @@ class Action implements Yut{
 
 			int mvCount=0; //이동할 칸 종류를 저장하는 배열을 초기화할 임시변수
 			for(int i=0;i<5;i++)
-				if(p.getMv(i)>0) mvCount++;
+				if(Player.mv[i]>0) mvCount++;
 			if(mvCount==1) {
 				for(int i=0;i<5;i++)
-					if(p.getMv(i)>0) {
+					if(Player.mv[i]>0) {
 						System.out.println(YutName[i]+" 만큼 이동합니다.");
 						return i+1;
 					}
 			}
 			String[] mvParam = new String[mvCount];
 			for(int i=0,a=0;i<5;i++) {
-				if(p.getMv(i)>0) mvParam[a++]=new String(YutName[i]);
+				if(Player.mv[i]>0) mvParam[a++]=new String(YutName[i]);
 			}
 			String tempMv = select(mvParam);
 			System.out.println(tempMv+" 만큼 이동합니다.");
@@ -519,7 +518,7 @@ class Action implements Yut{
 			}//end of SplitYutMode
 			else //윷을 랜덤하게 네개 알아서 던져줌
 				board.MoveMal(mp,i,yb,board.ThrowYut(p) );
-			System.out.println(p.getName()+"의 차례가 끝났습니다. 다음 플레이어의 차례로 넘어갑니다.");
+			System.out.println(p.name+"의 차례가 끝났습니다. 다음 플레이어의 차례로 넘어갑니다.");
 		}//end of myPhase
 
 	}//end of board class

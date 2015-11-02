@@ -21,8 +21,8 @@ public class MainFrame implements Yut {
 			Action.board.myPhase(mp, i, yb);
 			Action.board.scoreboard(mp);
 			yb.boardDisplay();
-			if(mp[i].getMal1()==777||mp[i].getMal2()==777) {
-				System.out.println(mp[i].getTeam()+" 팀의 "+mp[i].getName()+" 플레이어가 E김.");
+			if(mp[i].mal1==777||mp[i].mal2==777) {
+				System.out.println(mp[i].team+" 팀의 "+mp[i].name+" 플레이어가 E김.");
 				break;
 			}//if
 			
