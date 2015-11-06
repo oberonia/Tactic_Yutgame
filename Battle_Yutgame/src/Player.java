@@ -7,6 +7,7 @@ public class Player{
 	static int mv[] = new int[5];
 	
 	//asd
+	//asdasd
 	String name,team;
 	int mal1;	// 이동할 말1
 	int mal2;	// 말2
