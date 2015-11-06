@@ -42,38 +42,7 @@ public class Player{
 	static String getTeamName2() {
 		return TeamString2;
 	}
-	
-	
-	//제거된 함수
-	/*
-	public String getName() {
-		return this.name;
-	}
-	public String getTeam() {
-		return this.team;
-	}
-	public int getMal1(){
-		return mal1;
-	}
-	public int getMal2(){
-		return mal2;
-	}
-	void putMal1(int a) {
-		mal1 = a;
-	}
-	void putMal2(int a) {
-		mal2 = a;
-	}
-	int[] getMv() {
-		return mv;//movement
-	}
-	int getMv(int i) {
-		return mv[i];
-	}
-	String showIcon() {
-		return malIcon;
-	}*/
-	
+				
 	void increaseMv(int i) {
 		mv[i]++;
 	}

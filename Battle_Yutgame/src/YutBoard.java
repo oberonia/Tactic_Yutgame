@@ -23,17 +23,6 @@ public class YutBoard {
 		for (int i=0;i<7;i++)
 			v[2].add(v3[i]);
 	} 
-	//사용하지 않게 된 함수
-	/*
-	Vector<Integer> v0() {
-		return v[0];
-	}
-	Vector<Integer> v1() {
-		return v[1];
-	}
-	Vector<Integer> v2() {
-		return v[2];
-	}*/
 
 	static String boardPaper[][] = new String[7][7]; // 윷판에 그림을 찍을 종이
 	Vector<Integer> v[];

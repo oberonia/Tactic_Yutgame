@@ -98,3 +98,50 @@ public class Debug implements Yut {
 	} //end of MoveMal
 
 }
+
+
+
+
+/**Player쪽 안쓰던 함수들 모음*/
+	/*
+	public String getName() {
+		return this.name;
+	}
+	public String getTeam() {
+		return this.team;
+	}
+	public int getMal1(){
+		return mal1;
+	}
+	public int getMal2(){
+		return mal2;
+	}
+	void putMal1(int a) {
+		mal1 = a;
+	}
+	void putMal2(int a) {
+		mal2 = a;
+	}
+	int[] getMv() {
+		return mv;//movement
+	}
+	int getMv(int i) {
+		return mv[i];
+	}
+	String showIcon() {
+		return malIcon;
+	}*/
+
+/**YutBoard쪽 함수*/
+/*
+Vector<Integer> v0() {
+	return v[0];
+}
+Vector<Integer> v1() {
+	return v[1];
+}
+Vector<Integer> v2() {
+	return v[2];
+}*/
+
+/***/
