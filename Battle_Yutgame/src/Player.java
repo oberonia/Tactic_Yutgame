@@ -29,16 +29,17 @@ public class Player{
 				
 	}//end of Player (Constructor)
 	
+	/**팀 이름을 정해주는 함수*/
 	static void InitTeamName(String ts1, String ts2) {
 		TeamString1 = new String(ts1);
 		TeamString2 = new String(ts2);
 	}//end of InitTeamName
 	
-	//InitTeamName 메소드 호출 후 사용할 것
+	/**InitTeamName 메소드 호출 후 사용할 것*/
 	static String getTeamName1() {
 		return TeamString1;
 	}
-	//InitTeamName 메소드 호출 후 사용할 것
+	/**InitTeamName 메소드 호출 후 사용할 것*/
 	static String getTeamName2() {
 		return TeamString2;
 	}
