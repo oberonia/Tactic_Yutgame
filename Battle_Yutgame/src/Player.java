@@ -6,7 +6,7 @@ public class Player{
 	static String TeamString2; //팀명 정하는 변수2
 	static int mv[] = new int[5];
 	
-	
+	//test
 	String name,team;
 	int mal1;	// 이동할 말1
 	int mal2;	// 말2
