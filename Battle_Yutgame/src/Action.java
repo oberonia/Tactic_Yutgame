@@ -110,6 +110,7 @@ class Action implements Yut{
 		 * @param v0 윷보드의 벡터 (테두리)
 		 * @param v1 윷보드의 벡터 (대각선 ↙)
 		 * @param v2 윷보드의 벡터 (대각선 ↘)
+		 * @param yb 윷판을 다루는 벡터를 저장한 클래스
 		 * @return
 		 * 말이 finish 상태가 된 경우 777 //
 		 * 알 수 없는 오류를 뿜는 경우 -222222 //
@@ -186,7 +187,7 @@ class Action implements Yut{
 		 * 업기와 잡기 기능이 구현되어 있음.
 		 * @param mp 전체 플레이어 몽땡이
 		 * @param i 이 메소드를 호출한 플레이어에 해당하는 인덱스 (mp[i] = 호출한 플레이어가 된다.)
-		 * @param yb 윷보드
+		 * @param yb 윷판을 다루는 벡터를 저장한 클래스
 		 * @param MoveCount 말이 이동하는 칸 수
 		 * @throws Exception 익셉션 새개끼
 		 */
@@ -359,7 +360,7 @@ class Action implements Yut{
 		 * 업힌거 전체이동하는 함수. 단, 시작점에 있을 경우 업지 않은 것으로 간주한다.
 		 * @param mp 플레이어 몽땡이
 		 * @param i 자기 차례의 플레이어에 해당하는 인덱스(mp[i] = 자기 차례의 플레이어)
-		 * @param yb 윷보드
+		 * @param yb 윷판을 다루는 벡터를 저장한 클래스
 		 * @param team 호출한 플레이어의 소속 팀
 		 * @param MoveCount 호출한 플레이어가 이동하기로 한 칸 수
 		 * @param targetMal 호출한 플레이어가 이동하기로 한 말의 위치정보
@@ -487,8 +488,14 @@ class Action implements Yut{
 			else if(tempMv.equals("모")) return 모+1;
 			else return -1;
 		}
-
-
+		
+		/**
+		 * 플레이어의 차례에 하는 모든 행동을 실행
+		 * @param mp 플레이어 몽땡이 배열
+		 * @param i 플레이어의 순서
+		 * @param yb 윷판을 다루는 벡터를 저장한 클래스
+		 * @throws Exception select 중 mv 선택 오류시 방출됨
+		 */
 		static void myPhase(Player[] mp, int i, YutBoard yb) throws Exception {
 			Player p = mp[i];
 			int MoveCount;
@@ -524,6 +531,11 @@ class Action implements Yut{
 	}//end of board class
 
 
+	/**
+	 * 문자열 목록을 받아 반드시 하나를 고르게 하는 함수
+	 * @param strings 선택할 수 있는 보기를 저장한 문자열 배열
+	 * @return strings에서 선택된 하나의 문자열 반환
+	 */
 	static String select(String ...strings) {
 		while(true) {
 			int a=0;
@@ -542,6 +554,12 @@ class Action implements Yut{
 			System.out.println("입력 오류! 다시 입력하세요.");
 		}
 	}//end of select
+	
+	/**
+	 * int 목록을 받아 반드시 하나를 고르게 하는 함수 
+	 * @param nums 선택할 수 있는 int를 저장한 배열
+	 * @return nums에서 선택된 하나의 int
+	 */
 	static int select(int ...nums) {
 		while(true) {
 			int a=0;

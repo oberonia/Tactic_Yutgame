@@ -1,18 +1,21 @@
 
 public class Player{
 	
-	
-	static String TeamString1; //팀명 정하는 변수1
-	static String TeamString2; //팀명 정하는 변수2
+	/**팀명 정하는 변수1*/
+	static String TeamString1; 
+	/**팀명 정하는 변수2*/
+	static String TeamString2; 
+	/**내 차례에 이동할 수 있는 횟수 저장*/
 	static int mv[] = new int[5];
 	
-	//asd
-	//asdasd
 	String name,team;
-	int mal1;	// 이동할 말1
-	int mal2;	// 말2
-	String malIcon; // boardPaper에 표현될 말
-	Player(boolean trigger,String name,String malIcon) { //디버그 모드 오-픈
+	int mal1;	
+	int mal2;	
+	/**boardPaper에 표현될 말*/
+	String malIcon; 
+	
+	/**디버그 모드 오-픈*/
+	Player(boolean trigger,String name,String malIcon) { 
 		mal1=-1;
 		mal2=-1;
 		this.name = name;
@@ -44,25 +47,52 @@ public class Player{
 	static String getTeamName2() {
 		return TeamString2;
 	}
-				
+	/** mv 값을 1 증가시킨다
+	 * 
+	 * @param mv 현재 차례의 유저가 이동할 수 있는 도~모의 횟수
+	 * @param i 도~모를 입력하여 조정할 변수를 지정
+	 * @see src/Yut.java
+	 */
 	void increaseMv(int i) {
 		mv[i]++;
 	}
+	
+	/** mv 값을 1 감소시킨다
+	 * 
+	 * @param mv 현재 차례의 유저가 이동할 수 있는 도~모의 횟수
+	 * @param i 도~모를 입력하여 조정할 변수를 지정
+	 * @see src/Yut.java
+	 */
 	void decreaseMv(int i) {
 		mv[i]--;
 	}
+	
+	/** 모든 mv 값을 0으로 초기화한다
+	 * 
+	 * @param mv 현재 차례의 유저가 이동할 수 있는 도~모의 횟수
+	 */
 	void resetMv() {
 		mv[0]=mv[1]=mv[2]=mv[3]=mv[4]=0;
 	}
+	/** mv 변수가 모두 비어있는지 검사하는 함수
+	 * 
+	 * @return 내 차례가 끝났을 때 true 반환
+	 */
 	boolean isEmptyMv() {
 		if(mv[0]==mv[1]&&mv[1]==mv[2]&&mv[2]==mv[3]&&mv[3]==mv[4]&&mv[4]==0)
 			return true;
 		else
 			return false;
 	}
+	/**
+	 * mal1 변수를 -1로 리셋
+	 */
 	void resetMal1() {
 		mal1=-1;
 	}
+	/**
+	 * mal2 변수를 -1로 리셋
+	 */
 	void resetMal2() {
 		mal2=-1;
 	}
