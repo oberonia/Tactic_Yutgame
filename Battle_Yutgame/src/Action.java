@@ -200,7 +200,7 @@ class Action implements Yut{
 
 			switch(tempMal) {
 			case 1:
-				board.FriendlyMove(mp, i, yb, p.team, MoveCount, p.mal1, tempMal);
+				board.FriendlyMove(mp, i, yb, MoveCount, p.mal1, tempMal);
 				if(board.EnemyCatch(mp, yb, p.team, p.mal1)){
 					System.out.println("상대팀 말을 잡았으므로 윷을 한번 더 던집니다.");
 					if(YutDebugMode)
@@ -210,7 +210,7 @@ class Action implements Yut{
 				}
 				break;
 			case 2:
-				board.FriendlyMove(mp, i, yb, p.team, MoveCount, p.mal2, tempMal); 
+				board.FriendlyMove(mp, i, yb, MoveCount, p.mal2, tempMal); 
 				if(board.EnemyCatch(mp, yb, p.team, p.mal2)){
 					System.out.println("상대팀 말을 잡았으므로 윷을 한번 더 던집니다.");
 					if(YutDebugMode)
@@ -367,7 +367,8 @@ class Action implements Yut{
 		 * @param num 말 1과 2를 구분하는 변수
 		 * @throws Exception 익셉션 새개끼
 		 */
-		static void FriendlyMove(Player[] mp,int i, YutBoard yb, String team, int MoveCount, int targetMal, int num) throws Exception {
+		static void FriendlyMove(Player[] mp,int i, YutBoard yb, int MoveCount, int targetMal, int num) throws Exception {
+			String team = mp[i].team;
 			if(targetMal==-1 && num==1) {
 				Player p = mp[i];
 				System.out.print(p.name+" 플레이어의 말 1 이동! ("+p.mal1+" -> ");
@@ -388,15 +389,15 @@ class Action implements Yut{
 			}
 
 			for(Player p : mp) {
-				if(p.team.equals(team)) {
-					if(targetMal==p.mal1 && targetMal!=-1) {
+				if(p.team.equals(team) && targetMal!=-1) {
+					if(targetMal==p.mal1) {
 						System.out.print(p.name+" 플레이어의 말 1 이동! ("+p.mal1+" -> ");
 						p.mal1=board.movNext(p.mal1, true,yb);
 						for(int j=1;j<MoveCount;j++)
 							p.mal1=board.movNext(p.mal1, false,yb);
 						System.out.println(p.mal1+")");
 					}
-					if(targetMal==p.mal2 && targetMal!=-1){
+					if(targetMal==p.mal2){
 						System.out.print(p.name+" 플레이어의 말 2 이동! ("+p.mal2+" -> ");
 						p.mal2=board.movNext(p.mal2, true,yb);
 						for(int j=1;j<MoveCount;j++)
