@@ -48,6 +48,9 @@ public class sw_SelectMove extends JFrame {
 		setSize(400,200);
 		setVisible(true);
 		setResizable(false);
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		setLocation(screenSize.width/2-getWidth()/2, screenSize.height/2-getHeight()/2);
+		
 	}
 	public static void main(String[] args) {
 		new sw_SelectMove("이동할 칸 수를 고르세요.");
