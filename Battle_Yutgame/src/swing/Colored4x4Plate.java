@@ -3,6 +3,7 @@ package swing;
 import java.awt.*;
 import javax.swing.*;
 
+@SuppressWarnings("serial")
 public class Colored4x4Plate extends JFrame {
 	public Colored4x4Plate() {
 		super("4x4 Color Frame");

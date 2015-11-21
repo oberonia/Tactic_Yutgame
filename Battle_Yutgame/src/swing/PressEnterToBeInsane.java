@@ -33,7 +33,9 @@ public class PressEnterToBeInsane extends JFrame {
 					la.setText("r=" + r + ", g=" + g + ", b=" + b);
 					getContentPane().setBackground(new Color(r, g, b)); // 컨텐트팬의 배경색 설정
 					break;
-				case 'q': System.exit(0); // 프로그램 종료
+				case 'q':
+				case 'Q':
+					System.exit(0); // 프로그램 종료
 			}
 		}
 	}
