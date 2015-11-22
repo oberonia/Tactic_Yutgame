@@ -9,7 +9,7 @@ import javax.swing.JLabel;
 @SuppressWarnings("serial")
 public class sw_PlayerInfo extends JFrame{
 
-	public sw_PlayerInfo() {
+	public sw_PlayerInfo(Player[] mp) { 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		Container cPane = getContentPane();
@@ -18,17 +18,23 @@ public class sw_PlayerInfo extends JFrame{
 		
 		cPane.add(new JLabel("Team"));
 		for(int i =0; i<4; i++){
-			String t1 = Player.getTeamName1();
-			String t2 = Player.getTeamName2();
-			cPane.add(new JButton(t1));
-			cPane.add(new JLabel(t2));
+			//String t1 = Player.getTeamName1();
+			//String t2 = Player.getTeamName2();
+			//cPane.add(new JLabel(t1));
+			//cPane.add(new JLabel(t2));
 
-			// 이름을 플레이어 정보인 mp에서 끌어와야 하는데 어떻게 하지?
-//			String n1 = getName(Player, i);
-	//		cPane.add(new JLabel(n1));
+			String team = mp[i].team;
+			String name = mp[i].name;
+			String malIcon = mp[i].malIcon;
+			int mal1Location = mp[i].mal1;
+			int mal2Location = mp[i].mal2;
+			
+			cPane.add(new JLabel(team));
+			cPane.add(new JLabel(name));
+			cPane.add(new JLabel(malIcon));
+
 		}
 		cPane.add(new JLabel("Player Name"));
-		
 		cPane.add(new JLabel("Mal Icon"));
 		cPane.add(new JLabel("Mal Number"));
 		cPane.add(new JLabel("Lacation"));
@@ -36,9 +42,6 @@ public class sw_PlayerInfo extends JFrame{
 		
 		setSize(500, 900);
 		setVisible(true);
-	}
-	public static void main(String[] args) {
-		new sw_PlayerInfo();
 	}
 
 }
