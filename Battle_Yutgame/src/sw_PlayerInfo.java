@@ -13,11 +13,11 @@ public class sw_PlayerInfo extends JFrame{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		Container cPane = getContentPane();
-		cPane.setBackground(Color.orange);
+		cPane.setBackground(Color.cyan);
 		cPane.setLayout(new GridLayout(9,5));
 		
 		cPane.add(new JLabel("Team"));
-		for(int i =0; i<4; i++){
+		for(int i =0; i<mp.length; i++){
 			//String t1 = Player.getTeamName1();
 			//String t2 = Player.getTeamName2();
 			//cPane.add(new JLabel(t1));
