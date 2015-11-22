@@ -5,7 +5,7 @@ public class Player{
 	static String TeamString1; 
 	/**팀명 정하는 변수2*/
 	static String TeamString2; 
-	/**내 차례에 이동할 수 있는 횟수 저장*/
+	/**자기 차례인 플레이어의 Move를 저장*/
 	static int mv[] = new int[5];
 	
 	String name,team;
