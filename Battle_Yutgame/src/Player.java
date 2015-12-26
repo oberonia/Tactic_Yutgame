@@ -101,13 +101,24 @@ public class Player{
 	class Mal {
 		Player master;
 		int location;
+		boolean grouped; // 업혀있는지 여부를 저장함
 		Mal(Player master) {
 			this.master = master;
 			location = -1;
+			grouped = false;
 		}
-		void reset() {
+		
+		void catched() // 상대팀에게 잡혔어요
+		{
 			location = -1;
 		}
+		
+		void finished() // 미국 갔어요
+		{
+			location = 777;
+		}
+		
+		
 	}
 	class uphim {
 		
