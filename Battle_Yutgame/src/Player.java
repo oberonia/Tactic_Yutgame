@@ -96,5 +96,21 @@ public class Player{
 	void resetMal2() {
 		mal2=-1;
 	}
+	
+	
+	class Mal {
+		Player master;
+		int location;
+		Mal(Player master) {
+			this.master = master;
+			location = -1;
+		}
+		void reset() {
+			location = -1;
+		}
+	}
+	class uphim {
+		
+	}
 
 }
