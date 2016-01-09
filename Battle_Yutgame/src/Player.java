@@ -120,7 +120,7 @@ public class Player{
 		
 		
 	}
-	class uphim {
+	class Grouped {
 		
 	}
 
