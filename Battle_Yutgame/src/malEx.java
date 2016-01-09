@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 
 
 
@@ -104,18 +106,20 @@ public class malEx {
 		class Mal {
 			private pex master;
 			private int location;
-			private boolean grouped; // 업혀있는지 여부를 저장함
-			Mal() {
+			Group mygroup;
+			Mal that;
+			//private boolean grouped; // 업혀있는지 여부를 저장함
+			Mal() { //Group 상속전용 (Mal에서 이거 부르면 큰일나요!)
 				master = null;
 				location = -1;
-				grouped = false;
+				mygroup = null;
 			}
-			Mal(pex pex) {
+			Mal(pex pex) { //주인이 있을 때
 				this.master = pex;
 				location = -1;
-				grouped = false;
+				mygroup = null;
 			}
-			void setloc(int i) {
+			void setloc(int i) { //위치설정
 				location = i;
 			}
 			void catched() // 상대팀에게 잡혔어요
@@ -123,30 +127,54 @@ public class malEx {
 				location = -1;
 			}
 			
-			void finished() // 미국 갔어요
+			void finish() // 미국 갔어요
 			{
 				location = 777;
 			}
 			
-			pex Master() {
-				return master;
+			
+			pex Master() { //주인장 불러와 주인장
+				return master; //네
 			}
-			int getloc() {
+			boolean isFinished() {
+				if(location == 777) return true;
+				else return false;
+			}
+			int getloc() { //위치 리턴
 				return location;
 			}
 			boolean isGrouped() {
-				return grouped;
+				if(mygroup!=null) return true;
+				else return false;
 			}
-			
+			void group(Mal m) {
+				mygroup = new Group(this);
+				mygroup.Add(m);
+			}
+			void group(Group g) {
+				if(mygroup == null) {
+					mygroup = g;
+					g.Add(this);
+				}
+				else {
+					/*
+					 * 업힌 말끼리 업는 과정
+					 * */
+				}
+			}
 		}
-		class Grouped extends Mal{
+		
+		class Group{
+			String team;
+			ArrayList<Mal> list;
 
-			Grouped() {
-				
+			Group() {
+				list = new ArrayList<Mal>();
 			}
-			Grouped(Mal ...mals) { //말 여러개를 인자로 받아서 한번에 그룹으로 묶어버린다
-				//super(pex);
-				// TODO Auto-generated constructor stub
+			Group(Mal m) { //말 여러개를 인자로 받아서 한번에 그룹으로 묶어버린다
+				list = new ArrayList<Mal>();
+				team = m.Master().team;
+				list.add(m);
 			}
 			void Add(Mal m) { //업힌 그룹에 말 추가
 				
@@ -157,17 +185,24 @@ public class malEx {
 			void catched() { //그룹이 잡혔으므로 내부 인원들 최다 퇴출시킴
 				
 			}
+			Mal[] getMember() { //업혀있는 모든 말들을 배열로 바꿔서 리턴
+				return (Mal[])list.toArray();
+			}
 			
 		}
 		class Onboard{
-			
+			private ArrayList<Object> list;
 		}
 
 	}
 	
 	public static void main(String[] args) throws Exception {
 		pex p = new pex(true,"히키코","@");
+		ArrayList<pex.Mal> list = new ArrayList<pex.Mal>();
+		Object[] a = new Object[8];
+		if(p.mal1.isGrouped()) System.out.println("이 말은 업혔음");
 		
+		p.mal1.mygroup.getMember();
 	}
 	
 
