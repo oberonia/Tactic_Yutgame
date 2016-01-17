@@ -19,7 +19,7 @@ public class sw_PlayerInfo extends JFrame{
 		cPane.add(new JLabel("Player Name"));
 		cPane.add(new JLabel("Mal Icon"));
 		cPane.add(new JLabel("Mal Number"));
-		cPane.add(new JLabel("Lacation"));
+		cPane.add(new JLabel("Location"));
 		
 		for(int i =0; i<mp.length; i++){
 
@@ -27,7 +27,7 @@ public class sw_PlayerInfo extends JFrame{
 			String name = mp[i].name;
 			String malIcon = mp[i].malIcon;
 			String mal1Location = Integer.toString(mp[i].mal1.location); // JLabel은 String 타입만 취급함 
-			String mal2Lacation = Integer.toString(mp[i].mal2.location);
+			String mal2Location = Integer.toString(mp[i].mal2.location);
 			
 			cPane.add(new JLabel(team));
 			cPane.add(new JLabel(name));
@@ -38,7 +38,7 @@ public class sw_PlayerInfo extends JFrame{
 			cPane.add(new JLabel(name));
 			cPane.add(new JLabel(malIcon));
 			cPane.add(new JLabel("Mal2"));
-			cPane.add(new JLabel(mal2Lacation));
+			cPane.add(new JLabel(mal2Location));
 
 		}
 		

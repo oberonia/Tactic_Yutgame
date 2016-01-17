@@ -172,9 +172,9 @@ class Action implements Yut{
 			System.out.println("Name\t"+"Team\t"+"Mal No.\t"+"Place\t"+"Mal Icon");
 			for(int j=0; j<mp.length; j++){
 				System.out.println(mp[j].name+"\t"+mp[j].team+
-						"\t"+"mal1\t"+mp[j].mal1+"\t"+mp[j].malIcon);
+						"\t"+"mal1\t"+mp[j].mal1.location+"\t"+mp[j].malIcon);
 				System.out.println(mp[j].name+"\t"+mp[j].team+
-						"\t"+"mal2\t"+mp[j].mal2+"\t"+mp[j].malIcon);
+						"\t"+"mal2\t"+mp[j].mal2.location+"\t"+mp[j].malIcon);
 			}
 
 		}//end of scoreboard
