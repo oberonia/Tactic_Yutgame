@@ -194,29 +194,35 @@ class Action implements Yut{
 		static void MoveMal (Player[] mp, int i, YutBoard yb, int MoveCount) throws Exception {
 			Player p = mp[i];
 			if(MoveCount>5||MoveCount<0) throw new Exception("이동할 칸 수 오류발생\n해당값 : "+MoveCount);
-			System.out.println("말 위치정보\nmal1 : "+p.mal1+"\nmal2 : "+p.mal2);
+			System.out.println("말 위치정보\nmal1 : "+p.mal1.location+"\nmal2 : "+p.mal2.location);
 			System.out.print("움직일 말을 고르세요. ");
 			int tempMal= select(1,2); //이동할 말 선택 임시저장
 
 			switch(tempMal) {
 			case 1:
-				board.FriendlyMove(mp, i, yb, MoveCount, p.mal1, tempMal);
-				if(board.EnemyCatch(mp, yb, p.team, p.mal1)){
+				board.FriendlyMove(mp, i, yb, MoveCount, tempMal);
+				if(board.EnemyCatch(mp, yb, p.team, p.mal1.location)){
 					System.out.println("상대팀 말을 잡았으므로 윷을 한번 더 던집니다.");
 					if(YutDebugMode)
 						Debug.ThrowYut(p);
 					else if(SplitYutMode) board.ThrowYutSplit(p);
 					else board.ThrowYut(p);
 				}
+				else {
+					board.GroupMaking(mp, i, tempMal);
+				}
 				break;
 			case 2:
-				board.FriendlyMove(mp, i, yb, MoveCount, p.mal2, tempMal); 
-				if(board.EnemyCatch(mp, yb, p.team, p.mal2)){
+				board.FriendlyMove(mp, i, yb, MoveCount, tempMal); 
+				if(board.EnemyCatch(mp, yb, p.team, p.mal2.location)){
 					System.out.println("상대팀 말을 잡았으므로 윷을 한번 더 던집니다.");
 					if(YutDebugMode)
 						Debug.ThrowYut(p);
 					else if(SplitYutMode) board.ThrowYutSplit(p);
 					else board.ThrowYut(p);
+				}
+				else {
+					board.GroupMaking(mp, i, tempMal);
 				}
 				break;
 			default:
@@ -353,7 +359,7 @@ class Action implements Yut{
 			System.out.println("도\t개\t걸\t윷\t모");
 			System.out.println(Player.mv[도]+"\t"+Player.mv[개]
 					+"\t"+Player.mv[걸]+"\t"+Player.mv[윷]
-					+"\t"+Player.mv[모]);
+							+"\t"+Player.mv[모]);
 		}
 
 		/**
@@ -367,34 +373,94 @@ class Action implements Yut{
 		 * @param num 말 1과 2를 구분하는 변수
 		 * @throws Exception 익셉션 새개끼
 		 */
-		static void FriendlyMove(Player[] mp,int i, YutBoard yb, int MoveCount, int targetMal, int num) throws Exception {
+		static void FriendlyMove(Player[] mp,int i, YutBoard yb, int MoveCount, int num) throws Exception {
 			String team = mp[i].team;
-			if(targetMal==-1 && num==1) {
-				Player p = mp[i];
+			Player p = mp[i];
+			switch(num) {
+			case 1:
+				if(mp[i].mal1.isCatched()) {
+					System.out.print(p.name+" 플레이어의 말 1 이동! ("+p.mal1+" -> ");
+
+					// 지정된 수만큼 말 이동하는 부분
+					p.mal1.location=Action.board.movNext(p.mal1.location, true,yb);
+					for(int j=1;j<MoveCount;j++)
+						p.mal1.location=Action.board.movNext(p.mal1.location, false,yb);
+					// 지정 말 이동 end
+
+					System.out.println(p.mal1+")");
+					break;
+				}
+
+				break;
+			case 2:
+				if(mp[i].mal2.isCatched()) {
+					System.out.print(p.name+" 플레이어의 말 2 이동! ("+p.mal2+" -> ");
+					p.mal2.location=Action.board.movNext(p.mal2.location, true,yb);
+					for(int j=1;j<MoveCount;j++)
+						p.mal2.location=Action.board.movNext(p.mal2.location, false,yb);
+					System.out.println(p.mal2+")");
+					break;
+				}
+				break;
+			default:
+				System.out.println("예상되지 않은 num 값 = "+num);
+				return;
+
+			}
+			/*
+			if(targetMal==-1 && num==1) { //mal1이 끝장났음 = 일반이동
 				System.out.print(p.name+" 플레이어의 말 1 이동! ("+p.mal1+" -> ");
-				p.mal1=Action.board.movNext(p.mal1, true,yb);
+
+				// 지정된 수만큼 말 이동하는 부분
+				p.mal1.location=Action.board.movNext(p.mal1.location, true,yb);
 				for(int j=1;j<MoveCount;j++)
-					p.mal1=Action.board.movNext(p.mal1, false,yb);
+					p.mal1.location=Action.board.movNext(p.mal1.location, false,yb);
+				// 지정 말 이동 end
+
 				System.out.println(p.mal1+")");
 				return;
-			}
+			} //일반이동 말1 end
+
+
 			else if(targetMal==-1 && num==2) {
-				Player p = mp[i];
 				System.out.print(p.name+" 플레이어의 말 2 이동! ("+p.mal2+" -> ");
-				p.mal2=Action.board.movNext(p.mal2, true,yb);
+				p.mal2.location=Action.board.movNext(p.mal2.location, true,yb);
 				for(int j=1;j<MoveCount;j++)
-					p.mal2=Action.board.movNext(p.mal2, false,yb);
+					p.mal2.location=Action.board.movNext(p.mal2.location, false,yb);
 				System.out.println(p.mal2+")");
 				return;
 			}
+			//여기까지는 일반이동 (시작점에서 이동할 경우)
+			 * */
 
+			switch(num) {
+
+			case 1:
+				if(p.mal1.isGrouped()) {
+					p.mal1.mygroup.Move(board.movNext(p.mal1.location, true,yb));
+					for(int j=1;j<MoveCount;j++)
+						p.mal1.mygroup.Move(board.movNext(p.mal1.location, false,yb));
+				}
+				break;
+			case 2:
+				if(p.mal2.isGrouped()) {
+					p.mal2.mygroup.Move(board.movNext(p.mal2.location, true,yb));
+					for(int j=1;j<MoveCount;j++)
+						p.mal2.mygroup.Move(board.movNext(p.mal2.location, false,yb));
+				}
+				break;
+			default:
+				System.out.println("예상되지 않은 num 값 = "+num);
+				return;
+			}
+			/*
 			for(Player p : mp) {
 				if(p.team.equals(team) && targetMal!=-1) {
 					if(targetMal==p.mal1) {
 						System.out.print(p.name+" 플레이어의 말 1 이동! ("+p.mal1+" -> ");
-						p.mal1=board.movNext(p.mal1, true,yb);
+						p.mal1.location=board.movNext(p.mal1.location, true,yb);
 						for(int j=1;j<MoveCount;j++)
-							p.mal1=board.movNext(p.mal1, false,yb);
+							p.mal1.location=board.movNext(p.mal1.location, false,yb);
 						System.out.println(p.mal1+")");
 					}
 					if(targetMal==p.mal2){
@@ -406,6 +472,33 @@ class Action implements Yut{
 					}
 				}
 			}
+			 */
+		}
+		static void GroupMaking(Player[] mp,int i,int num) {
+			num--;
+			int target;
+			switch(num) {
+			case 0:
+				target = mp[i].mal1.location;
+				break;
+			case 1:
+				target = mp[i].mal2.location;
+				break;
+			default:
+				System.out.println("예상되지 않은 num 값 = "+num);
+				return;
+			}
+			for (Player p : mp) {
+				if(target == p.mal1.location) {
+					mp[i].GroupMake(num, p.mal1);
+				}
+				else if(target == p.mal2.location) {
+					mp[i].GroupMake(num, p.mal2);
+				}
+				
+
+			}
+
 		}
 
 
@@ -429,20 +522,20 @@ class Action implements Yut{
 
 			for(Player p : mp) {
 				if(!p.team.equals(team)) {
-					Enemy[i++] = p.mal1;
-					Enemy[i++] = p.mal2;
+					Enemy[i++] = p.mal1.location;
+					Enemy[i++] = p.mal2.location;
 				}
 			}
 			for(int j : Enemy) {
 				if(j==targetMal) {
 					for(Player p : mp) {
 						//이동한 뒤의 말의 위치가 일치하고 인자로 받은 팀이 이 플레이어의 팀과 일치하지 않을 때
-						if(p.mal1==targetMal && !(p.team.equals(team))) {
+						if(p.mal1.location==targetMal && !(p.team.equals(team))) {
 							p.resetMal1();
 							CatchEnemy=true;
 							System.out.println(p.name+" 플레이어의 말 1이 잡혔습니다!");
 						}
-						if(p.mal2==targetMal && !(p.team.equals(team))) {
+						if(p.mal2.location==targetMal && !(p.team.equals(team))) {
 							p.resetMal2();
 							CatchEnemy=true;
 							System.out.println(p.name+" 플레이어의 말 2가 잡혔습니다!");
@@ -489,7 +582,7 @@ class Action implements Yut{
 			else if(tempMv.equals("모")) return 모+1;
 			else return -1;
 		}
-		
+
 		/**
 		 * 플레이어의 차례에 하는 모든 행동을 실행
 		 * @param mp 플레이어 몽땡이 배열
@@ -555,7 +648,7 @@ class Action implements Yut{
 			System.out.println("입력 오류! 다시 입력하세요.");
 		}
 	}//end of select
-	
+
 	/**
 	 * int 목록을 받아 반드시 하나를 고르게 하는 함수 
 	 * @param nums 선택할 수 있는 int를 저장한 배열

@@ -10,19 +10,16 @@ public class Player{
 	static int mv[] = new int[5];
 	
 	String name,team;
-	int mal1;	
-	int mal2;	
-	Mal m1;
-	Mal m2;
+	Mal[] mals = new Mal[2];
+	Mal mal1;	
+	Mal mal2;	
 	/**boardPaper에 표현될 말*/
 	String malIcon; 
 	
 	/**디버그 모드 오-픈*/
 	Player(boolean trigger,String name,String malIcon) { 
-		mal1=-1;
-		mal2=-1;
-		m1 = new Mal(this);
-		m2 = new Mal(this);
+		mal1 = new Mal(this);
+		mal2 = new Mal(this);
 		this.name = name;
 		this.malIcon = malIcon;
 		if(trigger) team=TeamString1;
@@ -30,10 +27,8 @@ public class Player{
 		mv[0]=mv[1]=mv[2]=mv[3]=mv[4]=0;
 	}
 	Player(int t1, int t2) {
-		mal1 = -1;	// 
-		mal2 = -1;	// 시작할 때 윷판 밖에 있으므로 초기값은 -1
-		m1 = new Mal(this);
-		m2 = new Mal(this);
+		mal1 = new Mal(this);
+		mal2 = new Mal(this);	// 시작할 때 윷판 밖에 있으므로 초기값은 -1
 		name = Action.user.inputName();
 		team = Action.user.selectTeam(t1,t2,TeamString1, TeamString2);
 		mv[0]=mv[1]=mv[2]=mv[3]=mv[4]=0;
@@ -95,15 +90,27 @@ public class Player{
 	 * mal1 변수를 -1로 리셋
 	 */
 	void resetMal1() {
-		mal1=-1;
-		m1.catched();
+		mal1.catched();
 	}
 	/**
 	 * mal2 변수를 -1로 리셋
 	 */
 	void resetMal2() {
-		mal2=-1;
-		m2.catched();
+		mal2.catched();
+	}
+	
+	void GroupMake(int i, Mal m) {
+		switch(i) {
+		case 0:
+			mal1.groupMake(m);
+			break;
+		case 1:
+			mal2.groupMake(m);
+			break;
+		default:
+			System.out.println("올바르지 않은 i값 호출(Player.GroupMake) = "+i);
+			return;
+		}
 	}
 	
 	
@@ -128,38 +135,37 @@ public class Player{
 		{
 			location = 777;
 		}
-		boolean isFinished() { //나간 말인지 체크함
+		boolean isFinished() { //미국간 말인지 체크함
 			if(location == 777) return true;
 			else return false;
 		}
+		boolean isCatched() { //말 위치가 -1인지 체크함
+			if(location == -1) return true;
+			else return false;
+		}
 
+		
 		boolean isGrouped() { //업혀있는 상태면 true
 			if(mygroup!=null) return true;
 			else return false;
 		}
 		void groupMake(Mal m) { //다른 말을 업는 메소드
 			if(m.isGrouped()) {
-
+				if(!isGrouped()) { //내가 업힌상태가 아님
+					mygroup = m.mygroup;
+					mygroup.Add(this);
+				}
+				else { //내 업힌 그룹을 죄다 추출해서 상대방 그룹에 추가
+					Mal[] ms = mygroup.getMember();
+					for(Mal i : ms) {
+						i.mygroup = m.mygroup;
+						m.mygroup.Add(i);
+					}
+				}
 			}
 			else {
-				mygroup = new Group(this);
-				mygroup.Add(m);
-			}
-		}
-		void groupMake(Group g) { //업혀있는 말 끼리 업는 메소드
-			if(!isGrouped()) {
-				mygroup = g;
-				g.Add(this);
-			}
-			else { //내 업힌 그룹을 죄다 추출해서 상대방 그룹에 추가
-				Mal[] m = mygroup.getMember();
-				//Group temp = mygroup;
-				mygroup = g;
-				for(Mal i : m) {
-					//temp.remove(i);
-					i.mygroup = g;
-					g.Add(i);
-				}
+				mygroup = new Group(m);
+				mygroup.Add(this);
 			}
 		}
 		
@@ -207,6 +213,12 @@ public class Player{
 			return (Mal[])list.toArray();
 		}
 
+		void Move(int target) { //멤버 전체이동
+			Mal[] m = (Mal[])list.toArray();
+			for(Mal i : m) {
+				i.location = target;
+			}
+		}
 	}
 	
 
