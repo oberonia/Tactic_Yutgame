@@ -378,8 +378,13 @@ class Action implements Yut{
 			Player p = mp[i];
 			switch(num) {
 			case 1:
-				if(mp[i].mal1.isCatched()) {
-					System.out.print(p.name+" 플레이어의 말 1 이동! ("+p.mal1+" -> ");
+				if(p.mal1.isGrouped()) {
+					p.mal1.mygroup.Move(board.movNext(p.mal1.location, true,yb));
+					for(int j=1;j<MoveCount;j++)
+						p.mal1.mygroup.Move(board.movNext(p.mal1.location, false,yb));
+				}
+				else {
+					System.out.print(p.name+" 플레이어의 말 1 이동! ("+p.mal1.location+" -> ");
 
 					// 지정된 수만큼 말 이동하는 부분
 					p.mal1.location=Action.board.movNext(p.mal1.location, true,yb);
@@ -387,18 +392,23 @@ class Action implements Yut{
 						p.mal1.location=Action.board.movNext(p.mal1.location, false,yb);
 					// 지정 말 이동 end
 
-					System.out.println(p.mal1+")");
+					System.out.println(p.mal1.location+")");
 					break;
 				}
 
 				break;
 			case 2:
-				if(mp[i].mal2.isCatched()) {
-					System.out.print(p.name+" 플레이어의 말 2 이동! ("+p.mal2+" -> ");
+				if(p.mal2.isGrouped()) {
+					p.mal2.mygroup.Move(board.movNext(p.mal2.location, true,yb));
+					for(int j=1;j<MoveCount;j++)
+						p.mal2.mygroup.Move(board.movNext(p.mal2.location, false,yb));
+				}
+				else {
+					System.out.print(p.name+" 플레이어의 말 2 이동! ("+p.mal2.location+" -> ");
 					p.mal2.location=Action.board.movNext(p.mal2.location, true,yb);
 					for(int j=1;j<MoveCount;j++)
 						p.mal2.location=Action.board.movNext(p.mal2.location, false,yb);
-					System.out.println(p.mal2+")");
+					System.out.println(p.mal2.location+")");
 					break;
 				}
 				break;
@@ -431,7 +441,7 @@ class Action implements Yut{
 				return;
 			}
 			//여기까지는 일반이동 (시작점에서 이동할 경우)
-			 * */
+			
 
 			switch(num) {
 
@@ -477,23 +487,28 @@ class Action implements Yut{
 		static void GroupMaking(Player[] mp,int i,int num) {
 			num--;
 			int target;
+			int id;
 			switch(num) {
 			case 0:
 				target = mp[i].mal1.location;
+				id = mp[i].mal1.hashCode();
 				break;
 			case 1:
 				target = mp[i].mal2.location;
+				id = mp[i].mal2.hashCode();
 				break;
 			default:
 				System.out.println("예상되지 않은 num 값 = "+num);
 				return;
 			}
 			for (Player p : mp) {
-				if(target == p.mal1.location) {
+				if(target == p.mal1.location && (id!=p.mal1.hashCode())) {
 					mp[i].GroupMake(num, p.mal1);
+					System.out.println(mp[i].name+" 플레이어의 말"+(num+1)+" 와(과) "+p.name+" 플레이어의 말1이 업힙니다.");
 				}
-				else if(target == p.mal2.location) {
+				else if(target == p.mal2.location && (id!=p.mal2.hashCode())) {
 					mp[i].GroupMake(num, p.mal2);
+					System.out.println(mp[i].name+" 플레이어의 말"+(num+1)+" 와(과) "+p.name+" 플레이어의 말2가 업힙니다.");
 				}
 				
 
