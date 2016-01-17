@@ -105,7 +105,7 @@ public class malEx {
 
 		class Mal {
 			private pex master; //자신의 주인을 저장
-			private int location; //위치정보
+			int location; //위치정보
 			Group mygroup; //내가 속한 (업힌)그룹. 기본값은 null
 			
 			Mal(pex pex) {
@@ -115,12 +115,6 @@ public class malEx {
 			}
 			pex yourMaster() { //주인장 불러와 주인장
 				return master; //네
-			}
-			int getloc() { //위치 리턴
-				return location;
-			}
-			void setloc(int i) { //위치설정
-				location = i;
 			}
 			void catched() // 상대팀에게 잡혔어요
 			{
@@ -154,18 +148,20 @@ public class malEx {
 					g.Add(this);
 				}
 				else { //내 업힌 그룹을 죄다 추출해서 상대방 그룹에 추가
-					Mal[] m = g.getMember();
-					/*
-					 * 업힌 말끼리 업는 과정
-					 * */
+					Mal[] m = mygroup.getMember();
+					//Group temp = mygroup;
+					mygroup = g;
+					for(Mal i : m) {
+						//temp.remove(i);
+						i.mygroup = g;
+						g.Add(i);
+					}
 				}
 			}
-			void groupLink(Group g) { //다른 말에서 그룹객체가 생성될때 링크
-				mygroup = g;
-			}
+			
 		}
 
-		class Group{
+		class Group {
 			String team;
 			ArrayList<Mal> list;
 
@@ -175,12 +171,12 @@ public class malEx {
 				list.add(m);
 			}
 			void Add(Mal m) { //업힌 그룹에 말 추가
-				m.groupLink(this);
+				m.mygroup=this;
 				list.add(m);
 			}
 			boolean remove(Mal m) { //대상 말을 제거
 				if(list.contains(m)) {
-					m.groupLink(null);
+					m.mygroup=null;
 					list.remove(m);
 					return true;
 				}
@@ -190,7 +186,7 @@ public class malEx {
 			void catched() { //그룹이 잡혔으므로 내부 인원들 최다 퇴출시킴
 				Mal[] m = (Mal[]) list.toArray();
 				for(Mal i : m) {
-					i.groupLink(null);
+					i.mygroup=null;
 					i.catched();
 				}
 				list.clear();
@@ -198,7 +194,7 @@ public class malEx {
 			void finish() { //업은 채로 포인트 획득, 내부 인원 역시 퇴출
 				Mal[] m = (Mal[]) list.toArray();
 				for(Mal i : m) {
-					i.groupLink(null);
+					i.mygroup=null;
 					i.finish();
 				}
 				list.clear();

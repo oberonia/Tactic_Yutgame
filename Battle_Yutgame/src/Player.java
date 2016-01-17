@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 public class Player{
 	
@@ -11,6 +12,8 @@ public class Player{
 	String name,team;
 	int mal1;	
 	int mal2;	
+	Mal m1;
+	Mal m2;
 	/**boardPaper에 표현될 말*/
 	String malIcon; 
 	
@@ -18,6 +21,8 @@ public class Player{
 	Player(boolean trigger,String name,String malIcon) { 
 		mal1=-1;
 		mal2=-1;
+		m1 = new Mal(this);
+		m2 = new Mal(this);
 		this.name = name;
 		this.malIcon = malIcon;
 		if(trigger) team=TeamString1;
@@ -27,6 +32,8 @@ public class Player{
 	Player(int t1, int t2) {
 		mal1 = -1;	// 
 		mal2 = -1;	// 시작할 때 윷판 밖에 있으므로 초기값은 -1
+		m1 = new Mal(this);
+		m2 = new Mal(this);
 		name = Action.user.inputName();
 		team = Action.user.selectTeam(t1,t2,TeamString1, TeamString2);
 		mv[0]=mv[1]=mv[2]=mv[3]=mv[4]=0;
@@ -89,39 +96,118 @@ public class Player{
 	 */
 	void resetMal1() {
 		mal1=-1;
+		m1.catched();
 	}
 	/**
 	 * mal2 변수를 -1로 리셋
 	 */
 	void resetMal2() {
 		mal2=-1;
+		m2.catched();
 	}
 	
 	
 	class Mal {
-		Player master;
-		int location;
-		boolean grouped; // 업혀있는지 여부를 저장함
-		Mal(Player master) {
-			this.master = master;
-			location = -1;
-			grouped = false;
-		}
+		private Player master; //자신의 주인을 저장
+		int location; //위치정보
+		Group mygroup; //내가 속한 (업힌)그룹. 기본값은 null
 		
+		Mal(Player p) {
+			this.master = p;
+			location = -1;
+			mygroup = null;
+		}
+		Player yourMaster() { //주인장 불러와 주인장
+			return master; //네
+		}
 		void catched() // 상대팀에게 잡혔어요
 		{
 			location = -1;
 		}
-		
-		void finished() // 미국 갔어요
+		void finish() // 미국 갔어요
 		{
 			location = 777;
 		}
-		
+		boolean isFinished() { //나간 말인지 체크함
+			if(location == 777) return true;
+			else return false;
+		}
+
+		boolean isGrouped() { //업혀있는 상태면 true
+			if(mygroup!=null) return true;
+			else return false;
+		}
+		void groupMake(Mal m) { //다른 말을 업는 메소드
+			if(m.isGrouped()) {
+
+			}
+			else {
+				mygroup = new Group(this);
+				mygroup.Add(m);
+			}
+		}
+		void groupMake(Group g) { //업혀있는 말 끼리 업는 메소드
+			if(!isGrouped()) {
+				mygroup = g;
+				g.Add(this);
+			}
+			else { //내 업힌 그룹을 죄다 추출해서 상대방 그룹에 추가
+				Mal[] m = mygroup.getMember();
+				//Group temp = mygroup;
+				mygroup = g;
+				for(Mal i : m) {
+					//temp.remove(i);
+					i.mygroup = g;
+					g.Add(i);
+				}
+			}
+		}
 		
 	}
-	class Grouped {
-		
+
+	class Group {
+		String team;
+		ArrayList<Mal> list;
+
+		Group(Mal m) { //말 여러개를 인자로 받아서 한번에 그룹으로 묶어버린다
+			list = new ArrayList<Mal>();
+			team = m.yourMaster().team;
+			list.add(m);
+		}
+		void Add(Mal m) { //업힌 그룹에 말 추가
+			m.mygroup=this;
+			list.add(m);
+		}
+		boolean remove(Mal m) { //대상 말을 제거
+			if(list.contains(m)) {
+				m.mygroup=null;
+				list.remove(m);
+				return true;
+			}
+			else
+				return false; //list에서 m을 찾지 못함
+		}
+		void catched() { //그룹이 잡혔으므로 내부 인원들 최다 퇴출시킴
+			Mal[] m = (Mal[]) list.toArray();
+			for(Mal i : m) {
+				i.mygroup=null;
+				i.catched();
+			}
+			list.clear();
+		}
+		void finish() { //업은 채로 포인트 획득, 내부 인원 역시 퇴출
+			Mal[] m = (Mal[]) list.toArray();
+			for(Mal i : m) {
+				i.mygroup=null;
+				i.finish();
+			}
+			list.clear();
+		}
+		Mal[] getMember() { //업혀있는 모든 말들을 배열로 바꿔서 리턴
+			return (Mal[])list.toArray();
+		}
+
 	}
+	
 
 }
