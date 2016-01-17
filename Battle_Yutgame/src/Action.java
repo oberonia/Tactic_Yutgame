@@ -374,7 +374,6 @@ class Action implements Yut{
 		 * @throws Exception 익셉션 새개끼
 		 */
 		static void FriendlyMove(Player[] mp,int i, YutBoard yb, int MoveCount, int num) throws Exception {
-			String team = mp[i].team;
 			Player p = mp[i];
 			switch(num) {
 			case 1:

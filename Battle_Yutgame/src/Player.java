@@ -175,10 +175,11 @@ public class Player{
 		String team;
 		ArrayList<Mal> list;
 
-		Group(Mal m) { //말 여러개를 인자로 받아서 한번에 그룹으로 묶어버린다
+		Group(Mal m) { //말을 인자로 받아서 그룹으로 묶어버린다
 			list = new ArrayList<Mal>();
 			team = m.yourMaster().team;
 			list.add(m);
+			m.mygroup = this;
 		}
 		void Add(Mal m) { //업힌 그룹에 말 추가
 			m.mygroup=this;
@@ -210,11 +211,13 @@ public class Player{
 			list.clear();
 		}
 		Mal[] getMember() { //업혀있는 모든 말들을 배열로 바꿔서 리턴
-			return (Mal[])list.toArray();
+			Mal[] m = new Mal[list.size()];
+			return m = (Mal[])list.toArray(m);
 		}
 
 		void Move(int target) { //멤버 전체이동
-			Mal[] m = (Mal[])list.toArray();
+			Mal[] m = new Mal[list.size()]; 
+			m = (Mal[])list.toArray(m);
 			for(Mal i : m) {
 				i.location = target;
 			}
