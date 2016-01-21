@@ -10,16 +10,16 @@ public class Player{
 	static int mv[] = new int[5];
 	
 	String name,team;
-	Mal[] mals = new Mal[2];
-	Mal mal1;	
-	Mal mal2;	
+	Mal[] mal = new Mal[2];
+	//Mal mal1;	
+	//Mal mal2;	
 	/**boardPaper에 표현될 말*/
 	String malIcon; 
 	
 	/**디버그 모드 오-픈*/
 	Player(boolean trigger,String name,String malIcon) { 
-		mal1 = new Mal(this);
-		mal2 = new Mal(this);
+		mal[0] = new Mal(this);
+		mal[1] = new Mal(this);
 		this.name = name;
 		this.malIcon = malIcon;
 		if(trigger) team=TeamString1;
@@ -27,8 +27,8 @@ public class Player{
 		mv[0]=mv[1]=mv[2]=mv[3]=mv[4]=0;
 	}
 	Player(int t1, int t2) {
-		mal1 = new Mal(this);
-		mal2 = new Mal(this);	// 시작할 때 윷판 밖에 있으므로 초기값은 -1
+		mal[0] = new Mal(this);
+		mal[1] = new Mal(this);	// 시작할 때 윷판 밖에 있으므로 초기값은 -1
 		name = Action.user.inputName();
 		team = Action.user.selectTeam(t1,t2,TeamString1, TeamString2);
 		mv[0]=mv[1]=mv[2]=mv[3]=mv[4]=0;
@@ -90,22 +90,25 @@ public class Player{
 	 * mal1 변수를 -1로 리셋
 	 */
 	void resetMal1() {
-		mal1.catched();
+		mal[0].catched();
 	}
 	/**
 	 * mal2 변수를 -1로 리셋
 	 */
 	void resetMal2() {
-		mal2.catched();
+		mal[1].catched();
+	}
+	void resetMal(int i) {
+		mal[i-1].catched();
 	}
 	
 	void GroupMake(int i, Mal m) {
 		switch(i) {
 		case 0:
-			mal1.groupMake(m);
+			mal[0].groupMake(m);
 			break;
 		case 1:
-			mal2.groupMake(m);
+			mal[1].groupMake(m);
 			break;
 		default:
 			System.out.println("올바르지 않은 i값 호출(Player.GroupMake) = "+i);

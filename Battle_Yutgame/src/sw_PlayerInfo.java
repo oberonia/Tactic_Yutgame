@@ -26,8 +26,8 @@ public class sw_PlayerInfo extends JFrame{
 			String team = mp[i].team;
 			String name = mp[i].name;
 			String malIcon = mp[i].malIcon;
-			String mal1Location = Integer.toString(mp[i].mal1.location); // JLabel은 String 타입만 취급함 
-			String mal2Location = Integer.toString(mp[i].mal2.location);
+			String mal1Location = Integer.toString(mp[i].mal[0].location); // JLabel은 String 타입만 취급함 
+			String mal2Location = Integer.toString(mp[i].mal[1].location);
 			
 			cPane.add(new JLabel(team));
 			cPane.add(new JLabel(name));

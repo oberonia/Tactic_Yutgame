@@ -22,7 +22,7 @@ public class MainFrame implements Yut {
 			Action.board.myPhase(mp, i, yb);
 			Action.board.scoreboard(mp);
 			yb.boardDisplay();
-			if(mp[i].mal1.isFinished()||mp[i].mal2.isFinished()) {
+			if(mp[i].mal[0].isFinished()||mp[i].mal[1].isFinished()) {
 				System.out.println(mp[i].team+" 팀의 "+mp[i].name+" 플레이어가 E김.");
 				break;
 			}//if
