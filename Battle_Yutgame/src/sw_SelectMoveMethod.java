@@ -2,6 +2,7 @@ import java.awt.*;
 import javax.swing.*;
 
 @SuppressWarnings("serial")
+// 다른 클래스에서 사용할 수 있도록 메소드화 
 public class sw_SelectMoveMethod extends JFrame {
 	//JLabel 
 	JRadioButton mv[] = new JRadioButton[5];

@@ -10,7 +10,7 @@ public class sw_YutInfo extends JFrame{
 		
 		contentPane.setLayout(new BorderLayout(10,10));
 		
-		// center 에는 윷 던진 결과 이미지를
+		// center 에는 윷 던진 결과 이미지를 넣는다. 
 		
 		// wsest 에는 던질 윷 앞/뒤 선택 버튼 
 		JPanel frontBack = new JPanel();
@@ -27,7 +27,7 @@ public class sw_YutInfo extends JFrame{
 		
 		// south 에는 현재 윷 스택(도개걸윷모 각각)을 보여준다. 
 		JPanel yutstack = new JPanel();
-		new sw_SelectMove("이동할 칸 수를 고르세요.", yutstack);
+		new sw_SelectMoveMethod("이동할 칸 수를 고르세요.", yutstack);
 		contentPane.add(yutstack, BorderLayout.SOUTH);
 		
 		setSize(800, 400);
