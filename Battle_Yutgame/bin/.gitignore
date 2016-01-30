@@ -1,1 +1,3 @@
 *.class
+/malEx.java
+/.gitignore
