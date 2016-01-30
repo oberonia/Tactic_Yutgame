@@ -72,24 +72,24 @@ public class Debug implements Yut {
 	 */
 	static void MoveMal (Player p, YutBoard yb, int MoveCount) throws Exception {
 		if(MoveCount>5||MoveCount<0) throw new Exception("이동할 칸 수 오류발생\n해당값 : "+MoveCount);
-		System.out.println("말 위치정보\nmal1 : "+p.mal1+"\nmal2 : "+p.mal2);
+		System.out.println("말 위치정보\nmal1 : "+p.mal[0].location+"\nmal2 : "+p.mal[1].location);
 		System.out.print("움직일 말을 고르세요. ");
 		int tempMal= Action.select(1,2); //이동할 말 선택 임시저장
 
 		switch(tempMal) {
 		case 1:
-			System.out.print("mal1 이동! ("+p.mal1+" -> ");
-			p.mal1=Action.board.movNext(p.mal1, true,yb);
+			System.out.print("mal1 이동! ("+p.mal[0]+" -> ");
+			p.mal[0].location=Action.board.movNext(p.mal[0].location, true,yb);
 			for(int i=1;i<MoveCount;i++)
-				p.mal1=Action.board.movNext(p.mal1, false,yb);
-			System.out.println(p.mal1+")");
+				p.mal[0].location=Action.board.movNext(p.mal[0].location, false,yb);
+			System.out.println(p.mal[0]+")");
 			break;
 		case 2:
-			System.out.print("mal2 이동! ("+p.mal2+" -> ");
-			p.mal2=Action.board.movNext(p.mal2, true,yb);
+			System.out.print("mal2 이동! ("+p.mal[1]+" -> ");
+			p.mal[1].location=Action.board.movNext(p.mal[1].location, true,yb);
 			for(int i=1;i<MoveCount;i++)
-				p.mal2=Action.board.movNext(p.mal2, false,yb);
-			System.out.println(p.mal2+")");
+				p.mal[1].location=Action.board.movNext(p.mal[1].location, false,yb);
+			System.out.println(p.mal[1]+")");
 			break;
 		default:
 			System.out.println("select 함수 내부처리 오류 : "+tempMal);

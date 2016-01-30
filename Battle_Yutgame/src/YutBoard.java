@@ -64,18 +64,18 @@ public class YutBoard {
 	void ShowMalIcon(){ 
 		// show all player's Mal to boardPaper
 		for(int i=0;i<MainFrame.mp.length;i++){
-			if(MainFrame.mp[i].mal1 == 777 || MainFrame.mp[i].mal2 == 777){
+			if(MainFrame.mp[i].mal[0].isFinished() || MainFrame.mp[i].mal[1].isFinished()){
 				System.out.println("Game is over");
 				break;
 			}
-			if(MainFrame.mp[i].mal1 != -1){
-				int tempMalPosition = MainFrame.mp[i].mal1;
+			if(!MainFrame.mp[i].mal[0].isCatched()){
+				int tempMalPosition = MainFrame.mp[i].mal[0].location;
 				int a = (tempMalPosition-1)/7;
 				int b = (tempMalPosition-1)%7;
 				YutBoard.boardPaper[a][b] = MainFrame.mp[i].malIcon;
 			}
-			if(MainFrame.mp[i].mal2 != -1){
-				int tempMalPosition = MainFrame.mp[i].mal2;
+			if(!MainFrame.mp[i].mal[1].isCatched()){
+				int tempMalPosition = MainFrame.mp[i].mal[1].location;
 				int a = (tempMalPosition-1)/7;
 				int b = (tempMalPosition-1)%7;
 				YutBoard.boardPaper[a][b] = MainFrame.mp[i].malIcon;
