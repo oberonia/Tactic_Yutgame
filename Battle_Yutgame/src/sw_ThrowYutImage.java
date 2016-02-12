@@ -39,19 +39,19 @@ public class sw_ThrowYutImage extends JFrame{
 		ImageIcon front = new ImageIcon("image/Yutfront.png");
 		ImageIcon back = new ImageIcon("image/Yutback.png");
 		int result = (int) (Math.random()*4); //나중에는 다른곳에서 받아올 변수
-		JLabel[] Yut = new JLabel[5];
+		JLabel[] Yut = new JLabel[4];
 		
 		for(int i=0;i<result;i++) {
 			Yut[i] = new JLabel(front);
 			Yut[i].setSize(front.getIconWidth(), front.getIconHeight());
 			//나온 윷 만큼 이미지 배열에 front를 할당
 		}
-		for(int i=result;i<5;i++) {
+		for(int i=result;i<4;i++) {
 			Yut[i] = new JLabel(back);
 			Yut[i].setSize(back.getIconWidth(), back.getIconHeight());
 			//나머지 레이블에 back을 할당
 		}
-		for(int i=0;i<5;i++) //전체 레이블을 랜덤한 위치에 랜덤하게 회전시킴
+		for(int i=0;i<4;i++) //전체 레이블을 랜덤한 위치에 랜덤하게 회전시킴
 		{
 			int x=(int)(Math.random()*(Field.getWidth()));
 			int y=(int)(Math.random()*(Field.getHeight()));
