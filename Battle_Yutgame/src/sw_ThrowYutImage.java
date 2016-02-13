@@ -49,7 +49,31 @@ public class sw_ThrowYutImage extends JFrame{
 		setLocation(screenSize.width/2-getWidth()/2, screenSize.height/2-getHeight()/2);
 	}
 	void roll() {
-		result = random.nextInt(4);
+		switch(random.nextInt(10)) {
+		case 0:
+			result = 0;
+			break;
+		case 1:
+		case 2:
+			result = 1;
+			break;
+		case 3:
+		case 4:
+		case 5:
+			result = 2;
+			break;
+		case 6:
+		case 7:
+		case 8:
+			result = 3;
+			break;
+		case 9:
+			result = 4;
+			break;
+		default:
+			System.out.println("default");
+		}
+		
 		if(result>2) YutText.setText(YutName[result]+"이 나왔습니다.");
 		else YutText.setText(YutName[result]+"가 나왔습니다.");
 		
