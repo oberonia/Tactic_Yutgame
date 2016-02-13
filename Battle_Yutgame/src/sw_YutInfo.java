@@ -1,6 +1,7 @@
 import java.awt.*;
 import javax.swing.*;
 
+@SuppressWarnings("serial")
 public class sw_YutInfo extends JFrame{
 
 	sw_YutInfo() {
