@@ -4,14 +4,15 @@ import java.awt.GridLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
 public class sw_PlayerInfo extends JFrame{
 
-	public sw_PlayerInfo(Player[] mp) { 
+	public sw_PlayerInfo(Player[] mp, JPanel cPane) { 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		Container cPane = getContentPane();
+		//Container cPane = getContentPane();
 		cPane.setBackground(Color.cyan);
 		cPane.setLayout(new GridLayout(9,5));
 		

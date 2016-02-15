@@ -28,12 +28,12 @@ public class sw_YutInfo extends JFrame{
 		frontback.add(back, BorderLayout.EAST);
 		contentPane.add(frontback, BorderLayout.EAST); // 버튼 2개가 들어간 frontback을 east 위치에 추가한다. 
 
-		// south 에는 현재 윷 스택(도개걸윷모 각각)을 보여준다. 
+		// 현재 윷 스택(도개걸윷모 각각)을 보여준다. 
 		JPanel yutstack = new JPanel();
 		new sw_SelectMoveMethod("이동할 칸 수를 고르세요.", yutstack);
 		frontback.add(yutstack, BorderLayout.SOUTH);
 		
-		
+		// south 에는 점수판과 시스템 텍스트를 보여준다.
 		JPanel info = new JPanel();
 		info.setLayout(new BorderLayout(4,4));
 		JTextArea systemText = new JTextArea(5, 20);
@@ -41,7 +41,12 @@ public class sw_YutInfo extends JFrame{
 		JLabel a = new JLabel("여기에는 점수판이 들어올거임 ");
 		info.add(systemText);
 		info.add(text, BorderLayout.SOUTH);
-		info.add(a, BorderLayout.EAST);
+//		info.add(a, BorderLayout.EAST);
+		
+		// 점수판을 보여준다.
+		JPanel playerscore = new JPanel();
+		new sw_PlayerInfo(MainFrame.mp, playerscore);
+		info.add(playerscore, BorderLayout.EAST);
 		
 		contentPane.add(info, BorderLayout.SOUTH);
 
