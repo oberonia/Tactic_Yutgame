@@ -38,10 +38,8 @@ public class sw_YutInfo extends JFrame{
 		info.setLayout(new BorderLayout(4,4));
 		JTextArea systemText = new JTextArea(5, 20);
 		JTextField text = new JTextField();
-		JLabel a = new JLabel("여기에는 점수판이 들어올거임 ");
 		info.add(systemText);
 		info.add(text, BorderLayout.SOUTH);
-//		info.add(a, BorderLayout.EAST);
 		
 		// 점수판을 보여준다.
 		JPanel playerscore = new JPanel();
@@ -54,10 +52,12 @@ public class sw_YutInfo extends JFrame{
 		setSize(800, score.getHeight()+yutstack.getHeight());
 		setVisible(true); // show frame
 	}
+}
 	
-	
+/*	
 	public static void main(String[] args) {
 		new sw_YutInfo();
 	}
 
 }
+*/
