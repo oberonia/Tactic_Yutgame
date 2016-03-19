@@ -43,7 +43,10 @@ public class Debug implements Yut {
 	 */
 	static void ThrowYut(Player p) {
 		int a;
-		System.out.print("이동할 칸을 입력하세요 >>");
+		
+		System.out.print("이동할 칸을 입력하세요 >>");	// Console에 출력
+		Action.printSystemMsg("이동할 칸을 입력하세요 >>");	// Swing에 출력
+		
 		while(true) {
 			a=Action.sc.nextInt();
 			if(a<1||a>5) {

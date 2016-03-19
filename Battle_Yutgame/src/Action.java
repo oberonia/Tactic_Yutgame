@@ -7,6 +7,20 @@ class Action implements Yut{
 	 * 추후 모든 스캐너는 Action에서 따오는 것으로 잠정 결정
 	 */
 	static Scanner sc = new Scanner(System.in);
+	
+	/**
+	 * 실제 출력될 swing을 하나 만들고 모든 코드에서 참조하기 위하여 static 지정
+	 * @author oberonia
+	 */
+	static sw_YutInfo gameView = new sw_YutInfo();
+	
+	static void printSystemMsg(String sysTxt) {	// 원하는 텍스트를 swing의 textArea에 띄움
+		gameView.systemText.append(sysTxt+"\n");
+	}
+	
+	static void sendPlayerTypedText() {	// 플레이어가 swing에서 입력한 값을 받아옴
+		// 작업 예정
+	}
 
 	/**
 	 * user와 관련된 action을 모두 모아놓은 클래스
