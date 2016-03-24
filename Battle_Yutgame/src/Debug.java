@@ -49,6 +49,7 @@ public class Debug implements Yut {
 		
 		while(true) {
 			a=Action.sc.nextInt();
+//			a=Action.playerTypedText;
 			if(a<1||a>5) {
 				System.out.println("<입력범위 초과>");
 				System.out.println("다시 입력하세요 >>");

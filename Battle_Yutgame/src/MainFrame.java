@@ -16,7 +16,6 @@ public class MainFrame implements Yut {
 		}//end of else
 
 		Action.board.scoreboard(mp);
-//		new sw_YutInfo();	// To do: static으로 선언한 gameView가 생성되도록 하려면...?
 		for(int i=0;;i=(i+1)%mp.length)
 		{
 			Action.board.myPhase(mp, i, yb);

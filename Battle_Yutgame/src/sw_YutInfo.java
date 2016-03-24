@@ -53,7 +53,8 @@ public class sw_YutInfo extends JFrame{
 			// enter 키를 입력받으면 작동하는 리스너 
 			public void actionPerformed(ActionEvent e) {
 				JTextField t = (JTextField)e.getSource();
-				systemText.append(t.getText()+"\n");	// text에 있는 내용을 systemText에 복사하고 줄바꿈 삽입  
+				systemText.append(t.getText()+"\n");	// text에 있는 내용을 systemText에 복사하고 줄바꿈 삽입
+				Action.getPlayerTyped();
 				t.setText("");	// text를 비움 
 
 			}

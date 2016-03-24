@@ -18,8 +18,18 @@ class Action implements Yut{
 		gameView.systemText.append(sysTxt+"\n");
 	}
 	
-	static void sendPlayerTypedText() {	// 플레이어가 swing에서 입력한 값을 받아옴
-		// 작업 예정
+	private static String playerTypedText;	// 플레이어가 swing에서 입력한 값
+	static void getPlayerTyped() {	// 플레이어가 swing에서 입력한 문자형값을 받아옴
+		playerTypedText=gameView.text.getText();
+	}
+	
+	static String sendPlayerTypedString() {	// 플레이어가 swing에서 입력한 문자형값을 넘겨줌
+		return playerTypedText;
+	}
+	
+	static int sendPlayerTypedInt() {	// 플레이어가 swing에서 입력한 정수값을 넘겨옴
+		int a = Integer.parseInt(playerTypedText);
+		return a;
 	}
 
 	/**
