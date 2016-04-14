@@ -1,6 +1,8 @@
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import sun.rmi.runtime.Log;
+
 class Action implements Yut{
 
 	/**
@@ -15,20 +17,23 @@ class Action implements Yut{
 	static sw_YutInfo gameView = new sw_YutInfo();
 	
 	static void printSystemMsg(String sysTxt) {	// 원하는 텍스트를 swing의 textArea에 띄움
-		gameView.systemText.append(sysTxt+"\n");
+		gameView.systemTextArea.append(sysTxt+"\n");
 	}
 	
-	private static String playerTypedText;	// 플레이어가 swing에서 입력한 값
-	static void getPlayerTyped() {	// 플레이어가 swing에서 입력한 문자형값을 받아옴
+	static String playerTypedText;	// 플레이어가 swing에서 입력한 값
+	static String getPlayerTyped() {	// 플레이어가 swing에서 입력한 문자형값을 받아옴
 		playerTypedText=gameView.text.getText();
-	}
-	
-	static String sendPlayerTypedString() {	// 플레이어가 swing에서 입력한 문자형값을 넘겨줌
 		return playerTypedText;
 	}
 	
-	static int sendPlayerTypedInt() {	// 플레이어가 swing에서 입력한 정수값을 넘겨옴
-		int a = Integer.parseInt(playerTypedText);
+	static String inputPlayerTyped(String msg) {	// 플레이어가 swing에서 입력한 문자형값을 넣음
+		playerTypedText=msg;
+		return playerTypedText;
+	}
+	
+	int sendPlayerTypedInt() {	// 플레이어가 swing에서 입력한 정수값을 넘겨줌
+		int a = Integer.parseInt(gameView.text.getText());	
+		// todo: static 실행 순서 때문에 플레이어가 아무것도 입력 안 한 상태로 값을 넘김
 		return a;
 	}
 

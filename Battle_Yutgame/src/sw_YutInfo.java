@@ -6,9 +6,20 @@ import javax.swing.*;
 
 public class sw_YutInfo extends JFrame{
 
-	public JTextField text;
-	public JTextArea systemText;
+	public static JTextField text;
+	public static JTextArea systemTextArea;
 	
+	static void a() {
+		text.addActionListener(new ActionListener() {
+			// enter 키를 입력받으면 작동하는 리스너 
+			public void actionPerformed(ActionEvent e) {
+				JTextField t = (JTextField)e.getSource();
+				systemTextArea.append(t.getText()+"\n");	// text에 있는 내용을 systemText에 복사하고 줄바꿈 삽입
+				Action.inputPlayerTyped(t.getText());
+				t.setText("");	// text를 비움 
+
+			}});
+	}
 	sw_YutInfo() {
 		setTitle("여기는 윷 던지고 결과를 알려줄꺼임");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -42,9 +53,9 @@ public class sw_YutInfo extends JFrame{
 		// south 에는 점수판과 시스템 텍스트를 보여준다.
 		JPanel info = new JPanel();
 		info.setLayout(new BorderLayout(4,4));
-		systemText = new JTextArea(5, 20);	// 메시지 내역 박스 생성 
-		info.add(systemText);	// 화면에 내역 박스 추가 
-		info.add(new JScrollPane(systemText));	// 내역 박스에 스크롤바 추가 
+		systemTextArea = new JTextArea(5, 20);	// 메시지 내역 박스 생성 
+		info.add(systemTextArea);	// 화면에 내역 박스 추가 
+		info.add(new JScrollPane(systemTextArea));	// 내역 박스에 스크롤바 추가 
 
 		text = new JTextField();	// 메시지 입력 영역 생성 
 		info.add(text, BorderLayout.SOUTH);
@@ -53,13 +64,13 @@ public class sw_YutInfo extends JFrame{
 			// enter 키를 입력받으면 작동하는 리스너 
 			public void actionPerformed(ActionEvent e) {
 				JTextField t = (JTextField)e.getSource();
-				systemText.append(t.getText()+"\n");	// text에 있는 내용을 systemText에 복사하고 줄바꿈 삽입
-				Action.getPlayerTyped();
+				systemTextArea.append(t.getText()+"\n");	// text에 있는 내용을 systemText에 복사하고 줄바꿈 삽입
+				Action.inputPlayerTyped(t.getText());
+				Action.printSystemMsg(Action.getPlayerTyped());	// 디버깅용. 제대로 값이 들어갔는지 확인.
 				t.setText("");	// text를 비움 
 
 			}
 		});
-
 
 		// 점수판을 보여준다.
 		JPanel playerscore = new JPanel();
