@@ -9,7 +9,7 @@ public class sw_YutInfo extends JFrame{
 	public static JTextField text;
 	public static JTextArea systemTextArea;
 	
-	static void a() {
+	static void returnTextIntoTextArea() {	// 다른 클래스에서도 쓸 수 있게 메소드화.
 		text.addActionListener(new ActionListener() {
 			// enter 키를 입력받으면 작동하는 리스너 
 			public void actionPerformed(ActionEvent e) {
@@ -39,15 +39,17 @@ public class sw_YutInfo extends JFrame{
 		// east 에는 던질 윷 앞/뒤 선택 버튼 
 		JPanel frontback = new JPanel();	// 앞,뒤 버튼이 들어갈 자리를 만든다. 
 		frontback.setLayout(new BorderLayout(4, 10));
-		JButton front = new JButton("Front");
-		JButton back = new JButton("Back");
+		ImageIcon yutfront = new ImageIcon("image/Yutfront.png");
+		JButton front = new JButton("Front", yutfront);
+		ImageIcon yutback = new ImageIcon("image/Yutback.png");
+		JButton back = new JButton("Back", yutback);
 		frontback.add(front, BorderLayout.WEST);
 		frontback.add(back, BorderLayout.EAST);
 		contentPane.add(frontback, BorderLayout.EAST); // 버튼 2개가 들어간 frontback을 east 위치에 추가한다. 
 
 		// 현재 윷 스택(도개걸윷모 각각)을 보여준다. 
 		JPanel yutstack = new JPanel();
-		new sw_SelectMoveMethod("이동할 칸 수를 고르세요.", yutstack);
+		new sw_SelectMoveMethod(yutstack);
 		frontback.add(yutstack, BorderLayout.SOUTH);
 
 		// south 에는 점수판과 시스템 텍스트를 보여준다.
@@ -80,7 +82,8 @@ public class sw_YutInfo extends JFrame{
 		contentPane.add(info, BorderLayout.SOUTH);
 
 
-		setSize(800, score.getHeight()+yutstack.getHeight());
+//		setSize(1000, score.getHeight()+frontback.getHeight());
+		setSize(1000, 720);
 		setVisible(true); // show frame
 	}
 }
