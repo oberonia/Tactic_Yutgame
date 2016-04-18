@@ -20,8 +20,17 @@ public class sw_YutInfo extends JFrame{
 
 			}});
 	}
+	
+	private class throwYutRandom implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+//			JButton btn = (JButton)e.getSource();		// To do: 버튼명에 따라서 앞, 뒤 구분하도록 하기
+			int tempMove = Debug.keygen.nextInt(5);
+			Action.printSystemMsg("Result >> "+Yut.YutName[tempMove]);
+		}
+	}
+	
 	sw_YutInfo() {
-		setTitle("여기는 윷 던지고 결과를 알려줄꺼임");
+		setTitle("전략 윷놀이가 되고 싶은 윷놀이");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Container contentPane = getContentPane();
 
@@ -39,10 +48,14 @@ public class sw_YutInfo extends JFrame{
 		// east 에는 던질 윷 앞/뒤 선택 버튼 
 		JPanel frontback = new JPanel();	// 앞,뒤 버튼이 들어갈 자리를 만든다. 
 		frontback.setLayout(new BorderLayout(4, 10));
+		
 		ImageIcon yutfront = new ImageIcon("image/Yutfront.png");
-		JButton front = new JButton("Front", yutfront);
+		JButton front = new JButton("Front", yutfront);	// 앞면 버튼
+		front.addActionListener(new throwYutRandom());	// 던진 결과 이벤트 추가
 		ImageIcon yutback = new ImageIcon("image/Yutback.png");
-		JButton back = new JButton("Back", yutback);
+		JButton back = new JButton("Back", yutback);		// 뒷면 버튼
+		back.addActionListener(new throwYutRandom()); 	// 던진 결과 이벤트 추가
+		
 		frontback.add(front, BorderLayout.WEST);
 		frontback.add(back, BorderLayout.EAST);
 		contentPane.add(frontback, BorderLayout.EAST); // 버튼 2개가 들어간 frontback을 east 위치에 추가한다. 
